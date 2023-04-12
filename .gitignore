@@ -6,3 +6,6 @@ teste/*
 .ipynb_checkpoints/*
 __pycache__/*
 milp/backup*
+main.py
+Optimal_vs_DOTA_vs_DATA.ipynb
+thread_test.py
