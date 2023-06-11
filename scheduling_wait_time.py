@@ -71,6 +71,16 @@ def scheduling_algo_wait_time(tasks,n_drones,drone_speed = 10.2):
     return [done,time]
 
 def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
+    """Scheduling algorithm based on wait time. Removed unnecessary checks. MUST BE TESTED
+
+    Args:
+        tasks (list): List of tasks to be scheduled. Must have drones assigned.
+        n_drones (int): Number of drones available.
+        drone_speed (float, optional): Drone's speed. Defaults to 10.2.
+
+    Returns:
+        list: List of scheduled tasks, with start and finish times.
+    """
     time = 0
     n_tasks = len(tasks)
     base_station = (0,0,0)
