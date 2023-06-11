@@ -133,26 +133,29 @@ def run_optimal_thread(d,s,i,tasks, drone_speed,my_lock,file_name,timeout = 0):
     my_lock.release()
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def optimal_experiment():
-    """Runs the optimal scheduling algorithm on saveral parameters and saves the results.
-    """
+def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40,50], instances = range(0,50), drone_speed = 0.5):
+    """ Runs the optimal scheduling for a set of parameters and saves the resulsts into a shared file with all the instances.
+
+    Args:
+        p (int, optional): Squared number of positions. Defaults to 5.
+        drones (list, optional): List with all the numbers of available drones to be considered. Defaults to range(3,11).
+        sensors (list, optional): List with all the numbers of sensors to be considered. Defaults to [5,10,15,20,30,40,50].
+        instances (list, optional): Numbers of the instances to be considered. Defaults to range(0,50).
+        drone_speed (float, optional): Drones speed. Defaults to 0.5.
+    """    
     inputs_path = "/user/idiasdas/home/dev/inputs/"
-    # inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/"
-    p = 5
-    i_max = 50
-    drone_speed = 0.5
+
+
     my_lock = threading.Lock()
     
-    for d in range(3,11):
-        for s in [5,10,15,20,30,40,50]:
-    # for d in [3]:
-    #     for s in [5,10]:
+    for d in drones:
+        for s in sensors:
             threads = []
             file_name = "optimal_output_p" + str(p) +"_d"+ str(d) + "_s" + str(s) + ".txt"
             output_file = open(file_name,"a")
             output_file.write("i\trecharge_time\texec_time\n")
             output_file.close()
-            for i in range(0,i_max):
+            for i in instances:
                 file = inputs_path + "d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
                 tasks = get_tasks(file)
                 
@@ -163,7 +166,7 @@ def optimal_experiment():
             for t in threads:
                 t.join()
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def read_optimal_results(files_path = "/Users/idiasdas/dev/sensor_charging/optimal_output/2_hour/"):
+def read_optimal_results(drones = range(3,11), sensors = [5,10,15,20,30,40,50] ,files_path = "/Users/idiasdas/dev/sensor_charging/optimal_output/2_hour/"):
     """Reads the files at files_path and returns a list of dictionaries with all the results
 
     Returns:
@@ -173,8 +176,8 @@ def read_optimal_results(files_path = "/Users/idiasdas/dev/sensor_charging/optim
     i_max = 50
     drone_speed = 0.5
     optimal_results = []    
-    for d in range(3,11):
-        for s in [5,10,15,20,30,40,50]:
+    for d in drones:
+        for s in sensors:
             file_name = files_path + "optimal_output_p" + str(p) +"_d"+ str(d) + "_s" + str(s) + ".txt"
             file = open(file_name, 'r')
             data = file.readlines()
