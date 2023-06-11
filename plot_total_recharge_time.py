@@ -113,6 +113,19 @@ def plot_total_recharge_time_SMILP_DATA(input_path = "/Users/idiasdas/dev/sensor
 # print("Done!")
 
 def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,20,30,40,50],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",fig_title = "WAIT TIME", file_name = '/Users/idiasdas/dev/sensor_charging/figures/MILP_vs_SMILP-WT.eps'):
+    """Plots the recharge time for the MILP and SMILP algorithms.
+
+    Args:
+        algos_dota (list): List of algorithms to be used for the MILP output.
+        algos_data (list): List of algorithms to be used for the SMILP output.
+        sensors (list, optional): List of numbers of sensors to be considered. Defaults to [5,10,15,20,30,40,50].
+        input_path (str, optional): Path to MILP output. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
+        fig_title (str, optional): Title for output figure. Defaults to "WAIT TIME".
+        file_name (str, optional): File name for output figure. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/MILP_vs_SMILP-WT.eps'.
+
+    Returns:
+        list: List with the average recharge times for each scheduling algorithm.
+    """
     s = 5
     p = 5
     i_max = 50
@@ -326,6 +339,13 @@ def plot_recharge_time_with_optimal(input_path = "/Users/idiasdas/dev/sensor_cha
     # plt.show()
 
 def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'):
+    """  Plots the solution times for the simplified MILP and the old MILP for different number of drones.
+
+    Args:
+        sensors (list, optional): List with numbers of sensors to plot. Defaults to [5,10,15,20,30,40,50].
+        input_path (str, optional): Path to old MILP inputs. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
+        file_name (str, optional): Name of the created figure file. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'.
+    """
     s = 5
     p = 5
     i_max = 50
@@ -371,6 +391,16 @@ def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = 
     plt.close()
 
 def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'):
+    """Plots the solution times for the simplified MILP and the old MILP for different number of sensors.
+        Solves the models for 3 to 10 drones.
+        Considers 50 instances for each number of sensors.
+
+
+    Args:
+        sensors (list, optional): List of sensors to plot. Defaults to [5,10,15,20,30,40,50].
+        input_path (str, optional): path to MILP output . Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
+        file_name (str, optional): Output figure file name. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'.
+    """
     s = 5
     p = 5
     i_max = 50

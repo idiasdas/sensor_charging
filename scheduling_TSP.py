@@ -1,6 +1,6 @@
 from basic_functions import *
 import itertools
-# checks all possible sequences of tasks for each drone, returns the maximum time of the best sequences 
+# checks all possible sequences of tasks for each drone, returns the maximum time of the sequences with minimum time
 def scheduling_TSP(tasks, n_drones, drone_speed = 10.2):
     total_time = []
     best_sequences = []

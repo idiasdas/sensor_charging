@@ -1,5 +1,16 @@
 from basic_functions import *
 def scheduling_algo_wait_time(tasks,n_drones,drone_speed = 10.2):
+    """Scheduling algorithm based on wait time.
+        The tasks must have drones already assigned to them. (MILP output)
+
+    Args:
+        tasks (list): List of tasks to be scheduled
+        n_drones (int): Number of drones available
+        drone_speed (float, optional): Drone's speed. Defaults to 10.2.
+
+    Returns:
+        list: List of scheduled tasks, with start and finish times.
+    """
     time = 0
     n_tasks = len(tasks)
     base_station = (0,0,0)

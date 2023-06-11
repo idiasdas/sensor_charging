@@ -2,6 +2,12 @@ import matplotlib.pyplot as plt
 from basic_functions import *
 
 def plot_solution_time(input_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name  = "/Users/idiasdas/dev/sensor_charging/figures/solution_time.eps"):
+    """Plots the solution time for different number of sensors and drones
+
+    Args:
+        input_path (str, optional): Path to MILP outputs. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
+        file_name (str, optional): File name for output figure. Defaults to "/Users/idiasdas/dev/sensor_charging/figures/solution_time.eps".
+    """
     p = 5
     i_max = 50
     drone_speed = 0.5
