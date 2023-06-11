@@ -25,7 +25,6 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
     done = []
     
     while n_tasks > 0:
-        
         go = True
         while(go):
             # order tasks by wait time
@@ -213,8 +212,4 @@ def read_old_optimal_results(file_name = "/Users/idiasdas/dev/sensor_charging/op
         dict_results["recharge_time"] =  float(results[3])
         optimal_results += [dict_results]
     file.close()
-    # file = open(files_path+"optimal_dicts.txt","w")
-    # for d in optimal_results:
-    #     file.write(str(d) + "\n")
-    # file.close()
     return optimal_results

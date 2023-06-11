@@ -15,7 +15,7 @@ def get_tasks(file_path):
     file = open(file_path, 'r')
     data = file.readlines()
 
-    for line in data[3:]: # jumping the first 3 lines
+    for line in data[3:]:  # jumping the first 3 lines
         dic = ast.literal_eval(line)
         tasks += [dic]
     return tasks
@@ -40,7 +40,7 @@ def get_lp_results(file_path, old_version = True):
     else:
         lambda_1 = float(line.split("lambda1 =")[-1].split(")")[0])
     lambda_2 = float(line.split("lambda2 =")[-1].split(")")[0])
-    return [lambda_1,lambda_2]
+    return [lambda_1, lambda_2]
 # ----------------------------------------------------------------------------------------------------------------------------------------------
 def get_sol_time(file_path):
     """Returns the solution time stated in the output files from the MILP
@@ -283,28 +283,3 @@ def verify_schedule(tasks):
                             print("ERROR: improper scheduling between tasks " + str(task1["id"])+ " and " + str(task2["id"]))
                             return False
     return True
-
-
-def get_optimal_results(file_name = "optimal_output/backup_optimal_results_GLOBECOM.txt"):
-	"""Returns the results of the optimal algorithm saved in a file.
-
-	Args:
-		file_name (str, optional): _description_. Defaults to  sensor_charging/optimal_output/backup_optimal_results_GLOBECOM.txt".
-
-	Returns:
-		list: List of dictionaries with the results of the optimal algorithm for each parameter combination and iteration.
-	"""
-	results_optimal = []
-	file = open(file_name, 'r')
-	data = file.readlines()
-	for line in data:
-		split_line = line.split()
-		new_results = {}
-		new_results["n_drones"] = int(split_line[0])
-		new_results["sensors"] = int(split_line[1])
-		new_results["i"] = float(split_line[2])
-		new_results["time"] = float(split_line[3])
-		results_optimal += [new_results]
-
-	file.close()
-	return results_optimal
