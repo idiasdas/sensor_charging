@@ -193,7 +193,7 @@ def plot_recharge_time_with_optimal(input_path = "/Users/idiasdas/dev/sensor_cha
 
     results_wait_time = []
     results_longest = []
-    resulsts_shortest = []
+    results_shortest = []
     results_tof = []
     results_tsp = []
     results_nodrone_wait_time = []
@@ -204,48 +204,48 @@ def plot_recharge_time_with_optimal(input_path = "/Users/idiasdas/dev/sensor_cha
     # algos = [scheduling_algo_5,scheduling_algo_3,scheduling_algo_4,scheduling_algo_6,scheduling_TSP,scheduling_algo_nodrone_wait_time,scheduling_algo_nodrone_tof,scheduling_algo_nodrone_shortest,scheduling_algo_nodrone_longest]
     labels = ["DOTA-ToF","DOTA-WT","DOTA-STF","DOTA-LTF","TSP","DATA-WT","DATA-ToF","DATA-STF","DATA-LTF"]
     for d in range(3,11):
-            avg_per = 0
-            k = 0
-            max_diff = 0
-            for s in [5,10,15,20,30,40,50]:
-                for i in range(0,i_max):
-                    file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+        avg_per = 0
+        k = 0
+        max_diff = 0
+        for s in [5,10,15,20,30,40,50]:
+            for i in range(0,i_max):
+                file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                tasks = get_tasks(file)
+                if(len(tasks)<=9):
+                    done2,wait_time = scheduling_algo_wait_time(tasks,d,drone_speed)
+                    results_wait_time += [wait_time]
+                    
                     tasks = get_tasks(file)
-                    if(len(tasks)<=9):
-                        done2,wait_time = scheduling_algo_wait_time(tasks,d,drone_speed)
-                        results_wait_time += [wait_time]
-                        
-                        tasks = get_tasks(file)
-                        done2,tof = scheduling_algo_tof(tasks,d,drone_speed)
-                        results_tof += [tof]
-                        
-                        tasks = get_tasks(file)
-                        done2,shortest = scheduling_algo_shortest_tasks_first(tasks,d,drone_speed)
-                        resulsts_shortest += [shortest]
-                        
-                        tasks = get_tasks(file)
-                        done2,longest = scheduling_algo_longest_tasks_first(tasks,d,drone_speed)
-                        results_longest += [longest]
-                        
-                        tasks = get_tasks(file)
-                        done2,tsp = scheduling_TSP(tasks,d,drone_speed)
-                        results_tsp += [tsp]
-                        
-                        tasks = get_tasks(file)
-                        done2,nodrone_wt = scheduling_algo_nodrone_wait_time(tasks,d,drone_speed)
-                        results_nodrone_wait_time += [nodrone_wt]
-                        
-                        tasks = get_tasks(file)
-                        done2,nodrone_tof = scheduling_algo_nodrone_tof(tasks,d,drone_speed)
-                        results_nodrone_tof += [nodrone_tof]
-                        
-                        tasks = get_tasks(file)
-                        done2,nodrone_shortest = scheduling_algo_nodrone_stf(tasks,d,drone_speed)
-                        results_nodrone_shortest += [nodrone_shortest]
-                        
-                        tasks = get_tasks(file)
-                        done2,nodrone_longest = scheduling_algo_nodrone_ltf(tasks,d,drone_speed)
-                        results_nodrone_longest += [nodrone_longest]
+                    done2,tof = scheduling_algo_tof(tasks,d,drone_speed)
+                    results_tof += [tof]
+                    
+                    tasks = get_tasks(file)
+                    done2,shortest = scheduling_algo_shortest_tasks_first(tasks,d,drone_speed)
+                    results_shortest += [shortest]
+                    
+                    tasks = get_tasks(file)
+                    done2,longest = scheduling_algo_longest_tasks_first(tasks,d,drone_speed)
+                    results_longest += [longest]
+                    
+                    tasks = get_tasks(file)
+                    done2,tsp = scheduling_TSP(tasks,d,drone_speed)
+                    results_tsp += [tsp]
+                    
+                    tasks = get_tasks(file)
+                    done2,nodrone_wt = scheduling_algo_nodrone_wait_time(tasks,d,drone_speed)
+                    results_nodrone_wait_time += [nodrone_wt]
+                    
+                    tasks = get_tasks(file)
+                    done2,nodrone_tof = scheduling_algo_nodrone_tof(tasks,d,drone_speed)
+                    results_nodrone_tof += [nodrone_tof]
+                    
+                    tasks = get_tasks(file)
+                    done2,nodrone_shortest = scheduling_algo_nodrone_stf(tasks,d,drone_speed)
+                    results_nodrone_shortest += [nodrone_shortest]
+                    
+                    tasks = get_tasks(file)
+                    done2,nodrone_longest = scheduling_algo_nodrone_ltf(tasks,d,drone_speed)
+                    results_nodrone_longest += [nodrone_longest]
     
     results_optimal = []
     file = open("/Users/idiasdas/dev/sensor_charging/optimal_output/backup_optimal_results_GLOBECOM.txt", 'r')
@@ -289,7 +289,7 @@ def plot_recharge_time_with_optimal(input_path = "/Users/idiasdas/dev/sensor_cha
                         avg_optimal += results_optimal[j]
                         avg_wait_time += results_wait_time[j]
                         avg_tof += results_tof[j]
-                        avg_shortest += resulsts_shortest[j]
+                        avg_shortest += results_shortest[j]
                         avg_longest += results_longest[j]
                         avg_tsp += results_tsp[j]
                         avg_nodrone_wt += results_nodrone_wait_time[j]

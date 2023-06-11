@@ -285,3 +285,26 @@ def verify_schedule(tasks):
     return True
 
 
+def get_optimal_results(file_name = "optimal_output/backup_optimal_results_GLOBECOM.txt"):
+	"""Returns the results of the optimal algorithm saved in a file.
+
+	Args:
+		file_name (str, optional): _description_. Defaults to  sensor_charging/optimal_output/backup_optimal_results_GLOBECOM.txt".
+
+	Returns:
+		list: List of dictionaries with the results of the optimal algorithm for each parameter combination and iteration.
+	"""
+	results_optimal = []
+	file = open(file_name, 'r')
+	data = file.readlines()
+	for line in data:
+		split_line = line.split()
+		new_results = {}
+		new_results["n_drones"] = int(split_line[0])
+		new_results["sensors"] = int(split_line[1])
+		new_results["i"] = float(split_line[2])
+		new_results["time"] = float(split_line[3])
+		results_optimal += [new_results]
+
+	file.close()
+	return results_optimal
