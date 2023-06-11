@@ -70,7 +70,7 @@ def scheduling_algo_longest_tasks_first(tasks,n_drones,drone_speed = 10.2):
                 n_tasks = n_tasks - 1
     return [done,time]
 
-def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed = 10.2, skip_conflicts = False):
+def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed = 10.2):
     """Scheduling algorithm, longest tasks first
 
     Args:
@@ -108,7 +108,7 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
             # assign tasks
             task_added = False
             for task in list(tasks):
-                if(status_free[task["drone"]] and (not check_conflicts(task, current_tasks) and skip_conflicts)):
+                if(status_free[task["drone"]]):
                     task["start"] = time + task["total_wait"]
                     task["end"] = task["start"] + task["time"]
                     last_position[task["drone"]] = task["position"]

@@ -47,7 +47,7 @@ def test_equivalence(algos, file_name):
         algos (list): List with two algorithms to be compared. They must be described as dictionaries such as {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line":"b-"}.
         file_name (string): Name of plot file to be saved in case of not equivalent algorithms.
     """    
-    print("Testing scheduling_wait_time and scheduling_wait_time_optimized")
+    print("Testing "+algos[0]["algo"].__name__+" and " + algos[1]["algo"].__name__ + " for equivalence.")
     if dota_algo_set_comparison(algos[0]["algo"], algos[1]["algo"]):
         print("(SUCCESS)")
     else:
@@ -57,14 +57,14 @@ def test_equivalence(algos, file_name):
     print("---------------------------------------------------------------")
 
 
-# algo1 = {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line":"b-"}
-# algo2 = {"algo":scheduling_algo_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
-# test_equivalence([algo1, algo2], "test_equivalence_wait_time")
+algo1 = {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line":"b-"}
+algo2 = {"algo":scheduling_algo_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
+test_equivalence([algo1, algo2], "test_equivalence_wait_time")
 
-# algo1 = {"algo":scheduling_algo_longest_tasks_first, "label":"scheduling_longest_tasks_first","line":"b-"}
-# algo2 = {"algo":scheduling_algo_longest_tasks_first_optimized,"label":"scheduling_longest_tasks_first_optimized","line":"r-"}
-# test_equivalence([algo1, algo2], "test_equivalence_longest_tasks_first")
+algo1 = {"algo":scheduling_algo_longest_tasks_first, "label":"scheduling_longest_tasks_first","line":"b-"}
+algo2 = {"algo":scheduling_algo_longest_tasks_first_optimized,"label":"scheduling_longest_tasks_first_optimized","line":"r-"}
+test_equivalence([algo1, algo2], "test_equivalence_longest_tasks_first")
 
-# algo1 = {"algo":scheduling_algo_tof, "label":"scheduling_ToF","line":"b-"}
-# algo2 = {"algo":scheduling_algo_tof_optimized, "label":"scheduling_ToF_optimized","line":"r-"}
-# test_equivalence([algo1, algo2], "test_equivalence_ToF")
+algo1 = {"algo":scheduling_algo_tof, "label":"scheduling_ToF","line":"b-"}
+algo2 = {"algo":scheduling_algo_tof_optimized, "label":"scheduling_ToF_optimized","line":"r-"}
+test_equivalence([algo1, algo2], "test_equivalence_ToF")
