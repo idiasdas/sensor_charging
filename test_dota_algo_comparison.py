@@ -1,6 +1,7 @@
 from basic_functions import *
-from scheduling_wait_time import *
 from plot_schedule import *
+from scheduling_wait_time import *
+from scheduling_longest_tasks_first import *
 
 def dota_algo_set_comparison(algo1, algo2, input_path = "/Users/idiasdas/dev/sensor_charging/inputs/"):
     """Compare two algorithms for scheduling tasks given a set of inputs. Considers inputs from old MILP with drones already assigned to tasks.
@@ -34,9 +35,16 @@ def dota_algo_set_comparison(algo1, algo2, input_path = "/Users/idiasdas/dev/sen
 
     return True 
 
-
+print("---------------------------------------------------------------")
 print("Testing scheduling_wait_time and scheduling_wait_time_optimized")
 if dota_algo_set_comparison(scheduling_algo_wait_time, scheduling_algo_wait_time_optimized):
     print("SUCCESS")
 else:
     print("FAIL")
+print("---------------------------------------------------------------")
+print("Testing scheduling_longest_tasks_first and scheduling_longest_tasks_first_optimized")
+if dota_algo_set_comparison(scheduling_algo_longest_tasks_first, scheduling_algo_longest_tasks_first_optimized):
+    print("SUCCESS")
+else:
+    print("FAIL")
+print("---------------------------------------------------------------")

@@ -70,7 +70,7 @@ def scheduling_algo_longest_tasks_first(tasks,n_drones,drone_speed = 10.2):
                 n_tasks = n_tasks - 1
     return [done,time]
 
-def scheduling_longest_tasks_first_optimized(tasks, n_drones, drone_speed = 10.2):
+def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed = 10.2):
     """Scheduling algorithm, longest tasks first
 
     Args:
