@@ -114,7 +114,7 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
                     tasks.remove(task)
                     task_added = True
                     status_free[task["drone"]] = False
-                    break
+                    break # needs to reorder tasks after each assignment
             if(not task_added):
                 go = False
         

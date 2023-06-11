@@ -67,7 +67,7 @@ def scheduling_algo_tof(tasks,n_drones, drone_speed = 10.2):
     return [done,time]
 
 
-def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2, skip_conflicts = True):
+def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
     """Scheduling algorithm based on time of flight. Optimized version.
         The tasks must have drones already assigned to them. (MILP output)
 
@@ -98,7 +98,7 @@ def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2, skip_confl
         tasks.sort(key=lambda x: x["ToF"])
                 
         for task in list(tasks):
-            if(status_free[task["drone"]] and (not check_conflicts(task, current_tasks) and skip_conflicts)):
+            if(status_free[task["drone"]] and not check_conflicts(task, current_tasks)):
                 task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
                 task["start"] = time + task["total_wait"]
                 task["end"] = task["start"] + task["time"]
