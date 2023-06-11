@@ -11,7 +11,7 @@ from scheduling_nodrone_ToF import *
 from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
-def plot_total_recharge_time(algos, fig_title, input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'):
+def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:

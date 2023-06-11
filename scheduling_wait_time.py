@@ -103,6 +103,7 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
                 else:
                     task["total_wait"] = task["ToF"]
             tasks.sort(key = lambda x: x["total_wait"])
+            
             task_added = False
             for task in list(tasks):
                 if(status_free[task["drone"]]):

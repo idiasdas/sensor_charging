@@ -107,7 +107,7 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
             # assign tasks
             task_added = False
             for task in list(tasks):
-                if(status_free[task["drone"]] and len( [x for x in current_tasks if x["drone"] == task["drone"]]) == 0):
+                if(status_free[task["drone"]]):
                     task["start"] = time + task["total_wait"]
                     task["end"] = task["start"] + task["time"]
                     last_position[task["drone"]] = task["position"]
@@ -116,7 +116,6 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
                     task_added = True
                     status_free[task["drone"]] = False
                     break
-                status_free[task["drone"]] = False
                     
             if(not task_added):
                 go = False
