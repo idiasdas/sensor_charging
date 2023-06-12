@@ -27,16 +27,8 @@ def chekc_new_optimal():
                 plot_schedule(done,result["drones"],old_result["recharge_time"],file_name="tests_outputs/shiiiit_optimal.eps",save=True)
                 
                 exit(1)
+
 # Create files
-# optimal_experiment(drones = [3,4], sensors=[5,10])
+optimal_experiment(drones = [3], sensors=[5], output_path="tests_outputs/optimal/")
 # Check them against old results
 # chekc_new_optimal()
-
-lista = [1,2,3]
-
-copia = lista.copy()
-
-copia += [11,12,13]
-
-print(lista)
-print(copia)

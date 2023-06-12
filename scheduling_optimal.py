@@ -30,11 +30,8 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
             # order tasks by wait time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                if(get_wait_time(task, current_tasks,current_time) > task["ToF"]):
-                    task["total_wait"] = max(get_wait_time(task, current_tasks,current_time),task["ToF"])
-                else:
-                    task["total_wait"] = task["ToF"]
-            task_added = False
+                task["total_wait"] = max(get_wait_time(task, current_tasks,current_time),task["ToF"])
+
             for task in list(tasks):
                 if(status_free[task["drone"]]):
                     task["start"] = current_time + task["total_wait"]
@@ -42,15 +39,12 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
                     last_position[task["drone"]] = task["position"]
                     current_tasks += [task]
                     tasks.remove(task)
-                    task_added = True
                     status_free[task["drone"]] = False
                     break
                 else:
                     go = False
                     break
                 
-            if(not task_added):
-                go = False
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])
@@ -86,7 +80,7 @@ def optimal(tasks,n_drones,drone_speed = 10.2, timeout = 0):
             return [[],0]
         sequence = []
         for i in range(len(tasks)):
-            sequence += [tasks[order[i]]]
+            sequence += [tasks[order[i]].copy()]
         done,charging_time = scheduling_inorder(list(sequence),n_drones,drone_speed)
         if(charging_time < best_time):
             best_done = list(done)
@@ -141,7 +135,7 @@ def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40
     for d in drones:
         for s in sensors:
             threads = []
-            file_name = output_dir + "optimal_output_p" + str(p) +"_d"+ str(d) + "_s" + str(s) + ".txt"
+            file_name = output_path + "optimal_output_p" + str(p) +"_d"+ str(d) + "_s" + str(s) + ".txt"
             output_file = open(file_name,"a")
             output_file.write("i\trecharge_time\texec_time\n")
             output_file.close()
