@@ -3,8 +3,7 @@ from scheduling_optimal import *
 from plot_schedule import *
 
 
-def chekc_new_optimal(drones = [3,4], sensors=[5,10],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",files_path = "/Users/idiasdas/dev/sensor_charging/tests_outputs/optimal/"):
-
+def chekc_new_optimal(p = 5, drones = [3,4], sensors=[5,10],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",files_path = "/Users/idiasdas/dev/sensor_charging/tests_outputs/optimal/"):
     amount_of_errors = 0
     results = read_optimal_results(drones, sensors, files_path )
     old_results = read_old_optimal_results()
@@ -17,7 +16,7 @@ def chekc_new_optimal(drones = [3,4], sensors=[5,10],input_path = "/Users/idiasd
                 print(result["sensors"])
                 print(result["i"])
                 print("---------------------------------------------------------------------------------")
-                file = input_path + "d"+str(result["drones"])+"_s"+str(result["sensors"])+"_p"+str(5)+"/" + str(result["i"]) + ".txt"
+                file = input_path + "d"+str(result["drones"])+"_s"+str(result["sensors"])+"_p"+str(p)+"/" + str(result["i"]) + ".txt"
                 tasks = get_tasks(file)
                 for task in tasks:
                     print(task)
@@ -60,6 +59,6 @@ def visualize_instace(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/senso
 
 # visualize_instace()
 # Create files
-optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/", tasks_limit=15)
+optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/task_limit_15/", tasks_limit=15)
 # Check them against old results
 # chekc_new_optimal(drones = [3,4], sensors=[5,10])
