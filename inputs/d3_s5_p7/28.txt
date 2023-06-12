@@ -1,0 +1,7 @@
+LP RESULTS :
+ Obj = 0.1*lambda1+0.9*lambda2 = 28.8401054351103 (lambda1 = 270.40105435110297, lambda2 = 2.0) Resol time = 125 ms
+
+{"id": 0, "drone": 0, "position":(6.25,6.25,1.0), "time":270.40105435110297,"sensors":[1,2],"power":[0.15,0.23052342422615568]}
+{"id": 1, "drone": 2, "position":(18.75,37.5,1.0), "time":65.14330870130077,"sensors":[4],"power":[0.15]}
+{"id": 2, "drone": 2, "position":(43.75,18.75,1.0), "time":43.007983296272926,"sensors":[0],"power":[0.15]}
+{"id": 3, "drone": 1, "position":(18.75,18.75,1.0), "time":53.570401603243,"sensors":[3],"power":[0.15]}

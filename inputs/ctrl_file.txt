@@ -1,0 +1,5 @@
+Last Parameters Successfully Run:
+d = 3
+s = 15
+p = 7
+i = 12

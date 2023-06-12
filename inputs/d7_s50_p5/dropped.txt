@@ -1,0 +1,4 @@
+Amount of experiments that exceeded the time limit:
+18
+Time limit:
+1200
