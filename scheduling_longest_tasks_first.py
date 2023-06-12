@@ -99,10 +99,7 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
             # order tasks by duration from longest to shortest
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                if(get_wait_time(task, current_tasks,time) > task["ToF"]):
-                    task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
-                else:
-                    task["total_wait"] = task["ToF"]
+                task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
             tasks.sort(key = lambda x: x["time"],reverse=True)
 
             # assign tasks
