@@ -101,7 +101,7 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
                 task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
             tasks.sort(key = lambda x: x["total_wait"])
             
-            task_added = False
+            go = False
             for task in list(tasks):
                 if(status_free[task["drone"]]):
                     task["start"] = time + task["total_wait"]
@@ -109,11 +109,9 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
                     last_position[task["drone"]] = task["position"]
                     current_tasks += [task]
                     tasks.remove(task)
-                    task_added = True
+                    go = True
                     status_free[task["drone"]] = False
                     break # needs to reorder tasks after each assignment
-            if(not task_added):
-                go = False
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])
