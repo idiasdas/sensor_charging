@@ -3,7 +3,20 @@ from scheduling_optimal import *
 from plot_schedule import *
 
 
-def chekc_new_optimal(p = 5, drones = [3,4], sensors=[5,10],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",files_path = "/Users/idiasdas/dev/sensor_charging/tests_outputs/optimal/"):
+def check_new_optimal(p = 5, drones = [3,4], sensors=[5,10],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",files_path = "/Users/idiasdas/dev/sensor_charging/tests_outputs/optimal/"):
+    """Reads the resulsts form the new optimal sheduling algorithm and compares them with the old optimal results.
+        If any differences are found it prints the tasks, and plots the schedule for the new optimal and the old optimal.
+
+    Args:
+        p (int, optional): Number of positions. Defaults to 5.
+        drones (list, optional): List with all the amounts of drones to be considered. Defaults to [3,4].
+        sensors (list, optional): List with all the amounts of sensors to be considered. Defaults to [5,10].
+        input_path (str, optional): Path to tasks. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
+        files_path (str, optional): Path to save output files. Defaults to "/Users/idiasdas/dev/sensor_charging/tests_outputs/optimal/".
+
+    Returns:
+        bool: Return True if no differences are found, False otherwise.
+    """    
     amount_of_errors = 0
     results = read_optimal_results(drones, sensors, files_path )
     old_results = read_old_optimal_results()
@@ -61,4 +74,4 @@ def visualize_instance(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/sens
 # Create files
 optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/task_limit_15/", tasks_limit=15)
 # Check them against old results
-# chekc_new_optimal(drones = [3,4], sensors=[5,10])
+# check_new_optimal(drones = [3,4], sensors=[5,10])
