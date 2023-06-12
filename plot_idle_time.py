@@ -10,13 +10,13 @@ from scheduling_nodrone_ToF import *
 from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
-def plot_idle_time(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name = "/Users/idiasdas/dev/sensor_charging/figures/DATAvsDOTA_idletime.eps"):
+def plot_idle_time(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name = "figures/DATAvsDOTA_idletime.eps"):
     """Creates and saves an eps figure with the average time in which the drones stay idle as the number of drones changes for each algorithm.
        Considers the 50 instances of examples with 50 sensors and 25 positions (p = 5)    
 
     Args:
         inputs_path (str, optional): Directory path with input files. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
-        file_name (str, optional): Path + name of image file (eps figure). Defaults to "/Users/idiasdas/dev/sensor_charging/figures/idle_time.eps".
+        file_name (str, optional): Path + name of image file (eps figure). Defaults to "figures/idle_time.eps".
     """
     s = 50
     p = 5
@@ -59,13 +59,13 @@ def plot_idle_time(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", fil
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name = "/Users/idiasdas/dev/sensor_charging/figures/DATAvsDOTA_idletime.eps"):
+def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name = "figures/DATAvsDOTA_idletime.eps"):
     """Creates and saves an eps figure with the average time in which the drones stay idle as the number of drones changes for each algorithm.
        Considers the 50 instances of examples with 50 sensors and 25 positions (p = 5)    
 
     Args:
         inputs_path (str, optional): Directory path with input files. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
-        file_name (str, optional): Path + name of image file (eps figure). Defaults to "/Users/idiasdas/dev/sensor_charging/figures/idle_time.eps".
+        file_name (str, optional): Path + name of image file (eps figure). Defaults to "figures/idle_time.eps".
     """
     s = 50
     p = 5
@@ -113,12 +113,12 @@ def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inpu
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_total_idle_time_SMILP_DATA(input_path = "/Users/idiasdas/dev/sensor_charging/milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/Idletime_SMILP_DATA.eps'):
+def plot_total_idle_time_SMILP_DATA(input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Idletime_SMILP_DATA.eps'):
     """Creates a figure with the total idle time as the number of sensors increase. Saves it as file_name.
 
     Args:
-        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
-        file_name (str, optional): The path + name of the figure file that will be created. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/Idletime_SMILP_DATA.eps'.
+        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
+        file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/Idletime_SMILP_DATA.eps'.
     """
     s = 5
     p = 5

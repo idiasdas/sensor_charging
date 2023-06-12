@@ -6,7 +6,7 @@ from scheduling_longest_tasks_first import *
 from scheduling_ToF import *
 from scheduling_shortest_tasks_first import *
 
-def dota_algo_set_comparison(algo1, algo2, input_path = "/Users/idiasdas/dev/sensor_charging/inputs/"):
+def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/"):
     """Compare two algorithms for scheduling tasks given a set of inputs. Considers inputs from old MILP with drones already assigned to tasks.
 
     Returns:
@@ -62,14 +62,14 @@ algo1 = {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line"
 algo2 = {"algo":scheduling_algo_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
 test_equivalence([algo1, algo2], "test_equivalence_wait_time")
 
-# algo1 = {"algo":scheduling_algo_longest_tasks_first, "label":"scheduling_longest_tasks_first","line":"b-"}
-# algo2 = {"algo":scheduling_algo_longest_tasks_first_optimized,"label":"scheduling_longest_tasks_first_optimized","line":"r-"}
-# test_equivalence([algo1, algo2], "test_equivalence_longest_tasks_first")
+algo1 = {"algo":scheduling_algo_longest_tasks_first, "label":"scheduling_longest_tasks_first","line":"b-"}
+algo2 = {"algo":scheduling_algo_longest_tasks_first_optimized,"label":"scheduling_longest_tasks_first_optimized","line":"r-"}
+test_equivalence([algo1, algo2], "test_equivalence_longest_tasks_first")
 
 # algo1 = {"algo":scheduling_algo_tof, "label":"scheduling_ToF","line":"b-"}
 # algo2 = {"algo":scheduling_algo_tof_optimized, "label":"scheduling_ToF_optimized","line":"r-"}
 # test_equivalence([algo1, algo2], "test_equivalence_ToF")
 
-# algo1 = {"algo":scheduling_algo_shortest_tasks_first, "label":"scheduling_shortest_tasks_first","line":"b-"}
-# algo2 = {"algo":scheduling_algo_shortest_tasks_first_optimized, "label":"scheduling_shortest_tasks_first_optimized","line":"r-"}
-# test_equivalence([algo1, algo2], "test_equivalence_stf")
+algo1 = {"algo":scheduling_algo_shortest_tasks_first, "label":"scheduling_shortest_tasks_first","line":"b-"}
+algo2 = {"algo":scheduling_algo_shortest_tasks_first_optimized, "label":"scheduling_shortest_tasks_first_optimized","line":"r-"}
+test_equivalence([algo1, algo2], "test_equivalence_stf")

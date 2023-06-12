@@ -2,7 +2,7 @@ from basic_functions import *
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-def plot_schedule(tasks,n_drones,end_time, x_lim = -1, title = "", save = False,file_name = '/Users/idiasdas/dev/sensor_charging/figures/schedule.eps'):
+def plot_schedule(tasks,n_drones,end_time, x_lim = -1, title = "", save = False,file_name = 'figures/schedule.eps'):
     """Plots time diagram with the schedule of the tasks.
 
     Args:
@@ -12,7 +12,7 @@ def plot_schedule(tasks,n_drones,end_time, x_lim = -1, title = "", save = False,
         x_lim (int, optional): Limits the horizontal size of the figure in seconds. Defaults to -1.
         title (str, optional): Figure title. Defaults to "".
         save (bool, optional): If true, saves the output figure. Defaults to False.
-        file_name (str, optional): File name for the output figure. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/schedule.eps'.
+        file_name (str, optional): File name for the output figure. Defaults to 'figures/schedule.eps'.
     """
     fig, ax = plt.subplots()
     fig.set_size_inches(15.5, 8.5)

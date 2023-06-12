@@ -1,7 +1,7 @@
 from basic_functions import *
 import matplotlib.pyplot as plt
 
-def plot_mean_time_per_position(input_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/50i_mean_time_per_pos_5x5.eps'):
+def plot_mean_time_per_position(input_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/",file_name = 'figures/50i_mean_time_per_pos_5x5.eps'):
     """Plots and saves the figure with the average time spent in eahc position visited by the drones.
        Considers 50 instances for each possible combination of the global parameters. 
        Sensors = 5,10,15,20,30,40 and 50.
@@ -10,7 +10,7 @@ def plot_mean_time_per_position(input_path = "/Users/idiasdas/dev/GLOBECOM2022/i
 
     Args:
         input_path (str, optional): Path to the input files. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
-        file_name (str, optional): Filename for the output figure. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/50i_mean_time_per_pos_5x5.eps'.
+        file_name (str, optional): Filename for the output figure. Defaults to 'figures/50i_mean_time_per_pos_5x5.eps'.
     """
     p = 5
     i_max = 50
@@ -51,7 +51,7 @@ def plot_mean_time_per_position(input_path = "/Users/idiasdas/dev/GLOBECOM2022/i
     plt.savefig(file_name, format='eps')
     plt.close()
 
-def plot_mean_time_per_position_SMILP(input_path = "/Users/idiasdas/dev/sensor_charging/milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/50i_mean_time_per_pos_5x5_SMILP.eps'):
+def plot_mean_time_per_position_SMILP(input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/50i_mean_time_per_pos_5x5_SMILP.eps'):
     """Plots and saves the figure with the average time spent in eahc position visited by the drones.
        Considers 50 instances for each possible combination of the global parameters. 
        Sensors = 5,10,15,20,30,40 and 50.
@@ -60,7 +60,7 @@ def plot_mean_time_per_position_SMILP(input_path = "/Users/idiasdas/dev/sensor_c
 
     Args:
         input_path (str, optional): Path to the input files. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
-        file_name (str, optional): Filename for the output figure. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/50i_mean_time_per_pos_5x5.eps'.
+        file_name (str, optional): Filename for the output figure. Defaults to 'figures/50i_mean_time_per_pos_5x5.eps'.
     """
     p = 5
     i_max = 100

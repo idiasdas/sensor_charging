@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from basic_functions import *
 
-def plot_mean_altitude_per_drone(input_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name = "/Users/idiasdas/dev/sensor_charging/figures/50i_mean_altitude_per_drone_5x5.eps"):
+def plot_mean_altitude_per_drone(input_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name = "figures/50i_mean_altitude_per_drone_5x5.eps"):
     """Plots and saves the figure with the average altitude of the drones.
        Considers 20 instances for each possible combination of the global parameters. 
        Sensors = 5,10,15,20,30,40 and 50.
@@ -10,7 +10,7 @@ def plot_mean_altitude_per_drone(input_path = "/Users/idiasdas/dev/GLOBECOM2022/
 
     Args:
         input_path (str, optional): Directory path for the inputs. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
-        file_name (str, optional): Path + name of figure file. Defaults to "/Users/idiasdas/dev/sensor_charging/figures/50i_mean_altitude_per_drone_5x5.eps".
+        file_name (str, optional): Path + name of figure file. Defaults to "figures/50i_mean_altitude_per_drone_5x5.eps".
     """
     p = 5
     i_max = 20
@@ -49,7 +49,7 @@ def plot_mean_altitude_per_drone(input_path = "/Users/idiasdas/dev/GLOBECOM2022/
     plt.savefig(file_name, format='eps')
     plt.close()
 
-def plot_mean_altitude_per_drone_SMILP(input_path = "/Users/idiasdas/dev/sensor_charging/milp/backup_results_17feb_timelimit1200/output_simplified/", file_name = "/Users/idiasdas/dev/sensor_charging/figures/mean_altitude_SMILP.eps"):
+def plot_mean_altitude_per_drone_SMILP(input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/", file_name = "figures/mean_altitude_SMILP.eps"):
     """Plots and saves the figure with the average altitude of the drones for the simplified MILP (SMILP).
        Considers 20 instances for each possible combination of the global parameters. 
        Sensors = 5,10,15,20,30,40 and 50.
@@ -58,7 +58,7 @@ def plot_mean_altitude_per_drone_SMILP(input_path = "/Users/idiasdas/dev/sensor_
 
     Args:
         input_path (str, optional): Directory path for the inputs. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
-        file_name (str, optional): Path + name of figure file. Defaults to "/Users/idiasdas/dev/sensor_charging/figures/50i_mean_altitude_per_drone_5x5.eps".
+        file_name (str, optional): Path + name of figure file. Defaults to "figures/50i_mean_altitude_per_drone_5x5.eps".
     """
     p = 5
     i_max = 100

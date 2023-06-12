@@ -11,12 +11,12 @@ from scheduling_nodrone_ToF import *
 from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
-def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'):
+def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_path = "inputs/",file_name = 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
-        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
-        file_name (str, optional): The path + name of the figure file that will be created. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
+        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
+        file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
     """
     s = 5
     p = 5
@@ -58,12 +58,12 @@ def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_pat
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_total_recharge_time_SMILP_DATA(input_path = "/Users/idiasdas/dev/sensor_charging/milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/Recharge_time_SMILP_DATA.eps'):
+def plot_total_recharge_time_SMILP_DATA(input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps'):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
-        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
-        file_name (str, optional): The path + name of the figure file that will be created. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
+        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
+        file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
     """
     s = 5
     p = 5
@@ -109,19 +109,19 @@ def plot_total_recharge_time_SMILP_DATA(input_path = "/Users/idiasdas/dev/sensor
     plt.close()
 
 # print("Plotting total recharge time...")
-# plot_total_recharge_time(file_name='/Users/idiasdas/dev/sensor_charging/figures/Results_nodrone.eps')
+# plot_total_recharge_time(file_name='figures/Results_nodrone.eps')
 # print("Done!")
 
-def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,20,30,40,50],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",fig_title = "WAIT TIME", file_name = '/Users/idiasdas/dev/sensor_charging/figures/MILP_vs_SMILP-WT.eps'):
+def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,20,30,40,50],input_path = "inputs/",fig_title = "WAIT TIME", file_name = 'figures/MILP_vs_SMILP-WT.eps'):
     """Plots the recharge time for the MILP and SMILP algorithms.
 
     Args:
         algos_dota (list): List of algorithms to be used for the MILP output.
         algos_data (list): List of algorithms to be used for the SMILP output.
         sensors (list, optional): List of numbers of sensors to be considered. Defaults to [5,10,15,20,30,40,50].
-        input_path (str, optional): Path to MILP output. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
+        input_path (str, optional): Path to MILP output. Defaults to "inputs/".
         fig_title (str, optional): Title for output figure. Defaults to "WAIT TIME".
-        file_name (str, optional): File name for output figure. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/MILP_vs_SMILP-WT.eps'.
+        file_name (str, optional): File name for output figure. Defaults to 'figures/MILP_vs_SMILP-WT.eps'.
 
     Returns:
         list: List with the average recharge times for each scheduling algorithm.
@@ -154,7 +154,7 @@ def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,
         plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
         algos_times += [time_avg]
 
-    input_path = "/Users/idiasdas/dev/sensor_charging/milp/backup_results_17feb_timelimit1200/output_simplified/"
+    input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
     time_avg = []
     for algo in algos_data:
@@ -182,7 +182,7 @@ def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,
     plt.close()
     return algos_times
 
-def plot_recharge_time_with_optimal(input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/RechargeTime_Optimal870Examples.eps'):
+def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/RechargeTime_Optimal870Examples.eps'):
     """This is the most disgusting code I have ever written in my life. I'm sorry Alan.
     """
     s = 5
@@ -248,7 +248,7 @@ def plot_recharge_time_with_optimal(input_path = "/Users/idiasdas/dev/sensor_cha
                     results_nodrone_longest += [nodrone_longest]
     
     results_optimal = []
-    file = open("/Users/idiasdas/dev/sensor_charging/optimal_output/backup_optimal_results_GLOBECOM.txt", 'r')
+    file = open("optimal_output/backup_optimal_results_GLOBECOM.txt", 'r')
     data = file.readlines()
     for line in data:
           results_optimal += [float(line.split()[-1])]
@@ -338,13 +338,13 @@ def plot_recharge_time_with_optimal(input_path = "/Users/idiasdas/dev/sensor_cha
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     # plt.show()
 
-def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'):
+def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = "inputs/",file_name = 'figures/MILP_Simplified_vs_OLD_MILP.eps'):
     """  Plots the solution times for the simplified MILP and the old MILP for different number of drones.
 
     Args:
         sensors (list, optional): List with numbers of sensors to plot. Defaults to [5,10,15,20,30,40,50].
-        input_path (str, optional): Path to old MILP inputs. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
-        file_name (str, optional): Name of the created figure file. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'.
+        input_path (str, optional): Path to old MILP inputs. Defaults to "inputs/".
+        file_name (str, optional): Name of the created figure file. Defaults to 'figures/MILP_Simplified_vs_OLD_MILP.eps'.
     """
     s = 5
     p = 5
@@ -368,7 +368,7 @@ def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = 
         time_avg += [t/(i_max*7)]
     plt.plot(x_axis, time_avg, "g-",label = "MILP")
 
-    input_path = "/Users/idiasdas/dev/sensor_charging/milp/backup_results_17feb_timelimit1200/output_simplified/"
+    input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
     time_avg = []
     for d in range(3,11):
@@ -390,7 +390,7 @@ def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = 
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path = "/Users/idiasdas/dev/sensor_charging/inputs/",file_name = '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'):
+def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path = "inputs/",file_name = 'figures/MILP_Simplified_vs_OLD_MILP.eps'):
     """Plots the solution times for the simplified MILP and the old MILP for different number of sensors.
         Solves the models for 3 to 10 drones.
         Considers 50 instances for each number of sensors.
@@ -398,8 +398,8 @@ def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path =
 
     Args:
         sensors (list, optional): List of sensors to plot. Defaults to [5,10,15,20,30,40,50].
-        input_path (str, optional): path to MILP output . Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
-        file_name (str, optional): Output figure file name. Defaults to '/Users/idiasdas/dev/sensor_charging/figures/MILP_Simplified_vs_OLD_MILP.eps'.
+        input_path (str, optional): path to MILP output . Defaults to "inputs/".
+        file_name (str, optional): Output figure file name. Defaults to 'figures/MILP_Simplified_vs_OLD_MILP.eps'.
     """
     s = 5
     p = 5
@@ -425,7 +425,7 @@ def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path =
         time_avg += [t/(i_max*8)]
     plt.plot(x_axis, time_avg, "g-",label = "MILP")
 
-    input_path = "/Users/idiasdas/dev/sensor_charging/milp/backup_results_17feb_timelimit1200/output_simplified/"
+    input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
     time_avg = []
     for s in sensors:

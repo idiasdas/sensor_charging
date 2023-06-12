@@ -128,7 +128,7 @@ def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40
         timeout (int, optional): Amount of seconds this thread will run before timing out. Defaults to 300. If 0, then there is no limit.
         tasks_limit (int, optional): Limit of tasks to be considered. Defaults to 0. If 0, then there is no limit.
     """    
-    inputs_path = "/Users/idiasdas/dev/sensor_charging/inputs/"
+    inputs_path = "inputs/"
     my_lock = threading.Lock()
     
     for d in drones:
@@ -149,13 +149,13 @@ def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40
             for t in threads:
                 t.join()
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def read_optimal_results(drones = range(3,11), sensors = [5,10,15,20,30,40,50] ,files_path = "/Users/idiasdas/dev/sensor_charging/optimal_output/2_hour/"):
+def read_optimal_results(drones = range(3,11), sensors = [5,10,15,20,30,40,50] ,files_path = "optimal_output/2_hour/"):
     """Reads the files at files_path and returns a list of dictionaries with all the results together.
 
     Args:
         drones (list, optional): List with all the numbers of available drones to be considered. Defaults to range(3,11).
         sensors (list, optional): List with all the numbers of sensors to be considered. Defaults to [5,10,15,20,30,40,50].
-        files_path (string, optional): Path where files are saved. Defaults to "/Users/idiasdas/dev/sensor_charging/optimal_output/2_hour/".
+        files_path (string, optional): Path where files are saved. Defaults to "optimal_output/2_hour/".
 
     Returns:
         list: A list with the optimal results for each parameter described as python dictionaries.
@@ -182,7 +182,7 @@ def read_optimal_results(drones = range(3,11), sensors = [5,10,15,20,30,40,50] ,
             file.close()
     return optimal_results
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def read_old_optimal_results(file_name = "/Users/idiasdas/dev/sensor_charging/optimal_output/backup_optimal_results_GLOBECOM.txt"):
+def read_old_optimal_results(file_name = "optimal_output/backup_optimal_results_GLOBECOM.txt"):
     """Reads the file with the optimal results used for GLOBECOM 2022
 
     Returns:
