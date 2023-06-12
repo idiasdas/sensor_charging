@@ -11,3 +11,5 @@ Optimal_vs_DOTA_vs_DATA.ipynb
 thread_test.py
 .DS_Store
 mil/.DS_Store
+
+tests_outputs/*
