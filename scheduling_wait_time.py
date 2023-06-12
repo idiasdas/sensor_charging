@@ -98,10 +98,7 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
             # order tasks by wait time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                if(get_wait_time(task, current_tasks,time) > task["ToF"]):
-                    task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
-                else:
-                    task["total_wait"] = task["ToF"]
+                task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
             tasks.sort(key = lambda x: x["total_wait"])
             
             task_added = False
