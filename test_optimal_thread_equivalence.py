@@ -43,7 +43,7 @@ def chekc_new_optimal(p = 5, drones = [3,4], sensors=[5,10],input_path = "/Users
         print("(FAIL)")
         return False
 
-def visualize_instace(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/sensor_charging/inputs/"):
+def visualize_instance(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/sensor_charging/inputs/"):
     
     file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(5)+"/" + str(i) + ".txt"
                         
@@ -57,7 +57,7 @@ def visualize_instace(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/senso
     plot_schedule(done,d,1000,file_name="tests_outputs/look_at_this_shit_optimal.eps",save=True)
     
 
-# visualize_instace()
+# visualize_instance()
 # Create files
 optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/task_limit_15/", tasks_limit=15)
 # Check them against old results
