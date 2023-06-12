@@ -57,10 +57,18 @@ def check_new_optimal(p = 5, drones = [3,4], sensors=[5,10],input_path = "/Users
         return False
 
 def visualize_instance(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/sensor_charging/inputs/"):
+    """Runs the new optimal algorithm for a given instance and plots the schedule.
+
+    Args:
+        d (int, optional): Number os drones. Defaults to 3.
+        s (int, optional): Number os sensors. Defaults to 5.
+        i (int, optional): Iteration number. Defaults to 1.
+        input_path (str, optional): Path to tasks. Defaults to "/Users/idiasdas/dev/sensor_charging/inputs/".
+    """    
     
-    file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(5)+"/" + str(i) + ".txt"
-                        
+    file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(5)+"/" + str(i) + ".txt"               
     tasks = get_tasks(file)
+    
     done,c_time = optimal(tasks, d, drone_speed=0.5)
 
     print("New optimal:" + str(c_time))
