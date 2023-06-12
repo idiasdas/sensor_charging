@@ -68,7 +68,7 @@ def visualize_instance(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/sens
     
     file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(5)+"/" + str(i) + ".txt"               
     tasks = get_tasks(file)
-    
+
     done,c_time = optimal(tasks, d, drone_speed=0.5)
 
     print("New optimal:" + str(c_time))
@@ -80,6 +80,6 @@ def visualize_instance(d = 3,s = 5,i = 1, input_path = "/Users/idiasdas/dev/sens
 
 # visualize_instance()
 # Create files
-optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/task_limit_15/", tasks_limit=15)
+optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/task_limit_15/", tasks_limit=15, timeout=3600)
 # Check them against old results
 # check_new_optimal(drones = [3,4], sensors=[5,10])
