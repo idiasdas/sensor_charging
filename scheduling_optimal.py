@@ -32,6 +32,7 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
                 task["total_wait"] = max(get_wait_time(task, current_tasks,current_time),task["ToF"])
 
+            go = False
             for task in list(tasks):
                 if(status_free[task["drone"]]):
                     task["start"] = current_time + task["total_wait"]
@@ -40,22 +41,19 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
                     current_tasks += [task]
                     tasks.remove(task)
                     status_free[task["drone"]] = False
+                    go = True
                     break
-                else:
-                    go = False
-                    break
-                
         
         # Forward in time
-        time = min([x["end"] for x in current_tasks])
+        current_time = min([x["end"] for x in current_tasks])
         #Finish tasks
         for task in list(current_tasks):
-            if(time >= task["end"]):
+            if(current_time >= task["end"]):
                 done += [task]
                 status_free[task["drone"]] = True
                 current_tasks.remove(task)
                 n_tasks = n_tasks - 1
-    return [done,time]
+    return [done,current_time]
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------
 def optimal(tasks,n_drones,drone_speed = 10.2, timeout = 0):
@@ -76,7 +74,6 @@ def optimal(tasks,n_drones,drone_speed = 10.2, timeout = 0):
     best_sequence = []
     for order in itertools.permutations(range(len(tasks))):
         if(timeout > 0 and time.process_time() - start_time > timeout):
-            # print("Timeout")
             return [[],0]
         sequence = []
         for i in range(len(tasks)):
@@ -107,17 +104,18 @@ def run_optimal_thread(d,s,i,tasks, drone_speed,my_lock,file_name,timeout = 0):
     start_time = time.process_time()
     done,recharge_time = optimal(tasks,d,drone_speed,timeout)
     exec_time = time.process_time() - start_time
-
+    verification = verify_schedule(done)
     my_lock.acquire()
     output_file = open(file_name,"a")
-    output_file.write( str(i) + "\t" + str(recharge_time) + "\t" + str(exec_time) + "\n")
-    # output_file.write(str(p) + "\t" + str(d) + "\t" + str(s) + "\t" + str(i) + "\t" + str(recharge_time) + "\t" + str(exec_time) + "\n")
-    # print(str(p) + "\t" + str(d) + "\t" + str(s) + "\t" + str(i) + "\t" + str(recharge_time) + "\t" + str(exec_time) + "\n")
+    if(verification):
+        output_file.write( str(i) + "\t" + str(recharge_time) + "\t" + str(exec_time) + "\n")
+    else:
+        output_file.write( str(i) + "\t" + str(recharge_time) + "\t" + str(exec_time) + "\t(Failed scheduling verification)\n")
     output_file.close()
     my_lock.release()
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40,50], instances = range(0,50), drone_speed = 0.5, output_path = "optimal_output/", timeout = 300):
+def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40,50], instances = range(0,50), drone_speed = 0.5, output_path = "optimal_output/", timeout = 300, tasks_limit = 0):
     """ Runs the optimal scheduling for a set of parameters and saves the resulsts into a shared file with all the instances.
 
     Args:
@@ -128,6 +126,7 @@ def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40
         drone_speed (float, optional): Drones speed. Defaults to 0.5.
         output_path (string, optional): Path where the output files will be saved. Defaults to "optimal_output/".
         timeout (int, optional): Amount of seconds this thread will run before timing out. Defaults to 300. If 0, then there is no limit.
+        tasks_limit (int, optional): Limit of tasks to be considered. Defaults to 0. If 0, then there is no limit.
     """    
     inputs_path = "/Users/idiasdas/dev/sensor_charging/inputs/"
     my_lock = threading.Lock()
@@ -142,16 +141,21 @@ def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40
             for i in instances:
                 file = inputs_path + "d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
                 tasks = get_tasks(file)
-                
-                t = threading.Thread(target = run_optimal_thread, args = [d,s,i,tasks, drone_speed,my_lock,file_name,timeout])
-                threads.append(t)
-                t.start()
+                if(tasks_limit == 0 or len(tasks) < tasks_limit ):
+                    t = threading.Thread(target = run_optimal_thread, args = [d,s,i,tasks, drone_speed,my_lock,file_name,timeout])
+                    threads.append(t)
+                    t.start()
 
             for t in threads:
                 t.join()
 # -------------------------------------------------------------------------------------------------------------------------------------------------
 def read_optimal_results(drones = range(3,11), sensors = [5,10,15,20,30,40,50] ,files_path = "/Users/idiasdas/dev/sensor_charging/optimal_output/2_hour/"):
-    """Reads the files at files_path and returns a list of dictionaries with all the results
+    """Reads the files at files_path and returns a list of dictionaries with all the results together.
+
+    Args:
+        drones (list, optional): List with all the numbers of available drones to be considered. Defaults to range(3,11).
+        sensors (list, optional): List with all the numbers of sensors to be considered. Defaults to [5,10,15,20,30,40,50].
+        files_path (string, optional): Path where files are saved. Defaults to "/Users/idiasdas/dev/sensor_charging/optimal_output/2_hour/".
 
     Returns:
         list: A list with the optimal results for each parameter described as python dictionaries.
