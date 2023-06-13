@@ -42,7 +42,7 @@ def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/"):
     return True 
 
 def test_equivalence(algos, file_name):
-    """Tests equivalence between two algorithms. If they are not equivalent, plots the difference between them and gives two examples of different solutions.
+    """Tests equivalence between two algorithms. If they are not equivalent, plots the difference between them and gives the first example of different solutions.
 
     Args:
         algos (list): List with two algorithms to be compared. They must be described as dictionaries such as {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line":"b-"}.
