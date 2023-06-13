@@ -1,5 +1,6 @@
 from basic_functions import *
 import time
+from datetime import datetime
 import threading
 
 def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
@@ -133,6 +134,10 @@ def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40
     
     for d in drones:
         for s in sensors:
+            print("Running optimal for d = " + str(d) + " and s = " + str(s))
+            print(" - Started at:" + str(datetime.now()))
+            print(" - Timeout: " + str(timeout))
+            print(" -------------------------------------------------")
             threads = []
             file_name = output_path + "optimal_output_p" + str(p) +"_d"+ str(d) + "_s" + str(s) + ".txt"
             output_file = open(file_name,"a")
