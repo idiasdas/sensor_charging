@@ -28,7 +28,7 @@ def scheduling_algo_tof(tasks,n_drones, drone_speed = 10.2):
             task["ToF"] = dist(task["position"],last_position[task["drone"]])/drone_speed
         tasks.sort(key=lambda x: x["ToF"])
         
-        #Try to assign all tasks
+        # Try to assign all tasks without conflicts
         for task in list(tasks):
             if(not check_conflicts(task, current_tasks)):
                 task["ToF"] = dist(task["position"],last_position[task["drone"]])/drone_speed
@@ -38,7 +38,8 @@ def scheduling_algo_tof(tasks,n_drones, drone_speed = 10.2):
                 current_tasks += [task]
                 status_free[task["drone"]] = False
                 tasks.remove(task)
-                
+
+        # Assign tasks with conflicts
         for task in list(tasks):
             if(status_free[task["drone"]] and len( [x for x in current_tasks if x["drone"] == task["drone"]]) == 0):
                 if(get_longest_conflict_time(task, current_tasks,time) > task["ToF"]):
