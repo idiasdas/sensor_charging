@@ -161,7 +161,7 @@ def get_total_time(tasks,drone_speed):
         last_pos = task["position"]
     return time
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def get_wait_time(task, current_tasks, time, no_self = False):
+def get_longest_conflict_time(task, current_tasks, time, no_self = False):
     """Returns how long a drone needs to wait until it is conflict free
 
     Args:

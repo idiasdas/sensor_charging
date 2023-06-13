@@ -31,7 +31,7 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
             # Determine wait time and flight time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                task["total_wait"] = max(get_wait_time(task, current_tasks,current_time),task["ToF"])
+                task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,current_time),task["ToF"])
             # Tasks are assigned in the order they appear on the list
             go = False
             for task in list(tasks):
