@@ -6,9 +6,14 @@ from scheduling_longest_tasks_first import *
 from scheduling_ToF import *
 from scheduling_shortest_tasks_first import *
 
-def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/"):
+def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/", give_examples = False):
     """Compare two algorithms for scheduling tasks given a set of inputs. Considers inputs from old MILP with drones already assigned to tasks.
 
+    Args:
+        algo1 (function): First algorithm to be compared. Must be a function that takes as input a list of tasks, the number of drones and the drone speed.
+        algo2 (function): Second algorithm to be compared. Must be a function that takes as input a list of tasks, the number of drones and the drone speed.
+        input_path (str, optional): Path to the folder containing the inputs. Defaults to "inputs/".
+        give_examples (bool, optional): If True, gives examples of different outputs. Defaults to False.
     Returns:
         boolean: True if the two algorithms give the same results, False otherwise.
     """
@@ -30,19 +35,19 @@ def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/"):
 
                 if time1 != time2:
                     print("\t- Different time for d = " + str(d) + ", s = " + str(sensors[s]) + ", i = " + str(i))
-                    plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/test_equivalence_" + algo1.__name__ +".eps",save=True)
-                    plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/test_equivalence_" + algo2.__name__ +".eps",save=True)
-
-                    print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
-                    print("\t-Stopped equivalence test.")
+                    if give_examples:
+                        plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/test_equivalence_" + algo1.__name__ +".eps",save=True)
+                        plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/test_equivalence_" + algo2.__name__ +".eps",save=True)
+                        print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
+                        print("\t-Stopped equivalence test.")
                     return False
                 if not (verify_schedule(scheduling1) and verify_schedule(scheduling2)): #If any of the schedules is not valid
                     print("\t- Invalid schedule for d = " + str(d) + ", s = " + str(sensors[s]) + ", i = " + str(i))
-                    plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/test_equivalence_badschedule_" + algo1.__name__ +".eps",save=True)
-                    plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/test_equivalence_badschedule_" + algo2.__name__ +".eps",save=True)
-
-                    print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
-                    print("\t-Stopped equivalence test.")
+                    if give_examples:
+                        plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/test_equivalence_badschedule_" + algo1.__name__ +".eps",save=True)
+                        plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/test_equivalence_badschedule_" + algo2.__name__ +".eps",save=True)
+                        print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
+                        print("\t-Stopped equivalence test.")
                     return False
 
 
@@ -65,18 +70,18 @@ def test_equivalence(algos, file_name):
     print("---------------------------------------------------------------")
 
 
-algo1 = {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line":"b-"}
-algo2 = {"algo":scheduling_algo_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
-test_equivalence([algo1, algo2], "test_equivalence_wait_time")
+# algo1 = {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line":"b-"}
+# algo2 = {"algo":scheduling_algo_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
+# test_equivalence([algo1, algo2], "test_equivalence_wait_time")
 
-algo1 = {"algo":scheduling_algo_tof, "label":"scheduling_ToF","line":"b-"}
-algo2 = {"algo":scheduling_algo_tof_optimized, "label":"scheduling_ToF_optimized","line":"r-"}
-test_equivalence([algo1, algo2], "test_equivalence_ToF")
+# algo1 = {"algo":scheduling_algo_tof, "label":"scheduling_ToF","line":"b-"}
+# algo2 = {"algo":scheduling_algo_tof_optimized, "label":"scheduling_ToF_optimized","line":"r-"}
+# test_equivalence([algo1, algo2], "test_equivalence_ToF")
 
 algo1 = {"algo":scheduling_algo_longest_tasks_first, "label":"scheduling_longest_tasks_first","line":"b-"}
 algo2 = {"algo":scheduling_algo_longest_tasks_first_optimized,"label":"scheduling_longest_tasks_first_optimized","line":"r-"}
 test_equivalence([algo1, algo2], "test_equivalence_longest_tasks_first")
 
-algo1 = {"algo":scheduling_algo_shortest_tasks_first, "label":"scheduling_shortest_tasks_first","line":"b-"}
-algo2 = {"algo":scheduling_algo_shortest_tasks_first_optimized, "label":"scheduling_shortest_tasks_first_optimized","line":"r-"}
-test_equivalence([algo1, algo2], "test_equivalence_stf")
+# algo1 = {"algo":scheduling_algo_shortest_tasks_first, "label":"scheduling_shortest_tasks_first","line":"b-"}
+# algo2 = {"algo":scheduling_algo_shortest_tasks_first_optimized, "label":"scheduling_shortest_tasks_first_optimized","line":"r-"}
+# test_equivalence([algo1, algo2], "test_equivalence_stf")
