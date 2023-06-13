@@ -105,7 +105,7 @@ def scheduling_algo_shortest_tasks_first_optimized(tasks, n_drones, drone_speed 
             tasks.sort(key = lambda x: x["time"],reverse=False)
 
             # assign tasks
-            task_added = False
+            go = False
             for task in list(tasks):
                 if(status_free[task["drone"]]):
                     task["start"] = time + task["total_wait"]
@@ -113,12 +113,10 @@ def scheduling_algo_shortest_tasks_first_optimized(tasks, n_drones, drone_speed 
                     last_position[task["drone"]] = task["position"]
                     current_tasks += [task]
                     tasks.remove(task)
-                    task_added = True
+                    go = True
                     status_free[task["drone"]] = False
                     break
                     
-            if(not task_added):
-                go = False
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])
