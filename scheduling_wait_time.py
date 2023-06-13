@@ -93,8 +93,7 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
     done = []
     
     while n_tasks > 0:
-        if len(tasks) > 0:
-            assign_tasks = True
+        assign_tasks = len(tasks) > 0
         while(assign_tasks):
             # determine ToF and wait_time for each task
             for task in tasks:
