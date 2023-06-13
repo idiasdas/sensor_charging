@@ -95,7 +95,7 @@ def scheduling_algo_shortest_tasks_first_optimized(tasks, n_drones, drone_speed 
     tasks.sort(key = lambda x: x["time"],reverse=False)
     
     while n_tasks > 0:
-        assign_tasks = True
+        assign_tasks = len(tasks) > 0
         while(assign_tasks):
             # order tasks by duration from shortest to longest
             for task in tasks:
@@ -115,9 +115,7 @@ def scheduling_algo_shortest_tasks_first_optimized(tasks, n_drones, drone_speed 
                     tasks.remove(task)
                     status_free[task["drone"]] = False
                     assign_tasks = True and len(tasks) > 0 # Stop if there are no more tasks to assign
-
-                    break
-                    
+                    break # Stop after assigning one task to recompute wait_time
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])
