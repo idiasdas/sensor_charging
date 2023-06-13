@@ -102,10 +102,11 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
                 task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
                 if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
                     task["total_wait"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
+            
             tasks.sort(key = lambda x: x["time"],reverse=True)
 
             # assign tasks
-            task_added = False
+            go = False
             for task in list(tasks):
                 if(status_free[task["drone"]]):
                     task["start"] = time + task["total_wait"]
@@ -113,12 +114,9 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
                     last_position[task["drone"]] = task["position"]
                     current_tasks += [task]
                     tasks.remove(task)
-                    task_added = True
+                    go = True
                     status_free[task["drone"]] = False
                     break
-                    
-            if(not task_added):
-                go = False
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])
