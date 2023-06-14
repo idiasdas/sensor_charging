@@ -96,9 +96,10 @@ def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
         # order tasks by ToF
         for task in tasks:
             task["ToF"] = dist(task["position"],last_position[task["drone"]])/drone_speed
-            task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
             if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
-                    task["total_wait"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
+                    task["ToF"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
+            task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
+            
         
         tasks.sort(key=lambda x: x["ToF"])
                 
