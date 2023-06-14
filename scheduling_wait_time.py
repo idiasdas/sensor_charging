@@ -98,9 +98,10 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
             # determine ToF and wait_time for each task
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
+                if(not status_free[task["drone"]]): # Time of flight correction for tasks whose drone is busy
+                    task["ToF"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
                 task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
-                if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
-                    task["total_wait"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
+                
             # Order tasks by wait time
             tasks.sort(key = lambda x: x["total_wait"])
             
