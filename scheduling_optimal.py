@@ -26,24 +26,26 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
     done = []
     
     while n_tasks > 0:
-        assign_tasks = True
+        assign_tasks = len(tasks) > 0
         while(assign_tasks):
             # Determine wait time and flight time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
+                if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
+                    task["ToF"] += [(x["end"] - current_time) for x in current_tasks if x["drone"] == task["drone"]][0]
                 task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,current_time),task["ToF"])
+            
             # Tasks are assigned in the order they appear on the list
             assign_tasks = False
-            for task in list(tasks):
-                if(status_free[task["drone"]]): # If drone is free then assign task
-                    task["start"] = current_time + task["total_wait"]
-                    task["end"] = task["start"] + task["time"]
-                    last_position[task["drone"]] = task["position"]
-                    current_tasks += [task]
-                    tasks.remove(task)
-                    status_free[task["drone"]] = False
-                    assign_tasks = True # If task was assigned then continue assigning tasks
-                    break
+            task = tasks[0]
+            if(status_free[task["drone"]]): # If drone is free then assign task
+                task["start"] = current_time + task["total_wait"]
+                task["end"] = task["start"] + task["time"]
+                last_position[task["drone"]] = task["position"]
+                current_tasks += [task]
+                tasks.remove(task)
+                status_free[task["drone"]] = False
+                assign_tasks = True and len(tasks) > 0 # If task was assigned then continue assigning tasks else move forward in time
         
         # Forward in time
         current_time = min([x["end"] for x in current_tasks])
