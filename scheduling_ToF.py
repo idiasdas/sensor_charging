@@ -100,7 +100,6 @@ def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
                     task["ToF"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
             task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
             
-        
         tasks.sort(key=lambda x: x["ToF"])
                 
         for task in list(tasks):
