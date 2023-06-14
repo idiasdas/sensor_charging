@@ -104,11 +104,10 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
                 if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
                     task["ToF"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
                 task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
-                
 
             # assign tasks
             assign_tasks = False
-            for task in list(tasks):
+            for task in list(tasks): # Performs better with for
                 if(status_free[task["drone"]]):
                     task["start"] = time + task["total_wait"]
                     task["end"] = task["start"] + task["time"]
