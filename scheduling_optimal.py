@@ -26,14 +26,14 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
     done = []
     
     while n_tasks > 0:
-        go = True
-        while(go):
+        assign_tasks = True
+        while(assign_tasks):
             # Determine wait time and flight time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
                 task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,current_time),task["ToF"])
             # Tasks are assigned in the order they appear on the list
-            go = False
+            assign_tasks = False
             for task in list(tasks):
                 if(status_free[task["drone"]]): # If drone is free then assign task
                     task["start"] = current_time + task["total_wait"]
@@ -42,7 +42,7 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
                     current_tasks += [task]
                     tasks.remove(task)
                     status_free[task["drone"]] = False
-                    go = True # If task was assigned then continue assigning tasks
+                    assign_tasks = True # If task was assigned then continue assigning tasks
                     break
         
         # Forward in time
