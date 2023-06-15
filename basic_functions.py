@@ -67,18 +67,21 @@ def dist(p,q):
     """
     return np.sqrt(pow(p[0] - q[0],2) + pow(p[1] - q[1],2) + pow(p[2] - q[2],2))
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def check_conflicts(task,current_tasks):
+def check_conflicts(task,current_tasks, drone = None):
     """Returns true if there is a conflict between the task and any of the current tasks. Returns false otherwise
 
     Args:
         task (dict): Task description
         current_tasks (list): List of tasks
+        drone (int,optional): If the task has no drone assigned to it, specify the drone to check conflicts with. Defaults to None, in which case task["drone"] is used.
 
     Returns:
         bool: True if the task has a conflict with some task on the list current_tasks
     """
+    if(drone == None):
+        drone = task["drone"]
     for c_task in current_tasks:
-        if(c_task["drone"] == task["drone"]):
+        if(c_task["drone"] == drone):
             return True
         if(c_task["position"] == task["position"]):
             return True
