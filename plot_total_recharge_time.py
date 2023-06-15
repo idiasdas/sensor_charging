@@ -66,10 +66,18 @@ def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_pat
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_total_recharge_time_SMILP_DATA(input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps'):
+def plot_total_recharge_time_SMILP_DATA(algos = [{"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
+            {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
+            {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k-"},
+            {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y-"}],
+            input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps'):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
+        algo (list): List of dictionaries with the following keys:
+            - algo: The scheduling algorithm to be used.
+            - line: The line style to be used in the plot.
+            - label: The label to be used in the plot.
         input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
     """
@@ -84,10 +92,7 @@ def plot_total_recharge_time_SMILP_DATA(input_path = "milp/backup_results_17feb_
     fig.set_size_inches(6, 4)
 
     x_axis = range(3,11)
-    algos = [{"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
-            {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
-            {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k-"},
-            {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y-"}]
+
     for algo in algos:
         time_avg = []
         for d in range(3,11):
