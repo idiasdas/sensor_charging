@@ -110,6 +110,7 @@ def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
                 current_tasks += [task]
                 tasks.remove(task)
                 status_free[task["drone"]] = False
+        
         # Forward in time          
         shortest_time = min([x["end"] for x in current_tasks])
         time = shortest_time
@@ -121,6 +122,5 @@ def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
                 current_tasks.remove(task)
                 status_free[task["drone"]] = True
                 n_tasks = n_tasks - 1
-
     
     return [done,time]
