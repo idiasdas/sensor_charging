@@ -179,9 +179,9 @@ def get_longest_conflict_time(task, current_tasks, time, no_self = False, drone 
     if(not check_conflicts(task,current_tasks, drone = drone)):
         return 0
     if(no_self):
-        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task], drone = drone) and task["drone"] != x["drone"]]
+        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(task, [x], drone = drone) and task["drone"] != x["drone"]]
     else:
-        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task], drone = drone)]
+        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(task, [x], drone = drone)]
     wait_time = max(conflicts) - time
     if(wait_time < 0):
         print(" Error wait time")
