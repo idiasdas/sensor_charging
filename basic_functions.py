@@ -164,7 +164,7 @@ def get_total_time(tasks,drone_speed):
         last_pos = task["position"]
     return time
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def get_longest_conflict_time(task, current_tasks, time, no_self = False):
+def get_longest_conflict_time(task, current_tasks, time, no_self = False, drone = None):
     """Returns how long a drone needs to wait until it is conflict free
 
     Args:
@@ -172,16 +172,16 @@ def get_longest_conflict_time(task, current_tasks, time, no_self = False):
         current_tasks (list): List of tasks
         time (float): Current time
         no_self (bool, optional): True if we should ignore the tasks with the same drone as task["drone"]. Defaults to False.
-
+        drone (int, optional): Drone to execute the task. Defaults to None, in which case task["drone"] is used.
     Returns:
         float: Wait time
     """
-    if(not check_conflicts(task,current_tasks)):
+    if(not check_conflicts(task,current_tasks, drone = drone)):
         return 0
     if(no_self):
-        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task]) and task["drone"] != x["drone"]]
+        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task], drone = drone) and task["drone"] != x["drone"]]
     else:
-        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task])]
+        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task], drone = drone)]
     wait_time = max(conflicts) - time
     if(wait_time < 0):
         print(" Error wait time")
