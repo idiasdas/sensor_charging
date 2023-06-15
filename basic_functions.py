@@ -14,9 +14,12 @@ def get_tasks(file_path):
     tasks = []
     file = open(file_path, 'r')
     data = file.readlines()
-
+    id = 0
     for line in data[3:]:  # jumping the first 3 lines
         dic = ast.literal_eval(line)
+        if not "id" in dic.keys():
+            dic["id"] = id
+        id += 1
         tasks += [dic]
     return tasks
 # -------------------------------------------------------------------------------------------------------------------------------------------------
