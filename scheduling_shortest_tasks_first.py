@@ -114,7 +114,7 @@ def scheduling_algo_shortest_tasks_first_optimized(tasks, n_drones, drone_speed 
                     current_tasks += [task]
                     tasks.remove(task)
                     status_free[task["drone"]] = False
-                    assign_tasks = True and len(tasks) > 0 # Stop if there are no more tasks to assign
+                    assign_tasks = len(tasks) > 0 # Stop if there are no more tasks to assign
                     break # Stop after assigning one task to recompute wait_time
         
         # Forward in time

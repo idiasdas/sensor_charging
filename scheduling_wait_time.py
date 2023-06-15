@@ -115,7 +115,7 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
                 current_tasks += [task]
                 tasks.remove(task)
                 status_free[task["drone"]] = False
-                assign_tasks = True and len(tasks) > 0 # If there are no tasks left, stop assigning tasks
+                assign_tasks = len(tasks) > 0 # If there are no tasks left, stop assigning tasks
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])
