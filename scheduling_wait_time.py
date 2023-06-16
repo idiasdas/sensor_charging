@@ -28,8 +28,8 @@ def scheduling_algo_wait_time(tasks,n_drones,drone_speed = 10.2):
             # order tasks by wait time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                if(get_wait_time(task, current_tasks,time) > task["ToF"]):
-                    task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
+                if(get_longest_conflict_time(task, current_tasks,time) > task["ToF"]):
+                    task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
                 else:
                     task["total_wait"] = task["ToF"]
             tasks.sort(key = lambda x: x["total_wait"])
@@ -82,7 +82,7 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
         list: List of scheduled tasks, with start and finish times.
     """
     time = 0
-    n_tasks = len(tasks)
+    n_tasks = len(tasks) # Number of tasks not in the output list
     base_station = (0,0,0)
     current_tasks = []
     last_position = []
@@ -93,36 +93,40 @@ def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
     done = []
     
     while n_tasks > 0:
-        go = True
-        while(go):
-            # order tasks by wait time
+        assign_tasks = len(tasks) > 0
+        while(assign_tasks):
+            # determine ToF and wait_time for each task
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
+                if(not status_free[task["drone"]]): # Time of flight correction for tasks whose drone is busy
+                    task["ToF"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
+                task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
+                
+            # Order tasks by wait time
             tasks.sort(key = lambda x: x["total_wait"])
             
-            go = False
-            for task in list(tasks):
-                if(status_free[task["drone"]]):
-                    task["start"] = time + task["total_wait"]
-                    task["end"] = task["start"] + task["time"]
-                    last_position[task["drone"]] = task["position"]
-                    current_tasks += [task]
-                    tasks.remove(task)
-                    go = True
-                    status_free[task["drone"]] = False
-                    break # needs to reorder tasks after each assignment
+            # Assign tasks
+            assign_tasks = False # If the head is not assigned, stop assigning tasks
+            task = tasks[0]
+            if(status_free[task["drone"]]):
+                task["start"] = time + task["total_wait"]
+                task["end"] = task["start"] + task["time"]
+                last_position[task["drone"]] = task["position"]
+                current_tasks += [task]
+                tasks.remove(task)
+                status_free[task["drone"]] = False
+                assign_tasks = len(tasks) > 0 # If there are no tasks left, stop assigning tasks
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])
-        #Finish tasks
+        # Finish tasks
         for task in list(current_tasks):
             if(time >= task["end"]):
                 done += [task]
                 status_free[task["drone"]] = True
                 current_tasks.remove(task)
                 n_tasks = n_tasks - 1
-            
+
     return [done,time]
 
     

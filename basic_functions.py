@@ -14,9 +14,12 @@ def get_tasks(file_path):
     tasks = []
     file = open(file_path, 'r')
     data = file.readlines()
-
+    id = 0
     for line in data[3:]:  # jumping the first 3 lines
         dic = ast.literal_eval(line)
+        if not "id" in dic.keys():
+            dic["id"] = id
+        id += 1
         tasks += [dic]
     return tasks
 # -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,18 +70,21 @@ def dist(p,q):
     """
     return np.sqrt(pow(p[0] - q[0],2) + pow(p[1] - q[1],2) + pow(p[2] - q[2],2))
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def check_conflicts(task,current_tasks):
+def check_conflicts(task,current_tasks, drone = None):
     """Returns true if there is a conflict between the task and any of the current tasks. Returns false otherwise
 
     Args:
         task (dict): Task description
         current_tasks (list): List of tasks
+        drone (int,optional): If the task has no drone assigned to it, specify the drone to check conflicts with. Defaults to None, in which case task["drone"] is used.
 
     Returns:
         bool: True if the task has a conflict with some task on the list current_tasks
     """
+    if(drone == None):
+        drone = task["drone"]
     for c_task in current_tasks:
-        if(c_task["drone"] == task["drone"]):
+        if(c_task["drone"] == drone):
             return True
         if(c_task["position"] == task["position"]):
             return True
@@ -161,7 +167,7 @@ def get_total_time(tasks,drone_speed):
         last_pos = task["position"]
     return time
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def get_wait_time(task, current_tasks, time, no_self = False):
+def get_longest_conflict_time(task, current_tasks, time, no_self = False, drone = None):
     """Returns how long a drone needs to wait until it is conflict free
 
     Args:
@@ -169,16 +175,16 @@ def get_wait_time(task, current_tasks, time, no_self = False):
         current_tasks (list): List of tasks
         time (float): Current time
         no_self (bool, optional): True if we should ignore the tasks with the same drone as task["drone"]. Defaults to False.
-
+        drone (int, optional): Drone to execute the task. Defaults to None, in which case task["drone"] is used.
     Returns:
         float: Wait time
     """
-    if(not check_conflicts(task,current_tasks)):
+    if(not check_conflicts(task,current_tasks, drone = drone)):
         return 0
     if(no_self):
-        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task]) and task["drone"] != x["drone"]]
+        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(task, [x], drone = drone) and task["drone"] != x["drone"]]
     else:
-        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(x, [task])]
+        conflicts  = [ x["end"] for x in current_tasks if check_conflicts(task, [x], drone = drone)]
     wait_time = max(conflicts) - time
     if(wait_time < 0):
         print(" Error wait time")
@@ -283,3 +289,14 @@ def verify_schedule(tasks):
                             print("ERROR: improper scheduling between tasks " + str(task1["id"])+ " and " + str(task2["id"]))
                             return False
     return True
+
+def print_schedule(tasks):
+    """Prints the tasks in a schedule in the order they start.
+
+    Args:
+        tasks (list): List of tasks that have already been scheduled.
+    """    
+    tasks.sort(key = lambda x: x["start"],reverse=False)
+    print("\t\t- id","\t","start","\t\t","end","\t\t","drone","\t\t","flight_start", "\t\t","sensors",sep=' ')
+    for task in tasks:
+        print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')

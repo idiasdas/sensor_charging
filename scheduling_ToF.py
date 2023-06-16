@@ -28,7 +28,7 @@ def scheduling_algo_tof(tasks,n_drones, drone_speed = 10.2):
             task["ToF"] = dist(task["position"],last_position[task["drone"]])/drone_speed
         tasks.sort(key=lambda x: x["ToF"])
         
-        #Try to assign all tasks
+        # Try to assign all tasks without conflicts
         for task in list(tasks):
             if(not check_conflicts(task, current_tasks)):
                 task["ToF"] = dist(task["position"],last_position[task["drone"]])/drone_speed
@@ -38,11 +38,12 @@ def scheduling_algo_tof(tasks,n_drones, drone_speed = 10.2):
                 current_tasks += [task]
                 status_free[task["drone"]] = False
                 tasks.remove(task)
-                
+
+        # Assign tasks with conflicts
         for task in list(tasks):
             if(status_free[task["drone"]] and len( [x for x in current_tasks if x["drone"] == task["drone"]]) == 0):
-                if(get_wait_time(task, current_tasks,time) > task["ToF"]):
-                    task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
+                if(get_longest_conflict_time(task, current_tasks,time) > task["ToF"]):
+                    task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
                 else:
                     task["total_wait"] = task["ToF"]
                 task["start"] = time + task["total_wait"]
@@ -95,17 +96,21 @@ def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
         # order tasks by ToF
         for task in tasks:
             task["ToF"] = dist(task["position"],last_position[task["drone"]])/drone_speed
+            if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
+                    task["ToF"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
+            task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
+            
         tasks.sort(key=lambda x: x["ToF"])
                 
         for task in list(tasks):
             if(status_free[task["drone"]] and not check_conflicts(task, current_tasks)):
-                task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
                 task["start"] = time + task["total_wait"]
                 task["end"] = task["start"] + task["time"]
                 last_position[task["drone"]] = task["position"]
                 current_tasks += [task]
                 tasks.remove(task)
                 status_free[task["drone"]] = False
+        
         # Forward in time          
         shortest_time = min([x["end"] for x in current_tasks])
         time = shortest_time
@@ -117,6 +122,5 @@ def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
                 current_tasks.remove(task)
                 status_free[task["drone"]] = True
                 n_tasks = n_tasks - 1
-
     
     return [done,time]

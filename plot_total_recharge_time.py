@@ -11,12 +11,17 @@ from scheduling_nodrone_ToF import *
 from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
-def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_path = "inputs/",file_name = 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'):
+def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_path = "inputs/",file_name = 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps', legend_outside = True):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
+        algo (list): List of dictionaries with the following keys:
+            - algo: The scheduling algorithm to be used.
+            - line: The line style to be used in the plot.
+            - label: The label to be used in the plot.
         input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
+        legend_outside (bool, optional): If True, the legend will be outside the figure. Defaults to True.
     """
     s = 5
     p = 5
@@ -54,14 +59,25 @@ def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_pat
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    if legend_outside:
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    else:
+        ax.legend()
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_total_recharge_time_SMILP_DATA(input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps'):
+def plot_total_recharge_time_SMILP_DATA(algos = [{"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
+            {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
+            {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k-"},
+            {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y-"}],
+            input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps'):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
+        algo (list): List of dictionaries with the following keys:
+            - algo: The scheduling algorithm to be used.
+            - line: The line style to be used in the plot.
+            - label: The label to be used in the plot.
         input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
     """
@@ -76,10 +92,7 @@ def plot_total_recharge_time_SMILP_DATA(input_path = "milp/backup_results_17feb_
     fig.set_size_inches(6, 4)
 
     x_axis = range(3,11)
-    algos = [{"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
-            {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
-            {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k-"},
-            {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y-"}]
+
     for algo in algos:
         time_avg = []
         for d in range(3,11):

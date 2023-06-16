@@ -1,4 +1,60 @@
 from basic_functions import *
+
+def scheduling_algo_nodrone_ltf_revised(tasks,n_drones,drone_speed = 10.2):
+    """Sensor based scheduling algorithm (Longest tasks first)
+
+    Args:
+        tasks (list): List of tasks to be scheduled. Any preassigned drones are ignored.
+        n_drones (int): Number of available drones.
+        drone_speed (float, optional): Drone's flight speed. Defaults to 10.2.
+
+    Returns:
+        [list,float]: [List of tasks assigned, finish time]
+    """
+    base_station = (0,0,0)
+    assigned_tasks = []
+
+    assign_order = 0
+    drone_position = []
+    drone_time = []
+    for drone in range(n_drones):
+        drone_position += [base_station]
+        drone_time += [0]
+    # done = []
+
+    tasks.sort(key = lambda x: x["time"],reverse=True)
+
+    while len(tasks) > 0:
+        # Get the task with the longest time
+        task = tasks[0]
+        task["assign_order"] = assign_order
+        assign_order += 1
+        # ------------------------------------------------------------------ 
+        # Determine flight time and wait time, assign drone with minimum wait time
+        task["ToF"] = 10000000
+        task["wait_time"] = 10000000
+        wait_time = 10000000
+        for drone in range(n_drones):
+            tof = dist(drone_position[drone],task["position"])/drone_speed
+            wait_time = max(get_longest_conflict_time(task, assigned_tasks,0, drone = drone),tof + drone_time[drone])
+            if(wait_time < task["wait_time"]):
+                task["ToF"] = tof
+                task["wait_time"] = wait_time
+                task["drone"] = drone
+        # ------------------------------------------------------------------
+        # Task assignment
+        task["start"] = task["wait_time"]
+        task["end"] = task["start"] + task["time"]
+        drone_position[task["drone"]] = task["position"]
+        drone_time[task["drone"]] = task["end"]
+        # ------------------------------------------------------------------
+        # Update tasks list and current tasks list
+        tasks.remove(task)
+        assigned_tasks += [task]
+        # ------------------------------------------------------------------
+    finish_time = max([x["end"] for x in assigned_tasks])
+    return [assigned_tasks,finish_time]  
+
 def scheduling_algo_nodrone_ltf(tasks,n_drones,drone_speed = 10.2):
     
     """Scheduling Algorithm Drone olbivious task assignment - Longest Tasks First(DOTA-LTF)
@@ -9,7 +65,7 @@ def scheduling_algo_nodrone_ltf(tasks,n_drones,drone_speed = 10.2):
         drone_speed (float, optional): Drone's speed. Defaults to 10.2 metets per second.
 
     Returns:
-        list: List of tasks scheduled.
+        [list,float]: [List of scheduled tasks, finish time]
     """
     # Initializing variables
     n_tasks = len(tasks)

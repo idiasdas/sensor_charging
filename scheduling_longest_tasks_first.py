@@ -28,8 +28,8 @@ def scheduling_algo_longest_tasks_first(tasks,n_drones,drone_speed = 10.2):
             # order tasks by wait time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                if(get_wait_time(task, current_tasks,time) > task["ToF"]):
-                    task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
+                if(get_longest_conflict_time(task, current_tasks,time) > task["ToF"]):
+                    task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
                 else:
                     task["total_wait"] = task["ToF"]
             tasks.sort(key = lambda x: x["time"],reverse=True)
@@ -93,30 +93,30 @@ def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed =
         status_free += [True]
     done = []
     
+    tasks.sort(key = lambda x: x["time"],reverse=True)
+    
     while n_tasks > 0:
-        go = True
-        while(go):
-            # order tasks by duration from longest to shortest
+        assign_tasks = len(tasks) > 0
+        while(assign_tasks):
+            # order tasks by duration from shortest to longest
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                task["total_wait"] = max(get_wait_time(task, current_tasks,time),task["ToF"])
-            tasks.sort(key = lambda x: x["time"],reverse=True)
+                if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
+                    task["ToF"] += [(x["end"] - time) for x in current_tasks if x["drone"] == task["drone"]][0]
+                task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,time),task["ToF"])
 
             # assign tasks
-            task_added = False
-            for task in list(tasks):
+            assign_tasks = False
+            for task in list(tasks): # Performs better with for
                 if(status_free[task["drone"]]):
                     task["start"] = time + task["total_wait"]
                     task["end"] = task["start"] + task["time"]
                     last_position[task["drone"]] = task["position"]
                     current_tasks += [task]
                     tasks.remove(task)
-                    task_added = True
                     status_free[task["drone"]] = False
-                    break
-                    
-            if(not task_added):
-                go = False
+                    assign_tasks = len(tasks) > 0 # Stop if there are no more tasks to assign
+                    break # Stop after assigning one task to recompute wait_time
         
         # Forward in time
         time = min([x["end"] for x in current_tasks])

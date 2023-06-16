@@ -1,5 +1,6 @@
 from basic_functions import *
 import time
+from datetime import datetime
 import threading
 
 def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
@@ -25,24 +26,26 @@ def scheduling_inorder(tasks,n_drones,drone_speed = 10.2):
     done = []
     
     while n_tasks > 0:
-        go = True
-        while(go):
+        assign_tasks = len(tasks) > 0
+        while(assign_tasks):
             # Determine wait time and flight time
             for task in tasks:
                 task["ToF"] = dist(last_position[task["drone"]],task["position"])/drone_speed
-                task["total_wait"] = max(get_wait_time(task, current_tasks,current_time),task["ToF"])
+                if(not status_free[task["drone"]]): # Wait time correction for tasks whose drone is busy
+                    task["ToF"] += [(x["end"] - current_time) for x in current_tasks if x["drone"] == task["drone"]][0]
+                task["total_wait"] = max(get_longest_conflict_time(task, current_tasks,current_time),task["ToF"])
+            
             # Tasks are assigned in the order they appear on the list
-            go = False
-            for task in list(tasks):
-                if(status_free[task["drone"]]): # If drone is free then assign task
-                    task["start"] = current_time + task["total_wait"]
-                    task["end"] = task["start"] + task["time"]
-                    last_position[task["drone"]] = task["position"]
-                    current_tasks += [task]
-                    tasks.remove(task)
-                    status_free[task["drone"]] = False
-                    go = True # If task was assigned then continue assigning tasks
-                    break
+            assign_tasks = False
+            task = tasks[0]
+            if(status_free[task["drone"]]): # If drone is free then assign task
+                task["start"] = current_time + task["total_wait"]
+                task["end"] = task["start"] + task["time"]
+                last_position[task["drone"]] = task["position"]
+                current_tasks += [task]
+                tasks.remove(task)
+                status_free[task["drone"]] = False
+                assign_tasks = True and len(tasks) > 0 # If task was assigned then continue assigning tasks else move forward in time
         
         # Forward in time
         current_time = min([x["end"] for x in current_tasks])
@@ -133,6 +136,10 @@ def optimal_experiment(p = 5, drones  = range(3,11), sensors = [5,10,15,20,30,40
     
     for d in drones:
         for s in sensors:
+            print("Running optimal for d = " + str(d) + " and s = " + str(s))
+            print(" - Started at:" + str(datetime.now()))
+            print(" - Timeout: " + str(timeout))
+            print(" -------------------------------------------------")
             threads = []
             file_name = output_path + "optimal_output_p" + str(p) +"_d"+ str(d) + "_s" + str(s) + ".txt"
             output_file = open(file_name,"a")
