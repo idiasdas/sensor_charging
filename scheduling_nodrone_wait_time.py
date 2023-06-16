@@ -12,7 +12,7 @@ def scheduling_algo_nodrone_wait_time_optimized(tasks,n_drones,drone_speed = 10.
         list: List of tasks scheduled.
     """
     n_tasks = len(tasks)
-    time = 0
+    current_time = 0
     base_station = (0,0,0)
     current_tasks = []
     last_position = []
@@ -33,8 +33,8 @@ def scheduling_algo_nodrone_wait_time_optimized(tasks,n_drones,drone_speed = 10.
                 for drone in range(n_drones):
                     tof = dist(last_position[drone],task["position"])/drone_speed
                     if(not status_free[drone]): # Time of flight correction for tasks whose drone is busy
-                        tof += [(x["end"] - time) for x in current_tasks if x["drone"] == drone][0]
-                    wait_time = max(get_longest_conflict_time(task, current_tasks,time, drone = drone),tof)
+                        tof += [(x["end"] - current_time) for x in current_tasks if x["drone"] == drone][0]
+                    wait_time = max(get_longest_conflict_time(task, current_tasks,current_time, drone = drone),tof)
                     if(wait_time < task["wait_time"]):
                         task["ToF"] = tof
                         task["wait_time"] = wait_time
@@ -42,10 +42,11 @@ def scheduling_algo_nodrone_wait_time_optimized(tasks,n_drones,drone_speed = 10.
             
             tasks.sort(key = lambda x: x["wait_time"],reverse=False)
             task = tasks[0]
+            
             assign_tasks = False
             if(status_free[task["drone"]]):
                 status_free[task["drone"]] = False
-                task["start"] = time + task["wait_time"]
+                task["start"] = current_time + task["wait_time"]
                 task["end"] = task["start"] + task["time"]
                 last_position[task["drone"]] = task["position"]
                 current_tasks += [task]
@@ -53,15 +54,15 @@ def scheduling_algo_nodrone_wait_time_optimized(tasks,n_drones,drone_speed = 10.
                 assign_tasks = len(tasks) > 0
 
         # Forward time
-        time = min([x["end"] for x in current_tasks])
+        current_time = min([x["end"] for x in current_tasks])
         #Finish tasks
         for task in list(current_tasks):
-            if(time >= task["end"]):
+            if(current_time >= task["end"]):
                 done += [task]
                 status_free[task["drone"]] = True
                 current_tasks.remove(task)
                 n_tasks = n_tasks - 1
-    return [done,time]      
+    return [done,current_time]      
 
 def scheduling_algo_nodrone_wait_time(tasks,n_drones,drone_speed = 10.2):
     """Scheduling Algorithm Drone olbivious task assignment (DOTA-WT)
