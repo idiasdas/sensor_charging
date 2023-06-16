@@ -6,6 +6,9 @@ from scheduling_longest_tasks_first import *
 from scheduling_ToF import *
 from scheduling_shortest_tasks_first import *
 from scheduling_nodrone_wait_time import *
+from scheduling_nodrone_longest_tasks_first import *
+from scheduling_nodrone_shortest_tasks_first import *
+from scheduling_nodrone_ToF import *
 
 def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/", give_examples = False):
     """Compare two algorithms for scheduling tasks given a set of inputs. Considers inputs from old MILP with drones already assigned to tasks.
@@ -50,7 +53,6 @@ def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/", give_examples
                         print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
                         print("\t-Stopped equivalence test.")
                     return False
-
 
     return True
 
@@ -181,17 +183,36 @@ def test_dota_old_vs_optimized():
 
 def test_data_old_vs_optimized(plot_recharge_time = True):
     """Tests equivalence between old and optimized algorithms for scheduling tasks given a set of inputs. Considers inputs from new MILP with drones not assigned to tasks."""
-    algo1 = {"algo":scheduling_algo_nodrone_wait_time, "label":"scheduling_wait_time","line":"b-"}
-    algo2 = {"algo":scheduling_algo_nodrone_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
-    test_equivalence_data([algo1, algo2], "test_equivalence_nodrone_wait_time",give_example=True)
 
-    # algo1 = {"algo":scheduling_algo_nodrone_wait_time, "label":"scheduling_wait_time","line":"b-"}
-    # algo2 = {"algo":scheduling_algo_nodrone_wt_revised, "label":"scheduling_algo_nodrone_wt_revised","line":"r-"}
-    # test_equivalence_data([algo1, algo2], "revised_wt_vs_old",give_example=True)
+    # algo1 = {"algo":scheduling_algo_nodrone_wait_time, "label":"scheduling_algo_nodrone_wait_time","line":"b-"}
+    # algo2 = {"algo":scheduling_algo_nodrone_wait_time_optimized, "label":"scheduling_algo_nodrone_wait_time_optimized","line":"r-"}
+    # test_equivalence_data([algo1, algo2], "optimized_vs_old",give_example=False)
 
     # algo1 = {"algo":scheduling_algo_nodrone_wait_time_optimized, "label":"scheduling_algo_nodrone_wait_time_optimized","line":"b-"}
     # algo2 = {"algo":scheduling_algo_nodrone_wt_revised, "label":"scheduling_algo_nodrone_wt_revised","line":"r-"}
     # test_equivalence_data([algo1, algo2], "revised_wt_vs_optimized",plot_recharge_time=plot_recharge_time,give_example=True)
+
+    # -----------------------------------------------------------------------------------------------------
+    algo1 = {"algo":scheduling_algo_nodrone_wait_time, "label":"scheduling_algo_nodrone_wait_time","line":"b-"}
+    algo2 = {"algo":scheduling_algo_nodrone_wt_revised, "label":"scheduling_algo_nodrone_wt_revised","line":"r-"}
+    test_equivalence_data([algo1, algo2], "no_drone_wt",give_example=False)
+    # -----------------------------------------------------------------------------------------------------
+    algo1 = {"algo":scheduling_algo_nodrone_ltf, "label":"scheduling_algo_nodrone_ltf","line":"b-"}
+    algo2 = {"algo":scheduling_algo_nodrone_ltf_revised, "label":"scheduling_algo_nodrone_ltf_revised","line":"r-"}
+    test_equivalence_data([algo1, algo2], "no_drone_ltf",give_example=False)
+    # -----------------------------------------------------------------------------------------------------
+    algo1 = {"algo":scheduling_algo_nodrone_stf, "label":"scheduling_algo_nodrone_stf","line":"b-"}
+    algo2 = {"algo":scheduling_algo_nodrone_stf_revised, "label":"scheduling_algo_nodrone_stf_revised","line":"r-"}
+    test_equivalence_data([algo1, algo2], "no_drone_stf",give_example=False)
+    # -----------------------------------------------------------------------------------------------------
+    algo1 = {"algo":scheduling_algo_nodrone_tof, "label":"scheduling_algo_nodrone_tof","line":"b-"}
+    algo2 = {"algo":scheduling_algo_nodrone_tof_revised, "label":"scheduling_algo_nodrone_tof_revised","line":"r-"}
+    test_equivalence_data([algo1, algo2], "no_drone_tof",give_example=False)
+    # # -----------------------------------------------------------------------------------------------------
+    # algo1 = {"algo":scheduling_algo_nodrone_wt_revised, "label":"scheduling_algo_nodrone_wt_revised","line":"b-"}
+    # algo2 = {"algo":scheduling_algo_nodrone_tof_revised, "label":"scheduling_algo_nodrone_tof_revised","line":"r-"}
+    # test_equivalence_data([algo1, algo2], "no_drone_tof_wt",give_example=False)
+    
 
 
 # test_dota_old_vs_optimized()
