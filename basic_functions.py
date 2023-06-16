@@ -289,3 +289,14 @@ def verify_schedule(tasks):
                             print("ERROR: improper scheduling between tasks " + str(task1["id"])+ " and " + str(task2["id"]))
                             return False
     return True
+
+def print_schedule(tasks):
+    """Prints the tasks in a schedule in the order they start.
+
+    Args:
+        tasks (list): List of tasks that have already been scheduled.
+    """    
+    tasks.sort(key = lambda x: x["start"],reverse=False)
+    print("\t\t- id","\t","start","\t\t","end","\t\t","drone","\t\t","flight_start", "\t\t","sensors",sep=' ')
+    for task in tasks:
+        print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')
