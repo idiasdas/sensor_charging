@@ -37,7 +37,7 @@ def scheduling_algo_nodrone_tof_revised(tasks,n_drones,drone_speed = 10.2):
                     task["drone"] = drone
         # ------------------------------------------------------------------ 
         # Get task with minimum time of flight
-        tasks.sort(key = lambda x: x["ToF"],reverse=False)
+        tasks.sort(key = lambda x: x["ToF"] + drone_time[x["drone"]],reverse=False)
         task = tasks[0]
         # ------------------------------------------------------------------ 
         # Task assignment
