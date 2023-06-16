@@ -135,19 +135,21 @@ def test_equivalence_dota(algos, file_name):
         print("* (FAIL)")
     print("---------------------------------------------------------------")
 
-def test_equivalence_data(algos, file_name):
+def test_equivalence_data(algos, file_name,plot_recharge_time = True, give_example=False):
     """Tests equivalence between two algorithms data. If they are not equivalent, plots the difference between them and gives the first example of different solutions.
 
     Args:
         algos (list): List with two algorithms to be compared that use as input. They must be described as dictionaries such as {"algo":scheduling_algo_nodrone_wait_time_optimized, "label":"scheduling_algo_nodrone_wait_time_optimized","line":"b-"}.
         file_name (string): Name of plot file to be saved in case of not equivalent algorithms.
+        give_example (bool, optional): If True, gives the first example of different solutions. Defaults to False.
     """    
     print("* Testing "+algos[0]["algo"].__name__+" and " + algos[1]["algo"].__name__ + " for equivalence.")
-    if data_algo_set_comparison(algos[0]["algo"], algos[1]["algo"]):
+    if data_algo_set_comparison(algos[0]["algo"], algos[1]["algo"], give_example=give_example):
         print("* (SUCCESS)")
     else:
-        print("* Plotting difference between algorithms over all inputs")
-        plot_total_recharge_time(algos, file_name="tests_outputs/"+file_name+".eps", legend_outside=False)
+        if(plot_recharge_time):
+            print("* Plotting difference between algorithms over all inputs")
+            plot_total_recharge_time(algos, file_name="tests_outputs/sb_equivalence_test/"+file_name+".eps", legend_outside=False)
         print("* (FAIL)")
     print("---------------------------------------------------------------")
 
