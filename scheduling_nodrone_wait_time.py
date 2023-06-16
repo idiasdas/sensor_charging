@@ -2,6 +2,17 @@ from basic_functions import *
 
 
 def scheduling_algo_nodrone_wt_revised(tasks,n_drones,drone_speed = 10.2):
+    """Scheduling algorithm: Sensor based task assignment. Highest priority to smallest wait time.
+        Removed the notion of fowarding in time and concluding tasks.
+
+    Args:
+        tasks (list): List of tasks to be scheduled. Ignores drones already assigned.
+        n_drones (int): Number of available drones.
+        drone_speed (float, optional): Drone's flight speed. Defaults to 10.2.
+
+    Returns:
+        [list,float]: [List of scheduled tasks, finish time]
+    """    
     base_station = (0,0,0)
     current_tasks = []
 
