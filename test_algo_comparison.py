@@ -54,17 +54,18 @@ def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/", give_examples
 
     return True
 
-def data_algo_set_comparison(algo1, algo2, input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/", give_examples = False):
+def data_algo_set_comparison(algo1, algo2, input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/", give_example = False):
     """Compare two algorithms for scheduling tasks given a set of inputs. Considers inputs from old MILP with drones already assigned to tasks.
 
     Args:
         algo1 (function): First algorithm to be compared. Must be a function that takes as input a list of tasks, the number of drones and the drone speed.
         algo2 (function): Second algorithm to be compared. Must be a function that takes as input a list of tasks, the number of drones and the drone speed.
         input_path (str, optional): Path to the folder containing the inputs. Defaults to "inputs/".
-        give_examples (bool, optional): If True, gives examples of different outputs. Defaults to False.
+        give_example (bool, optional): If True, gives examples of different outputs. Defaults to False.
     Returns:
         boolean: True if the two algorithms give the same results, False otherwise.
     """
+    eps = 0.0001
     p = 5
     i_max = 50
     drone_speed = 0.5    
@@ -83,22 +84,32 @@ def data_algo_set_comparison(algo1, algo2, input_path = "milp/backup_results_17f
                 tasks = get_tasks(file)
                 scheduling2,time2 = algo2(tasks, d, drone_speed)
 
-                if time1 != time2:
+                if abs(time1 - time2) > eps:
                     print("\t- Different time for d = " + str(d) + ", s = " + str(s) + ", i = " + str(i) + ", time1 = " + str(time1) + ", time2 = " + str(time2))
                     count_diff += 1
                     total_diff += time1 - time2
-                    if time1 - time2 < -5:
-                        plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/test_equivalence_" + algo1.__name__ +".eps",save=True)
-                        plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/test_equivalence_" + algo2.__name__ +".eps",save=True)
-                        print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
+                    if give_example and abs(time1 - time2) > 5:
+                        print("\t- Scheduling 1")
+                        print("\t\t- id","\t\t ","start","\t\t ","end","\t\t","drone","\t\t","flight_start", sep=' ')
+                        for task in scheduling1:
+                            print("\t\t- "+ str(task["id"]) +"\t " + str(task["start"]) +"\t " + str(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + str(task["start"] - task["ToF"]), sep=' ')
+
+                        print("\t- Scheduling 2")
+                        print("\t\t- id","\t\t ","start","\t\t ","end","\t\t","drone","\t\t","flight_start", sep=' ')
+                        for task in scheduling2:
+                            print("\t\t- "+ str(task["id"]) +"\t " + str(task["start"]) +"\t " + str(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + str(task["start"] - task["ToF"]), sep=' ')
+
+                        plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/sb_equivalence_test/" + algo1.__name__ +".eps",save=True, title = algo1.__name__ +" time: " + str(time1))
+                        plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/sb_equivalence_test/" + algo2.__name__ +".eps",save=True,title=algo2.__name__+" time: " + str(time2))
+                        print("\t-Saved different example as tests_outputs/sb_equivalence_test/" + algo1.__name__ +".eps and tests_outputs/sb_equivalence_test/" + algo2.__name__ +".eps")
                         print("\t-Stopped equivalence test.")
                         return False
                 if not (verify_schedule(scheduling1) and verify_schedule(scheduling2)): #If any of the schedules is not valid
                     print("\t- Invalid schedule for d = " + str(d) + ", s = " + str(s) + ", i = " + str(i))
-                    if give_examples:
-                        plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/test_equivalence_badschedule_" + algo1.__name__ +".eps",save=True)
-                        plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/test_equivalence_badschedule_" + algo2.__name__ +".eps",save=True)
-                        print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
+                    if give_example:
+                        plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/sb_equivalence_test/badschedule_" + algo1.__name__ +".eps",save=True,title=algo1.__name__)
+                        plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/sb_equivalence_test/badschedule_" + algo2.__name__ +".eps",save=True,title=algo2.__name__)
+                        print("\t-Saved different example as tests_outputs/sb_equivalence_test/" + algo1.__name__ +".eps and tests_outputs/sb_equivalence_test/" + algo2.__name__ +".eps")
                         print("\t-Stopped equivalence test.")
                     return False
 
