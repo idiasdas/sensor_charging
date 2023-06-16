@@ -85,19 +85,19 @@ def data_algo_set_comparison(algo1, algo2, input_path = "milp/backup_results_17f
                 scheduling2,time2 = algo2(tasks, d, drone_speed)
 
                 if abs(time1 - time2) > eps:
-                    print("\t- Different time for d = " + str(d) + ", s = " + str(s) + ", i = " + str(i) + ", time1 = " + str(time1) + ", time2 = " + str(time2))
+                    if give_example:
+                        print("\t- Different time for d = " + str(d) + ", s = " + str(s) + ", i = " + str(i) + ", time1 = " + str(time1) + ", time2 = " + str(time2))
                     count_diff += 1
                     total_diff += time1 - time2
                     if give_example and abs(time1 - time2) > 5:
                         print("\t- Scheduling 1")
-                        print("\t\t- id","\t\t ","start","\t\t ","end","\t\t","drone","\t\t","flight_start", sep=' ')
+                        print("\t\t- id","\t","start","\t\t","end","\t\t","drone","\t\t","flight_start", "\t\t","sensors",sep=' ')
                         for task in scheduling1:
-                            print("\t\t- "+ str(task["id"]) +"\t " + str(task["start"]) +"\t " + str(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + str(task["start"] - task["ToF"]), sep=' ')
-
+                            print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')
                         print("\t- Scheduling 2")
-                        print("\t\t- id","\t\t ","start","\t\t ","end","\t\t","drone","\t\t","flight_start", sep=' ')
+                        print("\t\t- id","\t","start","\t\t","end","\t\t","drone","\t\t","flight_start", "\t\t","sensors",sep=' ')
                         for task in scheduling2:
-                            print("\t\t- "+ str(task["id"]) +"\t " + str(task["start"]) +"\t " + str(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + str(task["start"] - task["ToF"]), sep=' ')
+                            print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')
 
                         plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/sb_equivalence_test/" + algo1.__name__ +".eps",save=True, title = algo1.__name__ +" time: " + str(time1))
                         plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/sb_equivalence_test/" + algo2.__name__ +".eps",save=True,title=algo2.__name__+" time: " + str(time2))
@@ -107,6 +107,14 @@ def data_algo_set_comparison(algo1, algo2, input_path = "milp/backup_results_17f
                 if not (verify_schedule(scheduling1) and verify_schedule(scheduling2)): #If any of the schedules is not valid
                     print("\t- Invalid schedule for d = " + str(d) + ", s = " + str(s) + ", i = " + str(i))
                     if give_example:
+                        print("\t- Scheduling 1")
+                        print("\t\t- id","\t","start","\t\t","end","\t\t","drone","\t\t","flight_start", "\t\t","sensors",sep=' ')
+                        for task in scheduling1:
+                            print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')
+                        print("\t- Scheduling 2")
+                        print("\t\t- id","\t","start","\t\t","end","\t\t","drone","\t\t","flight_start", "\t\t","sensors",sep=' ')
+                        for task in scheduling2:
+                            print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')
                         plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/sb_equivalence_test/badschedule_" + algo1.__name__ +".eps",save=True,title=algo1.__name__)
                         plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/sb_equivalence_test/badschedule_" + algo2.__name__ +".eps",save=True,title=algo2.__name__)
                         print("\t-Saved different example as tests_outputs/sb_equivalence_test/" + algo1.__name__ +".eps and tests_outputs/sb_equivalence_test/" + algo2.__name__ +".eps")
