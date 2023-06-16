@@ -171,11 +171,19 @@ def test_dota_old_vs_optimized():
     algo2 = {"algo":scheduling_algo_shortest_tasks_first_optimized, "label":"scheduling_shortest_tasks_first_optimized","line":"r-"}
     test_equivalence_dota([algo1, algo2], "test_equivalence_stf")
 
-def test_data_old_vs_optimized():
+def test_data_old_vs_optimized(plot_recharge_time = True):
     """Tests equivalence between old and optimized algorithms for scheduling tasks given a set of inputs. Considers inputs from new MILP with drones not assigned to tasks."""
     algo1 = {"algo":scheduling_algo_nodrone_wait_time, "label":"scheduling_wait_time","line":"b-"}
     algo2 = {"algo":scheduling_algo_nodrone_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
-    test_equivalence_data([algo1, algo2], "test_equivalence_nodrone_wait_time")
+    test_equivalence_data([algo1, algo2], "test_equivalence_nodrone_wait_time",give_example=True)
+
+    # algo1 = {"algo":scheduling_algo_nodrone_wait_time, "label":"scheduling_wait_time","line":"b-"}
+    # algo2 = {"algo":scheduling_algo_nodrone_wt_revised, "label":"scheduling_algo_nodrone_wt_revised","line":"r-"}
+    # test_equivalence_data([algo1, algo2], "revised_wt_vs_old",give_example=True)
+
+    # algo1 = {"algo":scheduling_algo_nodrone_wait_time_optimized, "label":"scheduling_algo_nodrone_wait_time_optimized","line":"b-"}
+    # algo2 = {"algo":scheduling_algo_nodrone_wt_revised, "label":"scheduling_algo_nodrone_wt_revised","line":"r-"}
+    # test_equivalence_data([algo1, algo2], "revised_wt_vs_optimized",plot_recharge_time=plot_recharge_time,give_example=True)
 
 
 # test_dota_old_vs_optimized()
