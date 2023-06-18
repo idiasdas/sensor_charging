@@ -150,7 +150,7 @@ def test_equivalence_data(algos, file_name,plot_recharge_time = True, give_examp
     else:
         if(plot_recharge_time):
             print("* Plotting difference between algorithms over all inputs")
-            plot_total_recharge_time(algos, file_name="tests_outputs/sb_equivalence_test/"+file_name+".eps", legend_outside=False)
+            plot_total_recharge_time_SMILP_DATA(algos, file_name="tests_outputs/sb_equivalence_test/"+file_name+".eps")
         print("* (FAIL)")
     print("---------------------------------------------------------------")
 
