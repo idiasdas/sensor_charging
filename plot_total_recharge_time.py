@@ -66,11 +66,13 @@ def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_pat
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_total_recharge_time_SMILP_DATA(algos = [{"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
+def plot_total_recharge_time_SMILP_DATA(algos = [
+            {"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
             {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
             {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k-"},
             {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y-"}],
-            input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps'):
+            input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps',
+            fig_title = "SMILP + DATA"):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
@@ -78,8 +80,9 @@ def plot_total_recharge_time_SMILP_DATA(algos = [{"algo":scheduling_algo_nodrone
             - algo: The scheduling algorithm to be used.
             - line: The line style to be used in the plot.
             - label: The label to be used in the plot.
-        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
+        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "milp/backup_results_17feb_timelimit1200/output_simplified/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
+        fig_title (str, optional): The title of the figure. Defaults to "SMILP + DATA".
     """
     s = 5
     p = 5
@@ -112,7 +115,7 @@ def plot_total_recharge_time_SMILP_DATA(algos = [{"algo":scheduling_algo_nodrone
         
             time_avg += [t/(i_max*7)]
         plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
-    plt.title("SMILP + DATA")
+    plt.title(fig_title)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
