@@ -58,3 +58,29 @@ def DBLP_SB_algos():
     fig_title = "DB-LP + NEW SB Algorithms"
     plot_total_recharge_time(algos,fig_title,file_name='figures/Recharge_time_DBLP_SBalgos.eps')
 
+
+def SBLP_SB_algos(old = False):
+    """Plots the total recharge time for the sensor based algorithms with the SB-LP as input.
+    
+    """
+    if old:
+        algos = [
+            {"algo":scheduling_algo_nodrone_tof,"label":"SB-ToF","line":"y-"},
+            {"algo":scheduling_algo_nodrone_wait_time,"label":"SB-WT","line":"g-"},
+            {"algo":scheduling_algo_nodrone_stf,"label":"SB-STF","line":"k-"},
+            {"algo":scheduling_algo_nodrone_ltf,"label":"SB-LTF","line":"b-"}]
+        fig_title = "SB-LP + OLD SB Algorithms"
+        plot_total_recharge_time_SMILP_DATA(algos, fig_title = fig_title,file_name='figures/Recharge_time_SBLP_SBalgos.eps')
+    else:
+        algos = [
+            {"algo":scheduling_algo_nodrone_tof_revised,"label":"SB-ToF","line":"y-"},
+            {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
+            {"algo":scheduling_algo_nodrone_stf_revised,"label":"SB-STF","line":"k-"},
+            {"algo":scheduling_algo_nodrone_ltf_revised,"label":"SB-LTF","line":"b-"}]
+        fig_title = "SB-LP + NEW SB Algorithms"
+        plot_total_recharge_time_SMILP_DATA(algos,fig_title = fig_title,file_name='figures/Recharge_time_SBLP_SBalgos.eps')
+
+# drone_based_plus_old_optimal870()
+# DBLP_DB_algos()
+# DBLP_SB_algos()
+SBLP_SB_algos()
