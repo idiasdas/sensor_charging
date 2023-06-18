@@ -47,3 +47,14 @@ def DBLP_DB_algos(old = False):
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
         fig_title = "DB-LP + Optimized DB Algorithms"
         plot_total_recharge_time(algos,fig_title,file_name='figures/Recharge_time_DBLP_DBalgos.eps')
+
+
+def DBLP_SB_algos():
+    algos = [
+            {"algo":scheduling_algo_nodrone_tof_revised,"label":"SB-ToF","line":"y-"},
+            {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
+            {"algo":scheduling_algo_nodrone_stf_revised,"label":"SB-STF","line":"k-"},
+            {"algo":scheduling_algo_nodrone_ltf_revised,"label":"SB-LTF","line":"b-"}]
+    fig_title = "DB-LP + NEW SB Algorithms"
+    plot_total_recharge_time(algos,fig_title,file_name='figures/Recharge_time_DBLP_SBalgos.eps')
+
