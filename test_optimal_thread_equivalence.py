@@ -3,7 +3,7 @@ from scheduling_optimal import *
 from plot_schedule import *
 
 
-def check_new_optimal(p = 5, drones = [3,4], sensors=[5,10],input_path = "inputs/",files_path = "tests_outputs/optimal/"):
+def check_new_optimal(p = 5, drones = [3,4], sensors=[5,10],input_path = "inputs/",files_path ="optimal_output/new_optimal/task_limit_15/"):
     """Reads the resulsts form the new optimal sheduling algorithm and compares them with the old optimal results.
         If any differences are found it prints the tasks, and plots the schedule for the new optimal and the old optimal.
 
@@ -80,8 +80,8 @@ def visualize_instance(d = 3,s = 5,i = 1, input_path = "inputs/"):
 
 # visualize_instance()
 # Create files
-optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/task_limit_15/", tasks_limit=15, timeout=3600)
+optimal_experiment(drones = range(3,11), sensors=[5,10,15,20,30,40,50], output_path="optimal_output/new_optimal/task_limit_15_try2/", tasks_limit=15, timeout=3600)
 # optimal_experiment(drones = [3,4], sensors=[5,10], output_path="tests_outputs/optimal/", tasks_limit=15, timeout=100)
 # Check them against old results
-# check_new_optimal(drones = [3,4], sensors=[5,10])
+# check_new_optimal(drones = range(3,11), sensors=[5,10,15,20,30,40,50])
 
