@@ -19,7 +19,15 @@ from plot_total_recharge_time import *
 def drone_based_plus_old_optimal870(file_name = 'figures/RechargeTime_Optimal870Examples.eps'):
     """Plots the recharge time for all algorithms on the 870 instances in which we computed the optimal solution.
      This function is extremeally disgusting and should be replaced. """
-    plot_recharge_time_with_optimal()
+    # plot_recharge_time_with_optimal()
+    algos = [
+            {"algo":scheduling_algo_tof,"label":"DB-ToF","line":"y-"},
+            {"algo":scheduling_algo_wait_time,"label":"DB-WT","line":"g-"},
+            {"algo":scheduling_algo_shortest_tasks_first,"label":"DB-STF","line":"k-"},
+            {"algo":scheduling_algo_longest_tasks_first,"label":"DB-LTF","line":"b-"},
+            {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
+    
+    plot_recharge_time_with_optimal_revised(algos, file_name = "figures/onecanonlyhope.eps")
 
 
 def DBLP_DB_algos(old = False):
@@ -60,9 +68,7 @@ def DBLP_SB_algos():
 
 
 def SBLP_SB_algos(old = False):
-    """Plots the total recharge time for the sensor based algorithms with the SB-LP as input.
-    
-    """
+    """Plots the total recharge time for the sensor based algorithms with the SB-LP as input."""
     if old:
         algos = [
             {"algo":scheduling_algo_nodrone_tof,"label":"SB-ToF","line":"y-"},
