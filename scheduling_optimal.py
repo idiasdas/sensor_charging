@@ -177,15 +177,16 @@ def read_optimal_results(drones = range(3,11), sensors = [5,10,15,20,30,40,50] ,
             file = open(file_name, 'r')
             data = file.readlines()
             for line in data[1:]: # jumps the first line
-                results = line.split()
-                dict_results = {}
-                dict_results["drones"] = d
-                dict_results["sensors"] = s
-                dict_results["i"] = int(results[0])
-                dict_results["recharge_time"] = float(results[1])
-                dict_results["exec_time"] = float(results[2])
-                if(dict_results["recharge_time"]>0):
-                    optimal_results += [dict_results]
+                if line[0] != 'i':
+                    results = line.split()
+                    dict_results = {}
+                    dict_results["drones"] = d
+                    dict_results["sensors"] = s
+                    dict_results["i"] = int(results[0])
+                    dict_results["recharge_time"] = float(results[1])
+                    dict_results["exec_time"] = float(results[2])
+                    if(dict_results["recharge_time"]>0):
+                        optimal_results += [dict_results]
             file.close()
     return optimal_results
 # -------------------------------------------------------------------------------------------------------------------------------------------------
