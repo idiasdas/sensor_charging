@@ -354,3 +354,63 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     # plt.show()
 
+def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_name = 'figures/RechargeTime_Optimal870Examples.eps'):
+    """Let's improve this shit code
+    """
+    p = 5
+    i_max = 50
+    drone_speed = 0.5
+    # Initialize figure
+    fig = plt.figure()
+    ax = plt.subplot(111)
+    ax.set_ylim([600, 1200])
+    fig.set_size_inches(6, 4)
+    x_axis = range(3,11)
+    # Plot recharge time for each algorithm
+    for algo in algos:
+        algo_avg = []
+        for d in range(3,11):
+            avg_per_drone = 0
+            k = 0
+            for s in [5,10,15]:
+                for i in range(0,i_max):
+                    file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                    tasks = get_tasks(file)
+                    if(len(tasks) <= 9):
+                        scheduling , recharge_time = algo["algo"](tasks,d,drone_speed)
+                        avg_per_drone += recharge_time
+                        k += 1
+            algo_avg += [avg_per_drone/k]
+        plt.plot(x_axis, algo_avg, algo["line"],label = algo["label"])
+    # Plot optimal time using results of optimal experiment for GLOBECOM
+    results_optimal = []
+    file = open("optimal_output/backup_optimal_results_GLOBECOM.txt", 'r')
+    data = file.readlines()
+    for line in data:
+          results_optimal += [float(line.split()[-1])]
+    file.close()
+    plot_optimal = []
+
+    j = 0
+    for d in range(3,11):
+        avg_optimal_per_drone = 0
+        k = 0
+        for s in [5,10,15,20,30,40,50]:
+            for i in range(0,i_max):
+                file = "/Users/idiasdas/dev/GLOBECOM2022/inputs/d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                tasks = get_tasks(file)
+                if (len(tasks) <= 9):
+                    if(s <= 15):
+                        avg_optimal_per_drone += results_optimal[j]
+                        k += 1
+                    j = j + 1
+        plot_optimal += [avg_optimal_per_drone/k]
+    plt.plot(x_axis, plot_optimal, "m-",label = "DOTA-Optimal")
+    # Figure details
+    plt.xlabel("# Drones",size = 15)
+    plt.ylabel("Total Recharge Time (s)",size = 15)
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    plt.savefig(file_name, format='eps',bbox_inches = 'tight')
+
