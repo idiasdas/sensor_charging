@@ -80,7 +80,7 @@ def SBLP_SB_algos(old = False):
         fig_title = "SB-LP + NEW SB Algorithms"
         plot_total_recharge_time_SMILP_DATA(algos,fig_title = fig_title,file_name='figures/Recharge_time_SBLP_SBalgos.eps')
 
-# drone_based_plus_old_optimal870()
-# DBLP_DB_algos()
-# DBLP_SB_algos()
+drone_based_plus_old_optimal870()
+DBLP_DB_algos()
+DBLP_SB_algos()
 SBLP_SB_algos()
