@@ -29,7 +29,7 @@ def generate_all_figures(file_path = "figures/"):
     
     db_optimimzed_algos = [
             {"algo":scheduling_DB_TOF_optimized,"label":"DB-TOF","line":"y-"},
-            {"algo":scheduling_algo_wait_time_optimized,"label":"DB-WT","line":"g-"},
+            {"algo":scheduling_DB_WT_optimized,"label":"DB-WT","line":"g-"},
             {"algo":scheduling_DB_STF_optimized,"label":"DB-STF","line":"k-"},
             {"algo":scheduling_DB_LTF_optimized,"label":"DB-LTF","line":"b-"},
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]

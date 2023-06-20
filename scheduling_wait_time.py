@@ -70,8 +70,8 @@ def scheduling_DB_WT(tasks,n_drones,drone_speed = 10.2):
             
     return [done,time]
 
-def scheduling_algo_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
-    """Scheduling algorithm based on wait time. Removed unnecessary checks. MUST BE TESTED
+def scheduling_DB_WT_optimized(tasks,n_drones,drone_speed = 10.2):
+    """Drone-based Wait Time. Optimized version.
 
     Args:
         tasks (list): List of tasks to be scheduled. Must have drones assigned.
