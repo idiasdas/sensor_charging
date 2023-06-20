@@ -355,8 +355,15 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
     # plt.show()
 
 def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_name = 'figures/RechargeTime_Optimal870Examples.eps',fig_title = "Recharge Time with Optimal (870)"):
-    """Let's improve this shit code
-    """
+    """Plots the total recharge time for each algorithm with DB-LP as input plus plots the GLOBECOM optimal solution.
+
+    Args:
+        algos (list): List of dictionaries with the algorithms to plot.
+        input_path (str, optional): Path to the DB-LP output to use as input for the algorithms. Defaults to "inputs/".
+        file_name (str, optional): Neme of the figure file that will be created. Defaults to 'figures/RechargeTime_Optimal870Examples.eps'.
+        fig_title (str, optional): Title of the figure. Defaults to "Recharge Time with Optimal (870)".
+    """    
+
     p = 5
     i_max = 50
     drone_speed = 0.5
