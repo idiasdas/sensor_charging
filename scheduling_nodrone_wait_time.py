@@ -53,8 +53,8 @@ def scheduling_algo_nodrone_wt_revised(tasks,n_drones,drone_speed = 10.2):
     finish_time = max([x["end"] for x in assigned])
     return [assigned,finish_time]   
 
-def scheduling_algo_nodrone_wait_time_optimized(tasks,n_drones,drone_speed = 10.2):
-    """Scheduling Algorithm Drone olbivious task assignment (DOTA-WT)
+def scheduling_SB_WT_optimized(tasks,n_drones,drone_speed = 10.2):
+    """Sensor-based Wait Time (SB-WT). Optimized version.
 
     Args:
         tasks (list): List of tasks to be scheduled.
