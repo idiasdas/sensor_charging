@@ -11,7 +11,7 @@ from scheduling_nodrone_ToF import *
 from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
-def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_path = "inputs/",file_name = 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps', legend_outside = True):
+def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_path = "inputs/",file_name = 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps', legend_outside_figure = True, export_leg = False):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
@@ -22,6 +22,7 @@ def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_pat
         input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
         legend_outside (bool, optional): If True, the legend will be outside the figure. Defaults to True.
+        export_legend (bool, optional): If True, the legend will be exported as a separate file. Defaults to False.
     """
     s = 5
     p = 5
@@ -59,7 +60,11 @@ def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_pat
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    if legend_outside:
+    if export_leg:
+        legend = ax.legend(framealpha=0,frameon=False)
+        export_legend(legend, file_name.replace(".eps","_legend.eps"))
+        legend.remove()
+    elif legend_outside_figure:
         ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     else:
         ax.legend()

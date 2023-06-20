@@ -88,7 +88,7 @@ def test_equivalence(algo1, algo2, file_name,plot_recharge_time = True, plot_fir
             if not drone_based:
                 plot_total_recharge_time_SMILP_DATA([algo1,algo2], file_name=file_name)
             else:
-                plot_total_recharge_time([algo1,algo2], file_name=file_name, legend_outside=False)
+                plot_total_recharge_time([algo1,algo2], file_name=file_name, legend_outside_figure=False)
         print("* (FAIL)")
     print("---------------------------------------------------------------")
 
