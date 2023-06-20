@@ -354,7 +354,7 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     # plt.show()
 
-def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_name = 'figures/RechargeTime_Optimal870Examples.eps'):
+def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_name = 'figures/RechargeTime_Optimal870Examples.eps',fig_title = "Recharge Time with Optimal (870)"):
     """Let's improve this shit code
     """
     p = 5
@@ -407,6 +407,7 @@ def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_na
         plot_optimal += [avg_optimal_per_drone/k]
     plt.plot(x_axis, plot_optimal, "m-",label = "DOTA-Optimal")
     # Figure details
+    plt.title(fig_title)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
