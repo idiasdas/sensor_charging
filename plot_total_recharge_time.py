@@ -128,16 +128,16 @@ def plot_total_recharge_time_SMILP_DATA(algos = [
 # plot_total_recharge_time(file_name='figures/Results_nodrone.eps')
 # print("Done!")
 
-def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,20,30,40,50],input_path = "inputs/",fig_title = "WAIT TIME", file_name = 'figures/MILP_vs_SMILP-WT.eps'):
-    """Plots the recharge time for the MILP and SMILP algorithms.
+def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30,40,50],input_path = "inputs/",fig_title = "DBLP and SBLP inputs", file_name = 'figures/RT_DBLP_plus_SBLP.eps'):
+    """Plots the total recharge time for drone-based and sensor-based algorithms for DBLP and SBLP inputs.
 
     Args:
-        algos_dota (list): List of algorithms to be used for the MILP output.
-        algos_data (list): List of algorithms to be used for the SMILP output.
+        algos_db (list): List of drone-based algorithms.
+        algos_sb (list): List of sensor-based algorithms.
         sensors (list, optional): List of numbers of sensors to be considered. Defaults to [5,10,15,20,30,40,50].
-        input_path (str, optional): Path to MILP output. Defaults to "inputs/".
-        fig_title (str, optional): Title for output figure. Defaults to "WAIT TIME".
-        file_name (str, optional): File name for output figure. Defaults to 'figures/MILP_vs_SMILP-WT.eps'.
+        input_path (str, optional): Path to DBLP output. Defaults to "inputs/".
+        fig_title (str, optional): Title for output figure. Defaults to "DBLP and SBLP inputs".
+        file_name (str, optional): File name for output figure. Defaults to 'figures/RT_DBLP_plus_SBLP.eps'.
 
     Returns:
         list: List with the average recharge times for each scheduling algorithm.
@@ -155,7 +155,7 @@ def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,
     x_axis = range(3,11)
 
     algos_times = []
-    for algo in algos_dota:
+    for algo in algos_db:
         time_avg = []
         for d in range(3,11):
             t = 0
@@ -173,7 +173,7 @@ def plot_recharge_time_MILP_plus_SMILP(algos_dota,algos_data,sensors = [5,10,15,
     input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
     time_avg = []
-    for algo in algos_data:
+    for algo in algos_sb:
         time_avg = []
         for d in range(3,11):
             t = 0
