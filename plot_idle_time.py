@@ -133,7 +133,7 @@ def plot_total_idle_time_SMILP_DATA(input_path = "milp/backup_results_17feb_time
     x_axis = range(3,11)
     algos = [{"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
             {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
-            {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k-"},
+            {"algo":scheduling_SB_STF,"label":"DATA-STF","line":"k-"},
             {"algo":scheduling_SB_TOF,"label":"DATA-ToF","line":"y-"}]
     for algo in algos:
         time_avg = []

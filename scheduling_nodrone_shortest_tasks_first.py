@@ -55,9 +55,8 @@ def scheduling_algo_nodrone_stf_revised(tasks,n_drones,drone_speed = 10.2):
     finish_time = max([x["end"] for x in assigned_tasks])
     return [assigned_tasks,finish_time]  
 
-def scheduling_algo_nodrone_stf(tasks,n_drones,drone_speed = 10.2):
-    
-    """Scheduling Algorithm Drone olbivious task assignment - Shortest Tasks First(DOTA-STF)
+def scheduling_SB_STF(tasks,n_drones,drone_speed = 10.2):
+    """Sensor-based Shortest Tasks First(SB-STF)
 
     Args:
         tasks (list): List of tasks to be scheduled.
