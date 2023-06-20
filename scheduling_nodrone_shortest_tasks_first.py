@@ -1,7 +1,7 @@
 from basic_functions import *
 
-def scheduling_algo_nodrone_stf_revised(tasks,n_drones,drone_speed = 10.2):
-    """Sensor based scheduling algorithm (Shortest tasks first)
+def scheduling_SB_STF_revised(tasks,n_drones,drone_speed = 10.2):
+    """Sensor-based Shortest tasks first. Revised version.
 
     Args:
         tasks (list): List of tasks to be scheduled. Any preassigned drones are ignored.
