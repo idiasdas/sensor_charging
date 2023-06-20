@@ -226,7 +226,7 @@ def test_dota_old_vs_optimized():
     test_equivalence_dota([algo1, algo2], "test_equivalence_longest_tasks_first")
 
     algo1 = {"algo":scheduling_DB_STF, "label":"scheduling_shortest_tasks_first","line":"b-"}
-    algo2 = {"algo":scheduling_algo_shortest_tasks_first_optimized, "label":"scheduling_shortest_tasks_first_optimized","line":"r-"}
+    algo2 = {"algo":scheduling_DB_STF_optimized, "label":"scheduling_shortest_tasks_first_optimized","line":"r-"}
     test_equivalence_dota([algo1, algo2], "test_equivalence_stf")
 
 def test_data_old_vs_optimized(plot_recharge_time = True):

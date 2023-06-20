@@ -71,8 +71,8 @@ def scheduling_DB_STF(tasks,n_drones,drone_speed = 10.2):
                 n_tasks = n_tasks - 1
     return [done,time]
 
-def scheduling_algo_shortest_tasks_first_optimized(tasks, n_drones, drone_speed = 10.2):
-    """Scheduling algorithm, shortest tasks first. Rewritten to avoid unnecessary verifications.
+def scheduling_DB_STF_optimized(tasks, n_drones, drone_speed = 10.2):
+    """Drone-based Shortest Tasks First. Optimimzed version.
 
     Args:
         tasks (list): List of tasks to be scheduled
