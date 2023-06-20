@@ -68,7 +68,7 @@ def plot_total_recharge_time(algos, fig_title = "Total recharge time", input_pat
 
 def plot_total_recharge_time_SMILP_DATA(algos = [
             {"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
-            {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
+            {"algo":scheduling_SB_LTF,"label":"DATA-LTF","line":"b-"},
             {"algo":scheduling_SB_STF,"label":"DATA-STF","line":"k-"},
             {"algo":scheduling_SB_TOF,"label":"DATA-ToF","line":"y-"}],
             input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps',
@@ -260,7 +260,7 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
                     results_nodrone_shortest += [nodrone_shortest]
                     
                     tasks = get_tasks(file)
-                    done2,nodrone_longest = scheduling_algo_nodrone_ltf(tasks,d,drone_speed)
+                    done2,nodrone_longest = scheduling_SB_LTF(tasks,d,drone_speed)
                     results_nodrone_longest += [nodrone_longest]
     
     results_optimal = []
