@@ -36,14 +36,14 @@ def generate_all_figures(file_path = "figures/"):
     
     sb_revised_algos_plusTSP = [
             {"algo":scheduling_SB_TOF_revised,"label":"SB-TOF","line":"y-"},
-            {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
+            {"algo":scheduling_SB_WT_revised,"label":"SB-WT","line":"g-"},
             {"algo":scheduling_SB_STF_revised,"label":"SB-STF","line":"k-"},
             {"algo":scheduling_SB_LTF_revised,"label":"SB-LTF","line":"b-"},
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
     
     sb_revised_algos = [
             {"algo":scheduling_SB_TOF_revised,"label":"SB-TOF","line":"y-"},
-            {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
+            {"algo":scheduling_SB_WT_revised,"label":"SB-WT","line":"g-"},
             {"algo":scheduling_SB_STF_revised,"label":"SB-STF","line":"k-"},
             {"algo":scheduling_SB_LTF_revised,"label":"SB-LTF","line":"b-"}]
     
