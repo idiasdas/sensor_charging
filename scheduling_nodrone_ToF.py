@@ -53,9 +53,8 @@ def scheduling_algo_nodrone_tof_revised(tasks,n_drones,drone_speed = 10.2):
     finish_time = max([x["end"] for x in assigned])
     return [assigned,finish_time]   
 
-def scheduling_algo_nodrone_tof(tasks,n_drones,drone_speed = 10.2):
-    
-    """Scheduling Algorithm Drone olbivious task assignment - Time of Flight(DOTA-ToF)
+def scheduling_SB_TOF(tasks,n_drones,drone_speed = 10.2):
+    """Sensor-based Time of Flight(SB-TOF)
 
     Args:
         tasks (list): List of tasks to be scheduled.

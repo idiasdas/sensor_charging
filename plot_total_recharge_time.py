@@ -70,7 +70,7 @@ def plot_total_recharge_time_SMILP_DATA(algos = [
             {"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
             {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b-"},
             {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k-"},
-            {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y-"}],
+            {"algo":scheduling_SB_TOF,"label":"DATA-ToF","line":"y-"}],
             input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps',
             fig_title = "SMILP + DATA"):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
@@ -252,7 +252,7 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
                     results_nodrone_wait_time += [nodrone_wt]
                     
                     tasks = get_tasks(file)
-                    done2,nodrone_tof = scheduling_algo_nodrone_tof(tasks,d,drone_speed)
+                    done2,nodrone_tof = scheduling_SB_TOF(tasks,d,drone_speed)
                     results_nodrone_tof += [nodrone_tof]
                     
                     tasks = get_tasks(file)
