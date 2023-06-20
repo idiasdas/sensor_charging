@@ -289,7 +289,7 @@ def verify_schedule(tasks):
                             print("ERROR: improper scheduling between tasks " + str(task1["id"])+ " and " + str(task2["id"]))
                             return False
     return True
-
+# -------------------------------------------------------------------------------------------------------------------------------------------------
 def print_schedule(tasks):
     """Prints the tasks in a schedule in the order they start.
 
@@ -300,3 +300,11 @@ def print_schedule(tasks):
     print("\t\t- id","\t","start","\t\t","end","\t\t","drone","\t\t","flight_start", "\t\t","sensors",sep=' ')
     for task in tasks:
         print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')
+
+# -------------------------------------------------------------------------------------------------------------------------------------------------
+def export_legend(legend, filename="legend.png"):
+    """Exports the legend of a matplotlib figure to a file."""
+    fig  = legend.figure
+    fig.canvas.draw()
+    bbox  = legend.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+    fig.savefig(filename, format='eps', bbox_inches = bbox)
