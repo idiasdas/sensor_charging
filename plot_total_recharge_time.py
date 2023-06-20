@@ -232,7 +232,7 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
                     results_wait_time += [wait_time]
                     
                     tasks = get_tasks(file)
-                    done2,tof = scheduling_algo_tof(tasks,d,drone_speed)
+                    done2,tof = scheduling_DB_TOF(tasks,d,drone_speed)
                     results_tof += [tof]
                     
                     tasks = get_tasks(file)

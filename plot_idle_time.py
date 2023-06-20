@@ -27,7 +27,7 @@ def plot_idle_time(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", fil
     ax.set_ylim([0, 2300])
     fig.set_size_inches(6, 4)
     x_axis = range(3,11)
-    algos = [{"algo":scheduling_algo_tof,"label":"DOTA-ToF","line":"y-"},
+    algos = [{"algo":scheduling_DB_TOF,"label":"DOTA-ToF","line":"y-"},
             {"algo":scheduling_algo_wait_time,"label":"DOTA-WT","line":"g-"},
             {"algo":scheduling_algo_shortest_tasks_first,"label":"DOTA-STF","line":"k-"},
             {"algo":scheduling_algo_longest_tasks_first,"label":"DOTA-LTF","line":"b-"}]

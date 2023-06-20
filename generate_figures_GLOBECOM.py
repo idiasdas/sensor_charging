@@ -21,14 +21,14 @@ def generate_all_figures(file_path = "figures/"):
         file_path (str, optional): Path to save the figures. Defaults to "figures/".
     """    
     db_old_algos = [
-            {"algo":scheduling_algo_tof,"label":"DB-TOF","line":"y-"},
+            {"algo":scheduling_DB_TOF,"label":"DB-TOF","line":"y-"},
             {"algo":scheduling_algo_wait_time,"label":"DB-WT","line":"g-"},
             {"algo":scheduling_algo_shortest_tasks_first,"label":"DB-STF","line":"k-"},
             {"algo":scheduling_algo_longest_tasks_first,"label":"DB-LTF","line":"b-"},
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
     
     db_optimimzed_algos = [
-            {"algo":scheduling_algo_tof_optimized,"label":"DB-TOF","line":"y-"},
+            {"algo":scheduling_DB_TOF_optimized,"label":"DB-TOF","line":"y-"},
             {"algo":scheduling_algo_wait_time_optimized,"label":"DB-WT","line":"g-"},
             {"algo":scheduling_algo_shortest_tasks_first_optimized,"label":"DB-STF","line":"k-"},
             {"algo":scheduling_algo_longest_tasks_first_optimized,"label":"DB-LTF","line":"b-"},

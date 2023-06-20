@@ -10,6 +10,63 @@ from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 from scheduling_nodrone_ToF import *
 
+def algo_comparison(algo1, algo2, p = 5, drone_speed = 0.5, i_max = 50, drones = range(3,11), sensors = [5,10,15,20,30,40,50],drone_based = True, input_path = "inputs/", plot_first_example = False):
+    """Compare two algorithms on a set of inputs. Returns True if the two algorithms give the same results, False otherwise.
+
+    Args:
+        algo1 (function): Scheduling function 1. 
+        algo2 (function): Scheduling function 2.
+        p (int, optional): Number of positions. Defaults to 5.
+        drone_speed (float, optional): Drones' speed. Defaults to 0.5 which is low but helps visualize problems thanks to a higher time of flight.
+        i_max (int, optional): Amount of instances for each parameter combination. Defaults to 50.
+        drones (list, optional): List with amount of drones to be considered at each iteration. Defaults to range(3,11).
+        sensors (list, optional): List with the amount of sensors to charge at each iteration. Defaults to [5,10,15,20,30,40,50].
+        drone_based (bool, optional): If the input is drone_based tthe files are organized in a different way than sensor based. Defaults to True.
+        input_path (str, optional): Path to input directory. Defaults to "inputs/".
+        plot_first_example (bool, optional): If True plots the first schedule where the algorithms are different. Defaults to False.
+
+    Returns:
+        bool: True if the algorithms are equivalent, False otherwise.
+    """
+    eps = 0.0001
+    is_equivalent = True
+    count_diff = 0
+    total_diff = 0
+    for s in range(len(sensors)):
+        for d in range(3,11):
+            for i in range(0,i_max):
+                if drone_based:
+                    file = input_path + "d"+str(d)+"_s"+str(sensors[s])+"_p"+str(p)+"/" + str(i) + ".txt"
+                else:
+                    file = input_path+"s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                
+                tasks = get_tasks(file)
+                scheduling1,time1 = algo1(tasks, d, drone_speed)
+
+                tasks = get_tasks(file)
+                scheduling2,time2 = algo2(tasks, d, drone_speed)
+
+                if abs(time1 - time2) > eps:
+                    count_diff += 1
+                    total_diff += (time1 - time2)
+                    print("\t- Different time for d = " + str(d) + ", s = " + str(sensors[s]) + ", i = " + str(i))
+                    if plot_first_example:
+                        plot_schedule(scheduling1, d, time1, file_name = "tests_outputs/test_equivalence_" + algo1.__name__ +".eps",save=True)
+                        plot_schedule(scheduling2, d, time2, file_name = "tests_outputs/test_equivalence_" + algo2.__name__ +".eps",save=True)
+                        print("\t-Saved different example as tests_outputs/test_equivalence_" + algo1.__name__ +".eps and tests_outputs/test_equivalence_" + algo2.__name__ +".eps")
+                        print("\t-Stopped equivalence test.")
+                        plot_first_example = False
+                    is_equivalent = False
+                if not (verify_schedule(scheduling1) and verify_schedule(scheduling2)): #If any of the schedules is not valid
+                    print("\t- Invalid schedule for d = " + str(d) + ", s = " + str(sensors[s]) + ", i = " + str(i))
+
+    if(count_diff > 0):
+        print("\t- Different time for " + str(count_diff) + " out of " + str(i_max*len(sensors)*len(drones)) + " inputs.")
+        print("\t- Average difference: " + str(total_diff/count_diff))
+    
+    return is_equivalent
+
+
 def dota_algo_set_comparison(algo1, algo2, input_path = "inputs/", give_examples = False):
     """Compare two algorithms for scheduling tasks given a set of inputs. Considers inputs from old MILP with drones already assigned to tasks.
 
@@ -160,8 +217,8 @@ def test_dota_old_vs_optimized():
     algo2 = {"algo":scheduling_algo_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
     test_equivalence_dota([algo1, algo2], "test_equivalence_wait_time")
 
-    algo1 = {"algo":scheduling_algo_tof, "label":"scheduling_ToF","line":"b-"}
-    algo2 = {"algo":scheduling_algo_tof_optimized, "label":"scheduling_ToF_optimized","line":"r-"}
+    algo1 = {"algo":scheduling_DB_TOF, "label":"scheduling_ToF","line":"b-"}
+    algo2 = {"algo":scheduling_DB_TOF_optimized, "label":"scheduling_ToF_optimized","line":"r-"}
     test_equivalence_dota([algo1, algo2], "test_equivalence_ToF")
 
     algo1 = {"algo":scheduling_algo_longest_tasks_first, "label":"scheduling_longest_tasks_first","line":"b-"}
