@@ -14,7 +14,12 @@ from scheduling_nodrone_shortest_tasks_first import *
 
 from plot_total_recharge_time import *
 
-def generate_all_figures():
+def generate_all_figures(file_path = "figures/"):
+    """Plots all the figures for the journal version including the ones for the GLOBECOM paper
+
+    Args:
+        file_path (str, optional): Path to save the figures. Defaults to "figures/".
+    """    
     db_old_algos = [
             {"algo":scheduling_algo_tof,"label":"DB-TOF","line":"y-"},
             {"algo":scheduling_algo_wait_time,"label":"DB-WT","line":"g-"},
@@ -43,21 +48,21 @@ def generate_all_figures():
             {"algo":scheduling_algo_nodrone_ltf_revised,"label":"SB-LTF","line":"b-"}]
     
     # Make figure using DB-LP output for old DB algorithms plus optimal with output from GLOBECOM backup
-    plot_recharge_time_with_optimal_revised(db_old_algos, file_name = "figures/RT_DBLP_OLD-DB-algos_OPTIMAL.eps", fig_title="OLD DB Algorithms (870)")
+    plot_recharge_time_with_optimal_revised(db_old_algos, file_name = file_path + "RT_DBLP_OLD-DB-algos_OPTIMAL.eps", fig_title="OLD DB Algorithms (870)")
 
     # Make figure using DB-LP output for optimized DB algorithms plus optimal with output from GLOBECOM backup
-    plot_recharge_time_with_optimal_revised(db_optimimzed_algos, file_name = "figures/RT_DBLP_Optimized-DB-algos_OPTIMAL.eps", fig_title="Optimized DB Algorithms (870)")
+    plot_recharge_time_with_optimal_revised(db_optimimzed_algos, file_name = file_path + "RT_DBLP_Optimized-DB-algos_OPTIMAL.eps", fig_title="Optimized DB Algorithms (870)")
 
     # Make figure using DB-LP output for old DB algorithms for all instances
-    plot_total_recharge_time(algos=db_old_algos, file_name = "figures/RT_DBLP_OLD-DB-algos.eps", fig_title="OLD DB Algorithms (2800)")
+    plot_total_recharge_time(algos=db_old_algos, file_name = file_path + "RT_DBLP_OLD-DB-algos.eps", fig_title="OLD DB Algorithms (2800)")
 
     # Make figure using DB-LP output for optimized DB algorithms for all instances
-    plot_total_recharge_time(algos=db_optimimzed_algos, file_name = "figures/RT_DBLP_Optimized-DB-algos.eps", fig_title="Optimized DB Algorithms (2800)")
+    plot_total_recharge_time(algos=db_optimimzed_algos, file_name = file_path + "RT_DBLP_Optimized-DB-algos.eps", fig_title="Optimized DB Algorithms (2800)")
 
     # Make figure using DB-LP output for revised SB algorithms plus TSP
-    plot_total_recharge_time(algos=sb_revised_algos_plusTSP, file_name  = "figures/RT_DBLP_SBalgos_plusTSP.eps", fig_title="DB-LP + revised SB Algorithms + TSP (2800)")
+    plot_total_recharge_time(algos=sb_revised_algos_plusTSP, file_name  = file_path + "RT_DBLP_SBalgos_plusTSP.eps", fig_title="DB-LP + revised SB Algorithms + TSP (2800)")
 
     # Make figure using SB-LP output for revised SB algorithms
-    plot_total_recharge_time_SMILP_DATA(algos=sb_revised_algos, file_name = "figures/RT_SBLP_SBalgos.eps", fig_title="SB-LP + revised SB Algorithms (2800)") 
+    plot_total_recharge_time_SMILP_DATA(algos=sb_revised_algos, file_name = file_path + "RT_SBLP_SBalgos.eps", fig_title="SB-LP + revised SB Algorithms (2800)") 
 
 generate_all_figures()
