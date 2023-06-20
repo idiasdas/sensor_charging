@@ -71,8 +71,9 @@ def scheduling_DB_LTF(tasks,n_drones,drone_speed = 10.2):
                 n_tasks = n_tasks - 1
     return [done,time]
 
-def scheduling_algo_longest_tasks_first_optimized(tasks, n_drones, drone_speed = 10.2):
-    """Scheduling algorithm, longest tasks first
+def scheduling_DB_LTF_optimized(tasks, n_drones, drone_speed = 10.2):
+    """Drone-based Longest Tasks First. Optimmized version.
+    Scheduling algorithm, longest tasks first
 
     Args:
         tasks (list): List of tasks to be scheduled

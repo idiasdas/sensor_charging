@@ -31,7 +31,7 @@ def generate_all_figures(file_path = "figures/"):
             {"algo":scheduling_DB_TOF_optimized,"label":"DB-TOF","line":"y-"},
             {"algo":scheduling_algo_wait_time_optimized,"label":"DB-WT","line":"g-"},
             {"algo":scheduling_DB_STF_optimized,"label":"DB-STF","line":"k-"},
-            {"algo":scheduling_algo_longest_tasks_first_optimized,"label":"DB-LTF","line":"b-"},
+            {"algo":scheduling_DB_LTF_optimized,"label":"DB-LTF","line":"b-"},
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
     
     sb_revised_algos_plusTSP = [
