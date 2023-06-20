@@ -1,7 +1,7 @@
 from basic_functions import *
 def scheduling_DB_TOF(tasks,n_drones, drone_speed = 10.2):
     """Drone-based scheduling Time of Flight.
-        The tasks must have drones already assigned to them. (MILP output)
+        The tasks must have drones already assigned to them. 
 
     Args:
         tasks (list): list of tasks to be scheduled
@@ -68,9 +68,9 @@ def scheduling_DB_TOF(tasks,n_drones, drone_speed = 10.2):
     return [done,time]
 
 
-def scheduling_algo_tof_optimized(tasks,n_drones, drone_speed = 10.2):
-    """Scheduling algorithm based on time of flight. Optimized version.
-        The tasks must have drones already assigned to them. (MILP output)
+def scheduling_DB_TOF_optimized(tasks,n_drones, drone_speed = 10.2):
+    """Drone-based scheduling Time of Flight. Optimized version.
+        The tasks must have drones already assigned to them.
 
     Args:
         tasks (list): list of tasks to be scheduled
