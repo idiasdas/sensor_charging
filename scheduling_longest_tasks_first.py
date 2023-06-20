@@ -1,6 +1,7 @@
 from basic_functions import *
-def scheduling_algo_longest_tasks_first(tasks,n_drones,drone_speed = 10.2):
-    """Scheduling algorithm, longest tasks first
+def scheduling_DB_LTF(tasks,n_drones,drone_speed = 10.2):
+    """Drone-based Longest Tasks First.
+    Scheduling algorithm, longest tasks first
 
     Args:
         tasks (list): List of tasks to be scheduled
