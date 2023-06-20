@@ -80,7 +80,7 @@ def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inpu
             # {"algo":scheduling_algo_shortest_tasks_first,"label":"Shortest Tasks First","line":"k-","linestyle":"-","color":"b"},
             # {"algo":scheduling_algo_longest_tasks_first,"label":"Longest Tasks First","line":"b-","linestyle":"-","color":"k"},
             # {"algo":scheduling_TSP,"label":"TSP","line":"r-"},
-            {"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"b--","linestyle":"--","color":"b"},
+            {"algo":scheduling_SB_WT,"label":"DATA-WT","line":"b--","linestyle":"--","color":"b"},
             # {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b--","linestyle":"--","color":"b"},
             # {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k--","linestyle":"--","color":"k"},
             # {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y--","linestyle":"--","color":"y"}
@@ -131,7 +131,7 @@ def plot_total_idle_time_SMILP_DATA(input_path = "milp/backup_results_17feb_time
     fig.set_size_inches(6, 4)
 
     x_axis = range(3,11)
-    algos = [{"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
+    algos = [{"algo":scheduling_SB_WT,"label":"DATA-WT","line":"g-"},
             {"algo":scheduling_SB_LTF,"label":"DATA-LTF","line":"b-"},
             {"algo":scheduling_SB_STF,"label":"DATA-STF","line":"k-"},
             {"algo":scheduling_SB_TOF,"label":"DATA-ToF","line":"y-"}]

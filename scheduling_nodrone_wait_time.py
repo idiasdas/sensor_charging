@@ -117,8 +117,8 @@ def scheduling_algo_nodrone_wait_time_optimized(tasks,n_drones,drone_speed = 10.
                 n_tasks = n_tasks - 1
     return [done,current_time]      
 
-def scheduling_algo_nodrone_wait_time(tasks,n_drones,drone_speed = 10.2):
-    """Scheduling Algorithm Drone olbivious task assignment (DOTA-WT)
+def scheduling_SB_WT(tasks,n_drones,drone_speed = 10.2):
+    """Sensor-based Wait Time (SB-WT)
 
     Args:
         tasks (list): List of tasks to be scheduled.
@@ -175,7 +175,8 @@ def scheduling_algo_nodrone_wait_time(tasks,n_drones,drone_speed = 10.2):
 
 
 def scheduling_algo_nodrone_wait_time_all(tasks,n_drones,drone_speed = 10.2):
-    """Scheduling Algorithm Drone olbivious task assignment (DOTA-WT-ALL) Considers all drones for the wait time, including the ones that are busy with tasks.
+    """DEPRECATED FUNCTION. DELETE IT.
+    Scheduling Algorithm Drone olbivious task assignment (DOTA-WT-ALL) Considers all drones for the wait time, including the ones that are busy with tasks.
         In this, if a drone is busy but wilds the best wait time, we foward in time before assigning the task to it.
 
     Args:
