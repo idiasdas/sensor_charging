@@ -35,14 +35,14 @@ def generate_all_figures(file_path = "figures/"):
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
     
     sb_revised_algos_plusTSP = [
-            {"algo":scheduling_algo_nodrone_tof_revised,"label":"SB-TOF","line":"y-"},
+            {"algo":scheduling_SB_TOF_revised,"label":"SB-TOF","line":"y-"},
             {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
             {"algo":scheduling_algo_nodrone_stf_revised,"label":"SB-STF","line":"k-"},
             {"algo":scheduling_algo_nodrone_ltf_revised,"label":"SB-LTF","line":"b-"},
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
     
     sb_revised_algos = [
-            {"algo":scheduling_algo_nodrone_tof_revised,"label":"SB-TOF","line":"y-"},
+            {"algo":scheduling_SB_TOF_revised,"label":"SB-TOF","line":"y-"},
             {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
             {"algo":scheduling_algo_nodrone_stf_revised,"label":"SB-STF","line":"k-"},
             {"algo":scheduling_algo_nodrone_ltf_revised,"label":"SB-LTF","line":"b-"}]

@@ -1,7 +1,8 @@
 from basic_functions import *
 
-def scheduling_algo_nodrone_tof_revised(tasks,n_drones,drone_speed = 10.2):
-    """Scheduling algorithm: Sensor based task assignment. Highest priority to smallest wait time.
+def scheduling_SB_TOF_revised(tasks,n_drones,drone_speed = 10.2):
+    """Sensor-based Time of Flight(SB-TOF). Revised version.
+
         Removed the notion of fowarding in time and concluding tasks.
 
     Args:
