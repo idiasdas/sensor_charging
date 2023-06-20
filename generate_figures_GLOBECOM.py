@@ -23,7 +23,7 @@ def generate_all_figures(file_path = "figures/"):
     db_old_algos = [
             {"algo":scheduling_DB_TOF,"label":"DB-TOF","line":"y-"},
             {"algo":scheduling_algo_wait_time,"label":"DB-WT","line":"g-"},
-            {"algo":scheduling_algo_shortest_tasks_first,"label":"DB-STF","line":"k-"},
+            {"algo":scheduling_DB_STF,"label":"DB-STF","line":"k-"},
             {"algo":scheduling_algo_longest_tasks_first,"label":"DB-LTF","line":"b-"},
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
     

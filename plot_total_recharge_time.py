@@ -236,7 +236,7 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
                     results_tof += [tof]
                     
                     tasks = get_tasks(file)
-                    done2,shortest = scheduling_algo_shortest_tasks_first(tasks,d,drone_speed)
+                    done2,shortest = scheduling_DB_STF(tasks,d,drone_speed)
                     results_shortest += [shortest]
                     
                     tasks = get_tasks(file)

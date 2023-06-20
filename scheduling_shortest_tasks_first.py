@@ -1,6 +1,7 @@
 from basic_functions import *
-def scheduling_algo_shortest_tasks_first(tasks,n_drones,drone_speed = 10.2):
-    """Schedule tasks in a greedy way, shortest tasks first
+def scheduling_DB_STF(tasks,n_drones,drone_speed = 10.2):
+    """Drone-based Shortest Tasks First.
+    Schedule tasks in a greedy way, shortest tasks first
 
     Args:
         tasks (list): List of tasks to be scheduled

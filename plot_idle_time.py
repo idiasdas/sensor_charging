@@ -29,7 +29,7 @@ def plot_idle_time(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", fil
     x_axis = range(3,11)
     algos = [{"algo":scheduling_DB_TOF,"label":"DOTA-ToF","line":"y-"},
             {"algo":scheduling_algo_wait_time,"label":"DOTA-WT","line":"g-"},
-            {"algo":scheduling_algo_shortest_tasks_first,"label":"DOTA-STF","line":"k-"},
+            {"algo":scheduling_DB_STF,"label":"DOTA-STF","line":"k-"},
             {"algo":scheduling_algo_longest_tasks_first,"label":"DOTA-LTF","line":"b-"}]
             # {"algo":scheduling_TSP,"label":"TSP","line":"r-"},
             # {"algo":scheduling_algo_nodrone_wait_time,"label":"DATA-WT","line":"g-"},
