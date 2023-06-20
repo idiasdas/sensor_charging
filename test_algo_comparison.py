@@ -213,7 +213,7 @@ def test_equivalence_data(algos, file_name,plot_recharge_time = True, give_examp
 
 def test_dota_old_vs_optimized():
     """Tests equivalence between old and optimized algorithms for scheduling tasks given a set of inputs. Considers inputs from old MILP with drones already assigned to tasks."""
-    algo1 = {"algo":scheduling_algo_wait_time, "label":"scheduling_wait_time","line":"b-"}
+    algo1 = {"algo":scheduling_DB_WT, "label":"scheduling_wait_time","line":"b-"}
     algo2 = {"algo":scheduling_algo_wait_time_optimized, "label":"scheduling_wait_time_optimized","line":"r-"}
     test_equivalence_dota([algo1, algo2], "test_equivalence_wait_time")
 

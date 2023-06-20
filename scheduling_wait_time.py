@@ -1,6 +1,6 @@
 from basic_functions import *
-def scheduling_algo_wait_time(tasks,n_drones,drone_speed = 10.2):
-    """Scheduling algorithm based on wait time.
+def scheduling_DB_WT(tasks,n_drones,drone_speed = 10.2):
+    """Drone-based Wait Time.
         The tasks must have drones already assigned to them. (MILP output)
 
     Args:

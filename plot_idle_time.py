@@ -28,7 +28,7 @@ def plot_idle_time(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", fil
     fig.set_size_inches(6, 4)
     x_axis = range(3,11)
     algos = [{"algo":scheduling_DB_TOF,"label":"DOTA-ToF","line":"y-"},
-            {"algo":scheduling_algo_wait_time,"label":"DOTA-WT","line":"g-"},
+            {"algo":scheduling_DB_WT,"label":"DOTA-WT","line":"g-"},
             {"algo":scheduling_DB_STF,"label":"DOTA-STF","line":"k-"},
             {"algo":scheduling_DB_LTF,"label":"DOTA-LTF","line":"b-"}]
             # {"algo":scheduling_TSP,"label":"TSP","line":"r-"},
@@ -76,7 +76,7 @@ def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inpu
     fig.set_size_inches(6, 4)
     x_axis = range(3,11)
     algos = [#{"algo":scheduling_algo_tof,"label":"ToF","line":"y-","linestyle":"-","color":"y"},
-            {"algo":scheduling_algo_wait_time,"label":"DOTA-WT","line":"g-","linestyle":"-","color":"g"},
+            {"algo":scheduling_DB_WT,"label":"DOTA-WT","line":"g-","linestyle":"-","color":"g"},
             # {"algo":scheduling_algo_shortest_tasks_first,"label":"Shortest Tasks First","line":"k-","linestyle":"-","color":"b"},
             # {"algo":scheduling_algo_longest_tasks_first,"label":"Longest Tasks First","line":"b-","linestyle":"-","color":"k"},
             # {"algo":scheduling_TSP,"label":"TSP","line":"r-"},

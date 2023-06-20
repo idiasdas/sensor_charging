@@ -228,7 +228,7 @@ def plot_recharge_time_with_optimal(input_path = "inputs/",file_name = 'figures/
                 file = input_path + "d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
                 tasks = get_tasks(file)
                 if(len(tasks)<=9):
-                    done2,wait_time = scheduling_algo_wait_time(tasks,d,drone_speed)
+                    done2,wait_time = scheduling_DB_WT(tasks,d,drone_speed)
                     results_wait_time += [wait_time]
                     
                     tasks = get_tasks(file)
