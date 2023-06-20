@@ -246,7 +246,7 @@ def test_data_old_vs_optimized(plot_recharge_time = True):
     test_equivalence_data([algo1, algo2], "no_drone_wt",give_example=False)
     # -----------------------------------------------------------------------------------------------------
     algo1 = {"algo":scheduling_SB_LTF, "label":"scheduling_algo_nodrone_ltf","line":"b-"}
-    algo2 = {"algo":scheduling_algo_nodrone_ltf_revised, "label":"scheduling_algo_nodrone_ltf_revised","line":"r-"}
+    algo2 = {"algo":scheduling_SB_LTF_revised, "label":"scheduling_algo_nodrone_ltf_revised","line":"r-"}
     test_equivalence_data([algo1, algo2], "no_drone_ltf",give_example=False)
     # -----------------------------------------------------------------------------------------------------
     algo1 = {"algo":scheduling_SB_STF, "label":"scheduling_algo_nodrone_stf","line":"b-"}

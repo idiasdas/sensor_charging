@@ -38,14 +38,14 @@ def generate_all_figures(file_path = "figures/"):
             {"algo":scheduling_SB_TOF_revised,"label":"SB-TOF","line":"y-"},
             {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
             {"algo":scheduling_SB_STF_revised,"label":"SB-STF","line":"k-"},
-            {"algo":scheduling_algo_nodrone_ltf_revised,"label":"SB-LTF","line":"b-"},
+            {"algo":scheduling_SB_LTF_revised,"label":"SB-LTF","line":"b-"},
             {"algo":scheduling_TSP,"label":"TSP","line":"r-"}]
     
     sb_revised_algos = [
             {"algo":scheduling_SB_TOF_revised,"label":"SB-TOF","line":"y-"},
             {"algo":scheduling_algo_nodrone_wt_revised,"label":"SB-WT","line":"g-"},
             {"algo":scheduling_SB_STF_revised,"label":"SB-STF","line":"k-"},
-            {"algo":scheduling_algo_nodrone_ltf_revised,"label":"SB-LTF","line":"b-"}]
+            {"algo":scheduling_SB_LTF_revised,"label":"SB-LTF","line":"b-"}]
     
     # Make figure using DB-LP output for old DB algorithms plus optimal with output from GLOBECOM backup
     plot_recharge_time_with_optimal_revised(db_old_algos, file_name = file_path + "RT_DBLP_OLD-DB-algos_OPTIMAL.eps", fig_title="OLD DB Algorithms (870)")

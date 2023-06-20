@@ -1,7 +1,7 @@
 from basic_functions import *
 
-def scheduling_algo_nodrone_ltf_revised(tasks,n_drones,drone_speed = 10.2):
-    """Sensor based scheduling algorithm (Longest tasks first)
+def scheduling_SB_LTF_revised(tasks,n_drones,drone_speed = 10.2):
+    """Sensor-based Longest Tasks First(SB-LTF). Revised version.
 
     Args:
         tasks (list): List of tasks to be scheduled. Any preassigned drones are ignored.
