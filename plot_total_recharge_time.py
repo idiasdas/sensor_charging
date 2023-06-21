@@ -74,7 +74,7 @@ def plot_total_recharge_time(algos, input_style = 0, input_path_drone_based = "i
     plt.close()
 
 
-def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30,40,50],input_path_drone_based = "inputs/",input_path_sensor_based = "milp/backup_results_17feb_timelimit1200/output_simplified/", fig_title = "DBLP and SBLP inputs", file_name = 'figures/RT_DBLP_plus_SBLP.eps'):
+def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30,40,50],input_path_drone_based = "inputs/",input_path_sensor_based = "milp/backup_results_17feb_timelimit1200/output_simplified/", fig_title = "DBLP and SBLP inputs", file_name = 'figures/RT_DBLP_plus_SBLP.eps', legend_style = 1):
     """Plots the total recharge time for drone-based and sensor-based algorithms for DBLP and SBLP inputs.
 
     Args:
@@ -85,6 +85,11 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
         input_path (str, optional): Path to SBLP output. Defaults to "milp/backup_results_17feb_timelimit1200/output_simplified/".
         fig_title (str, optional): Title for output figure. Defaults to "DBLP and SBLP inputs".
         file_name (str, optional): File name for output figure. Defaults to 'figures/RT_DBLP_plus_SBLP.eps'.
+        legend_style (int, optional): The style of the legend. Defaults to 0.
+            0 = No legend.
+            1 = Default plt legend.
+            2 = Legend outside figure.
+            3 = Export legend as eps file.
 
     Returns:
         list: List with the average recharge times for each scheduling algorithm.
@@ -139,8 +144,13 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    if legend_style == 1:
+        ax.legend()
+    elif legend_style == 2:
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
+    if legend_style == 3:
+        export_legend(fig, ax, file_name.replace(".eps","_legend.eps"))
     plt.close()
     return algos_times
 
