@@ -11,15 +11,17 @@ from scheduling_nodrone_ToF import *
 from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
-def plot_total_recharge_time(algos, input_path = "inputs/",file_name = 'figures/recharge_time.eps', fig_title = "DB-LP + DB Algorithms", legend_style = 1):
+def plot_total_recharge_time(algos, input_style = 0, input_path_drone_based = "inputs/", input_path_sensor_based = "milp/backup_results_17feb_timelimit1200/output_simplified/", file_name = 'figures/recharge_time.eps', fig_title = "DB-LP + DB Algorithms", legend_style = 1):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
         algo (list): List of dictionaries with the following keys:
-             "algo": A scheduling function.
-             "line": The line style.
-             "label": The label.
-        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
+            "algo": A scheduling function.
+            "line": The line style.
+            "label": The label.
+        input_style (int, optional): 0 = Drone-based.1 = Sensor-based. Defaults to 0.
+        input_path_drone_based (str, optional): Path to drone-based inputs. Defaults to "inputs/".
+        input_path_sensor_based (str, optional): Path to sensor-based inputs. Defaults to "milp/backup_results_17feb_timelimit1200/output_simplified/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/recharge_time.eps'.
         fig_title (str, optional): The title of the figure. Defaults to "DB-LP + DB Algorithms".
         legend_style (int, optional): The style of the legend. Defaults to 0.
@@ -36,29 +38,26 @@ def plot_total_recharge_time(algos, input_path = "inputs/",file_name = 'figures/
     fig = plt.figure()
     ax = plt.subplot(111)
     fig.set_size_inches(6, 4)
-    lines = []
+
     x_axis = range(3,11)
     ax.set_ylim([800, 2500])
+
     for algo in algos:
         time_avg = []
         for d in range(3,11):
             t = 0
             for s in [5,10,15,20,30,40,50]:
                 for i in range(0,i_max):
-                    file = input_path+"d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                    if input_style == 0:
+                        file = input_path_drone_based+"d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                    else:
+                        file = input_path_sensor_based+"s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
                     tasks = get_tasks(file)
                     done,time = algo["algo"](tasks,d,drone_speed)
-                    if(algo["algo"] != scheduling_TSP):
-                        if(not verify_schedule(done)):
-                            print("Improper Scheduling.")
-                            print("\t- " + str(algo["algo"]))
-                            print("\t- D: " + str(d) + " S: " + str(s) + " i: " + str(i))
-                            exit(1)
                     t += time
         
             time_avg += [t/(i_max*7)]
-
-        lines += [plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])]
+        plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
     plt.title(fig_title, size = 15)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
