@@ -24,7 +24,7 @@ def plot_total_recharge_time(algos, input_style = 0, input_path_drone_based = "i
         input_path_sensor_based (str, optional): Path to sensor-based inputs. Defaults to "milp/backup_results_17feb_timelimit1200/output_simplified/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/recharge_time.eps'.
         fig_title (str, optional): The title of the figure. Defaults to "DB-LP + DB Algorithms".
-        legend_style (int, optional): The style of the legend. Defaults to 0.
+        legend_style (int, optional): The style of the legend. Defaults to 1.
             0 = No legend.
             1 = Default plt legend.
             2 = Legend outside figure.
