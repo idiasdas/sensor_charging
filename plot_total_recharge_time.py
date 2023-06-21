@@ -40,7 +40,7 @@ def plot_total_recharge_time(algos, input_style = 0, input_path_drone_based = "i
     fig.set_size_inches(6, 4)
 
     x_axis = range(3,11)
-    ax.set_ylim([800, 2500])
+    ax.set_ylim([800, 2300])
 
     for algo in algos:
         time_avg = []
@@ -96,7 +96,7 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
 
     fig = plt.figure()
     ax = plt.subplot(111)
-    ax.set_ylim([800, 2500])
+    ax.set_ylim([800, 2300])
     fig.set_size_inches(6, 4)
 
     x_axis = range(3,11)
@@ -361,7 +361,7 @@ def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_na
                         k += 1
                     j = j + 1
         plot_optimal += [avg_optimal_per_drone/k]
-    plt.plot(x_axis, plot_optimal, "m-",label = "DOTA-Optimal")
+    plt.plot(x_axis, plot_optimal, "m-",label = "DB-Optimal")
     # Figure details
     plt.title(fig_title, size = 15)
     plt.xlabel("# Drones",size = 15)
