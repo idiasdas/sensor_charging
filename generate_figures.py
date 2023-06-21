@@ -14,6 +14,7 @@ from scheduling_nodrone_shortest_tasks_first import *
 
 from plot_total_recharge_time import *
 from plot_solution_time import *
+from plot_idle_time import *
 
 def RT_with_optimal(file_path = "figures/old_optimal/"):
     db_old_algos = [
@@ -99,8 +100,25 @@ def DB_versus_SB(file_path = "figures/new_figures/"):
     plot_recharge_time_DBLP_plus_SBLP(algos_db=[db_stf,dblp_sb_stf],    algos_sb=[sb_stf],  fig_title = "Shortest Tasks First (STF)",   file_name=file_path + "RT_STF.eps", legend_style=0)
     plot_recharge_time_DBLP_plus_SBLP(algos_db=[db_ltf,dblp_sb_ltf],    algos_sb=[sb_ltf],  fig_title = "Longest Tasks First (LTF)",    file_name=file_path + "RT_LTF.eps", legend_style=0)
 
+def IT_comparison(file_path = "figures/new_figures/"):
+    algo1 = {"algo": scheduling_DB_WT_optimized,    "label": "DB-WT",     "line":"b-"}
+    algo2 = {"algo": scheduling_SB_WT_revised,      "label": "SB-WT",       "line":"r-"}
+    plot_idle_time_plus_std([algo1, algo2], fig_title="", file_name = file_path + "Idle_WT.eps")
+
+    algo1 = {"algo": scheduling_DB_TOF_optimized,   "label": "DB-TOF",    "line":"b-"}
+    algo2 = {"algo": scheduling_SB_TOF_revised,     "label": "SB-TOF",      "line":"r-"}
+    plot_idle_time_plus_std([algo1, algo2], fig_title="", file_name = file_path + "Idle_TOF.eps")
+
+    algo1 = {"algo": scheduling_DB_LTF_optimized,   "label": "DB-LTF",    "line":"b-"}
+    algo2 = {"algo": scheduling_SB_LTF_revised,     "label": "SB-LTF",      "line":"r-"}
+    plot_idle_time_plus_std([algo1, algo2], fig_title="", file_name = file_path + "Idle_LTF.eps")
+
+    algo1 = {"algo": scheduling_DB_STF_optimized,   "label": "DB-STF",    "line":"b-"}
+    algo2 = {"algo": scheduling_SB_STF_revised,     "label": "SB-STF",      "line":"r-"}
+    plot_idle_time_plus_std([algo1, algo2], fig_title="", file_name = file_path + "Idle_STF.eps")
 
 # RT_with_optimal()
 # RT_comparison()
 # DB_versus_SB()
-plot_solution_times_per_sensors(file_name='figures/new_figures/solution_time_DBLP_vs_SBLP.eps')
+# plot_solution_times_per_sensors(file_name='figures/new_figures/solution_time_DBLP_vs_SBLP.eps')
+IT_comparison()
