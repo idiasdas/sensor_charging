@@ -13,6 +13,7 @@ from scheduling_shortest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
 from plot_total_recharge_time import *
+from plot_solution_time import *
 
 def RT_with_optimal(file_path = "figures/old_optimal/"):
     db_old_algos = [
@@ -100,5 +101,6 @@ def DB_versus_SB(file_path = "figures/new_figures/"):
 
 
 # RT_with_optimal()
-RT_comparison()
-DB_versus_SB()
+# RT_comparison()
+# DB_versus_SB()
+plot_solution_times_per_sensors(file_name='figures/new_figures/solution_time_DBLP_vs_SBLP.eps')
