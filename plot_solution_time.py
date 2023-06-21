@@ -128,7 +128,7 @@ def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path =
                 t += sol_time
     
         time_avg += [t/(i_max*8)]
-    plt.plot(x_axis, time_avg, "g-",label = "DB-LP")
+    plt.plot(x_axis, time_avg, "g-",label = "Drone-Based LP")
 
     input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
@@ -142,12 +142,13 @@ def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path =
                 t += sol_time
     
         time_avg += [t/(i_max*8)]
-    plt.plot(x_axis, time_avg, "b-",label = "SB-LP")
+    plt.plot(x_axis, time_avg, "b-",label = "Sensor-Based LP")
     # plt.title("sensors = " + str(sensors))
     plt.xlabel("# Sensors",size = 15)
     plt.ylabel("Solution Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax.legend(fontsize = 15)
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
