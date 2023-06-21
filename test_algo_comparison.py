@@ -68,7 +68,7 @@ def algo_comparison(algo1, algo2, p = 5, drone_speed = 0.5, i_max = 50, drones =
     
     return is_equivalent
 
-def test_equivalence(algo1, algo2, file_name,plot_recharge_time = True, plot_first_example=False, drone_based = True):
+def test_equivalence(algo1, algo2, file_name,plot_recharge_time = True, plot_first_example=False, drone_based = True, fig_title = "Total recharge time"):
     """Compares two algorithms, if they are not equivalent plots a figure with the total recharge time for each algorithm.
 
     Args:
@@ -78,6 +78,7 @@ def test_equivalence(algo1, algo2, file_name,plot_recharge_time = True, plot_fir
         plot_recharge_time (bool, optional): If True plots the total recharge time if agorithms are different. Defaults to True.
         plot_first_example (bool, optional): If True plots the schedule of the first example where the algorithms are different. Defaults to False.
         drone_based (bool, optional): If True, runs the algorithms on the DBLP output, else uses SBLP as input. Defaults to True.
+        fig_title (str, optional): Title for the figure. Defaults to "Total recharge time".
     """    
     print("* Testing "+algo1["algo"].__name__+" and " + algo2["algo"].__name__ + " for equivalence.")
     if algo_comparison(algo1["algo"], algo2["algo"],drone_based=drone_based, plot_first_example=plot_first_example):
@@ -86,9 +87,9 @@ def test_equivalence(algo1, algo2, file_name,plot_recharge_time = True, plot_fir
         if(plot_recharge_time):
             print("* Plotting difference between algorithms over all inputs")
             if not drone_based:
-                plot_total_recharge_time_SMILP_DATA([algo1,algo2], file_name=file_name)
+                plot_total_recharge_time_SMILP_DATA([algo1,algo2], file_name=file_name, fig_title=fig_title)
             else:
-                plot_total_recharge_time([algo1,algo2], file_name=file_name, legend_outside_figure=False)
+                plot_total_recharge_time([algo1,algo2], file_name=file_name, legend_outside_figure=False,fig_title=fig_title)
         print("* (FAIL)")
     print("---------------------------------------------------------------")
 
