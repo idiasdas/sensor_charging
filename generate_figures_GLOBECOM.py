@@ -66,4 +66,33 @@ def generate_all_figures(file_path = "figures/"):
     sensor_based_input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     plot_total_recharge_time(algos=sb_revised_algos,input_path=sensor_based_input_path,input_style=1, file_name = file_path + "RT_SBLP_SBalgos.eps", fig_title="SB-LP + revised SB Algorithms (2800)") 
 
-generate_all_figures()
+def RT_comparison(file_path = "figures/new_figures/"):
+    db_optimimzed_algos = [
+        {"algo":scheduling_DB_TOF_optimized,    "label":"TOF",  "line":"y-"},
+        {"algo":scheduling_DB_WT_optimized,     "label":"WT",   "line":"g-"},
+        {"algo":scheduling_DB_STF_optimized,    "label":"STF",  "line":"k-"},
+        {"algo":scheduling_DB_LTF_optimized,    "label":"LTF",  "line":"b-"},
+        {"algo":scheduling_TSP,                 "label":"TSP",  "line":"r-"}]
+    
+    sb_revised_algos_plusTSP = [
+        {"algo":scheduling_SB_TOF_revised,      "label":"TOF",  "line":"y-"},
+        {"algo":scheduling_SB_WT_revised,       "label":"WT",   "line":"g-"},
+        {"algo":scheduling_SB_STF_revised,      "label":"STF",  "line":"k-"},
+        {"algo":scheduling_SB_LTF_revised,      "label":"LTF",  "line":"b-"},
+        {"algo":scheduling_TSP,                 "label":"TSP",  "line":"r-"}]
+    
+    sb_revised_algos = [
+        {"algo":scheduling_SB_TOF_revised,      "label":"TOF",  "line":"y-"},
+        {"algo":scheduling_SB_WT_revised,       "label":"WT",   "line":"g-"},
+        {"algo":scheduling_SB_STF_revised,      "label":"STF",  "line":"k-"},
+        {"algo":scheduling_SB_LTF_revised,      "label":"LTF",  "line":"b-"}]
+    
+
+    plot_total_recharge_time(algos=db_optimimzed_algos, file_name = file_path + "DBLP_DB_ALGOS.eps", fig_title="DB-LP + DB Algorithms", legend_style=3)
+    
+    plot_total_recharge_time(algos=sb_revised_algos_plusTSP, file_name = file_path + "DBLP_SB_ALGOS.eps", fig_title="DB-LP + DB Algorithms", legend_style=0)
+    
+    plot_total_recharge_time(algos=sb_revised_algos,input_style = 1, file_name = file_path + "SBLP_SB_ALGOS.eps", fig_title="SB-LP + SB Algorithms", legend_style=0)
+    
+# generate_all_figures()
+RT_comparison(file_path="figures/new_figures/")
