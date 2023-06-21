@@ -63,6 +63,7 @@ def generate_all_figures(file_path = "figures/"):
     plot_total_recharge_time(algos=sb_revised_algos_plusTSP, file_name  = file_path + "RT_DBLP_SBalgos_plusTSP.eps", fig_title="DB-LP + revised SB Algorithms + TSP (2800)")
 
     # Make figure using SB-LP output for revised SB algorithms
-    plot_total_recharge_time_SMILP_DATA(algos=sb_revised_algos, file_name = file_path + "RT_SBLP_SBalgos.eps", fig_title="SB-LP + revised SB Algorithms (2800)") 
+    sensor_based_input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
+    plot_total_recharge_time(algos=sb_revised_algos,input_path=sensor_based_input_path,input_style=1, file_name = file_path + "RT_SBLP_SBalgos.eps", fig_title="SB-LP + revised SB Algorithms (2800)") 
 
 generate_all_figures()
