@@ -41,8 +41,8 @@ def plot_solution_time(input_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", 
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
 
 
-def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = "inputs/",file_name = 'figures/MILP_Simplified_vs_OLD_MILP.eps'):
-    """  Plots the solution times for the simplified MILP and the old MILP for different number of drones.
+def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = "inputs/",file_name = 'sol_time_DB_vs_SB.eps'):
+    """  Plots the solution times for the sensor-based LP and the drone-based LP for different number of drones.
 
     Args:
         sensors (list, optional): List with numbers of sensors to plot. Defaults to [5,10,15,20,30,40,50].
@@ -69,7 +69,7 @@ def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = 
                 t += sol_time
     
         time_avg += [t/(i_max*7)]
-    plt.plot(x_axis, time_avg, "g-",label = "MILP")
+    plt.plot(x_axis, time_avg, "g-",label = "DB-LP")
 
     input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
@@ -83,7 +83,7 @@ def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = 
                 t += sol_time
     
         time_avg += [t/(i_max*7)]
-    plt.plot(x_axis, time_avg, "b-",label = "SMILP")
+    plt.plot(x_axis, time_avg, "b-",label = "SB-LP")
     plt.title("sensors = " + str(sensors))
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Solution Time (s)",size = 15)
@@ -95,8 +95,8 @@ def plot_solution_times_per_drones(sensors = [5,10,15,20,30,40,50],input_path = 
 
 
 
-def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path = "inputs/",file_name = 'figures/MILP_Simplified_vs_OLD_MILP.eps'):
-    """Plots the solution times for the simplified MILP and the old MILP for different number of sensors.
+def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path = "inputs/",file_name = 'sol_time_DB_vs_SB.eps'):
+    """Plots the solution times for the sensor-based LP and the drone-based LP for different number of sensors.
         Solves the models for 3 to 10 drones.
         Considers 50 instances for each number of sensors.
 
@@ -128,7 +128,7 @@ def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path =
                 t += sol_time
     
         time_avg += [t/(i_max*8)]
-    plt.plot(x_axis, time_avg, "g-",label = "MILP")
+    plt.plot(x_axis, time_avg, "g-",label = "DB-LP")
 
     input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
@@ -142,7 +142,7 @@ def plot_solution_times_per_sensors(sensors = [5,10,15,20,30,40,50],input_path =
                 t += sol_time
     
         time_avg += [t/(i_max*8)]
-    plt.plot(x_axis, time_avg, "b-",label = "SMILP")
+    plt.plot(x_axis, time_avg, "b-",label = "SB-LP")
     # plt.title("sensors = " + str(sensors))
     plt.xlabel("# Sensors",size = 15)
     plt.ylabel("Solution Time (s)",size = 15)
