@@ -73,69 +73,8 @@ def plot_total_recharge_time(algos, input_style = 0, input_path_drone_based = "i
         export_legend(fig, ax, file_name.replace(".eps","_legend.eps"))
     plt.close()
 
-def plot_total_recharge_time_SMILP_DATA(algos = [
-            {"algo":scheduling_SB_WT,"label":"DATA-WT","line":"g-"},
-            {"algo":scheduling_SB_LTF,"label":"DATA-LTF","line":"b-"},
-            {"algo":scheduling_SB_STF,"label":"DATA-STF","line":"k-"},
-            {"algo":scheduling_SB_TOF,"label":"DATA-ToF","line":"y-"}],
-            input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Recharge_time_SMILP_DATA.eps',
-            fig_title = "SB-LP + SB-Algorithms"):
-    """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
-    Args:
-        algo (list): List of dictionaries with the following keys:
-            - algo: The scheduling algorithm to be used.
-            - line: The line style to be used in the plot.
-            - label: The label to be used in the plot.
-        input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "milp/backup_results_17feb_timelimit1200/output_simplified/".
-        file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/NODRONE_50i_recharge_time_5x5_sensors_all.eps'.
-        fig_title (str, optional): The title of the figure. Defaults to "SB-LP + SB-Algorithms".
-    """
-    s = 5
-    p = 5
-    i_max = 50
-    drone_speed = 0.5
-
-    fig = plt.figure()
-    ax = plt.subplot(111)
-    ax.set_ylim([800, 2500])
-    fig.set_size_inches(6, 4)
-
-    x_axis = range(3,11)
-
-    for algo in algos:
-        time_avg = []
-        for d in range(3,11):
-            t = 0
-            for s in [5,10,15,20,30,40,50]:
-                for i in range(0,i_max):
-                    file = input_path+"s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
-                    tasks = get_tasks(file)
-                    done,time = algo["algo"](tasks,d,drone_speed)
-                    # if(algo["algo"] != scheduling_TSP):
-                    #     if(not verify_schedule(done)):
-                    #         print("Improper Scheduling.")
-                    #         print("\t- " + str(algo["algo"]))
-                    #         print("\t- D: " + str(d) + " S: " + str(s) + " i: " + str(i))
-                    #         exit(1)
-                    t += time
-        
-            time_avg += [t/(i_max*7)]
-        plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
-    plt.title(fig_title, size = 15)
-    plt.xlabel("# Drones",size = 15)
-    plt.ylabel("Total Recharge Time (s)",size = 15)
-    plt.xticks(fontsize=14)
-    plt.yticks(fontsize=14)
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.savefig(file_name, format='eps',bbox_inches = 'tight')
-    plt.close()
-
-# print("Plotting total recharge time...")
-# plot_total_recharge_time(file_name='figures/Results_nodrone.eps')
-# print("Done!")
-
-def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30,40,50],input_path = "inputs/",fig_title = "DBLP and SBLP inputs", file_name = 'figures/RT_DBLP_plus_SBLP.eps'):
+def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30,40,50],input_path_drone_based = "inputs/",input_path_sensor_based = "milp/backup_results_17feb_timelimit1200/output_simplified/", fig_title = "DBLP and SBLP inputs", file_name = 'figures/RT_DBLP_plus_SBLP.eps'):
     """Plots the total recharge time for drone-based and sensor-based algorithms for DBLP and SBLP inputs.
 
     Args:
@@ -143,6 +82,7 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
         algos_sb (list): List of sensor-based algorithms.
         sensors (list, optional): List of numbers of sensors to be considered. Defaults to [5,10,15,20,30,40,50].
         input_path (str, optional): Path to DBLP output. Defaults to "inputs/".
+        input_path (str, optional): Path to SBLP output. Defaults to "milp/backup_results_17feb_timelimit1200/output_simplified/".
         fig_title (str, optional): Title for output figure. Defaults to "DBLP and SBLP inputs".
         file_name (str, optional): File name for output figure. Defaults to 'figures/RT_DBLP_plus_SBLP.eps'.
 
@@ -168,7 +108,7 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
             t = 0
             for s in sensors:
                 for i in range(0,i_max):
-                    file = input_path+"d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                    file = input_path_drone_based+"d"+str(d)+"_s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
                     tasks = get_tasks(file)
                     done,time = algo["algo"](tasks,d,drone_speed)
                     t += time
@@ -177,7 +117,6 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
         plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
         algos_times += [time_avg]
 
-    input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/"
     i_max = 100
     time_avg = []
     for algo in algos_sb:
@@ -186,7 +125,7 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
             t = 0
             for s in sensors:
                 for i in range(0,i_max):
-                    file = input_path+"s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
+                    file = input_path_sensor_based+"s"+str(s)+"_p"+str(p)+"/" + str(i) + ".txt"
                     tasks = get_tasks(file)
                     done,time = algo["algo"](tasks,d,drone_speed)
                     t += time
