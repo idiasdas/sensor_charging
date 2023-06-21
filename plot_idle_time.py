@@ -59,13 +59,20 @@ def plot_idle_time(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", fil
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     plt.close()
 
-def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inputs/", file_name = "figures/DATAvsDOTA_idletime.eps"):
+def plot_idle_time_plus_std(algos, inputs_path = "inputs/", fig_title = "", file_name = "figures/DATAvsDOTA_idletime.eps", legend_style = 1):
     """Creates and saves an eps figure with the average time in which the drones stay idle as the number of drones changes for each algorithm.
        Considers the 50 instances of examples with 50 sensors and 25 positions (p = 5)    
 
     Args:
-        inputs_path (str, optional): Directory path with input files. Defaults to "/Users/idiasdas/dev/GLOBECOM2022/inputs/".
+        algos (list): List of dictionaries with the algorithms to be plotted. Each dictionary must have the following keys: "algo", "label", "line", "linestyle", "color".
+        inputs_path (str, optional): Directory path with input files. Defaults to "inputs/".
+        fig_title (str, optional): Title of the figure. Defaults to "".
         file_name (str, optional): Path + name of image file (eps figure). Defaults to "figures/idle_time.eps".
+        legend_style (int, optional): The style of the legend. Defaults to 1.
+            0 = No legend.
+            1 = Default plt legend.
+            2 = Legend outside figure.
+            3 = Export legend as eps file.
     """
     s = 50
     p = 5
@@ -75,16 +82,7 @@ def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inpu
     ax = plt.subplot(111)
     fig.set_size_inches(6, 4)
     x_axis = range(3,11)
-    algos = [#{"algo":scheduling_algo_tof,"label":"ToF","line":"y-","linestyle":"-","color":"y"},
-            {"algo":scheduling_DB_WT,"label":"DOTA-WT","line":"g-","linestyle":"-","color":"g"},
-            # {"algo":scheduling_algo_shortest_tasks_first,"label":"Shortest Tasks First","line":"k-","linestyle":"-","color":"b"},
-            # {"algo":scheduling_algo_longest_tasks_first,"label":"Longest Tasks First","line":"b-","linestyle":"-","color":"k"},
-            # {"algo":scheduling_TSP,"label":"TSP","line":"r-"},
-            {"algo":scheduling_SB_WT,"label":"DATA-WT","line":"b--","linestyle":"--","color":"b"},
-            # {"algo":scheduling_algo_nodrone_ltf,"label":"DATA-LTF","line":"b--","linestyle":"--","color":"b"},
-            # {"algo":scheduling_algo_nodrone_stf,"label":"DATA-STF","line":"k--","linestyle":"--","color":"k"},
-            # {"algo":scheduling_algo_nodrone_tof,"label":"DATA-ToF","line":"y--","linestyle":"--","color":"y"}
-            ]
+
     for algo in algos:
         time_avg = []
         time_std = []
@@ -101,16 +99,21 @@ def plot_idle_time_plus_std(inputs_path = "/Users/idiasdas/dev/GLOBECOM2022/inpu
         
             time_avg += [t/i_max]
             time_std += [np.std(idle_times_list)]
-        # plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
-        plt.errorbar(x_axis, time_avg, time_std, linestyle = algo["linestyle"],color = algo["color"], marker='None',capsize=3,label = algo["label"])
 
-    # plt.legend()
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        plt.errorbar(x_axis, time_avg, time_std, fmt = algo["line"], marker='None',capsize=3,label = algo["label"])
+    
+    plt.title(fig_title,size = 15)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Idle Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
+    if legend_style == 1:
+        ax.legend()
+    elif legend_style == 2:
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
+    if legend_style == 3:
+        export_legend(fig, ax, file_name.replace(".eps","_legend.eps"))
     plt.close()
 
 def plot_total_idle_time_SMILP_DATA(input_path = "milp/backup_results_17feb_timelimit1200/output_simplified/",file_name = 'figures/Idletime_SMILP_DATA.eps'):
