@@ -87,7 +87,7 @@ def test_equivalence(algo1, algo2, file_name,plot_recharge_time = True, plot_fir
         if(plot_recharge_time):
             print("* Plotting difference between algorithms over all inputs")
             if not drone_based:
-                plot_total_recharge_time_SMILP_DATA([algo1,algo2], file_name=file_name, fig_title=fig_title)
+                plot_total_recharge_time([algo1,algo2], input_style=1, file_name=file_name, fig_title=fig_title)
             else:
                 plot_total_recharge_time([algo1,algo2], file_name=file_name, legend_outside_figure=False,fig_title=fig_title)
         print("* (FAIL)")
