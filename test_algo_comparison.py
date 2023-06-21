@@ -113,41 +113,27 @@ def test_all():
     algo2 = {"algo":scheduling_DB_STF_optimized, "label":"DB-STF optimized","line":"r-"}
     test_equivalence(algo1, algo2, "tests_outputs/test_eq_DB_STF.eps")
     # -----------------------------------------------------------------------------------------------------
-    # Old sensor based versions vs revised versions over DBLP inputs
+    # Old sensor based versions vs revised versions over DBLP inputs and SBLP inputs
     # -----------------------------------------------------------------------------------------------------
     algo1 = {"algo":scheduling_SB_WT, "label":"SB-WT","line":"b-"}
     algo2 = {"algo":scheduling_SB_WT_revised, "label":"SB-WT revised","line":"r-"}
     test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_WT(DBLP).eps")
-
-    algo1 = {"algo":scheduling_SB_LTF, "label":"SB-LTF","line":"b-"}
-    algo2 = {"algo":scheduling_SB_LTF_revised, "label":"SB-LTF revised","line":"r-"}
-    test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_LTF(DBLP).eps")
-
-    algo1 = {"algo":scheduling_SB_STF, "label":"SB-STF","line":"b-"}
-    algo2 = {"algo":scheduling_SB_STF_revised, "label":"SB-STF revised","line":"r-"}
-    test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_STF(DBLP).eps")
-
-    algo1 = {"algo":scheduling_SB_TOF, "label":"SB-TOF","line":"b-"}
-    algo2 = {"algo":scheduling_SB_TOF_revised, "label":"SB-TOF revised","line":"r-"}
-    test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_TOF(DBLP).eps")
-    # -----------------------------------------------------------------------------------------------------
-    # Old sensor based versions vs revised versions over SBLP inputs
-    # -----------------------------------------------------------------------------------------------------
-    algo1 = {"algo":scheduling_SB_WT, "label":"SB-WT","line":"b-"}
-    algo2 = {"algo":scheduling_SB_WT_revised, "label":"SB-WT revised","line":"r-"}
     test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_WT(SBLP).eps", drone_based=False)
 
     algo1 = {"algo":scheduling_SB_LTF, "label":"SB-LTF","line":"b-"}
     algo2 = {"algo":scheduling_SB_LTF_revised, "label":"SB-LTF revised","line":"r-"}
+    test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_LTF(DBLP).eps")
     test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_LTF(SBLP).eps", drone_based=False)
 
     algo1 = {"algo":scheduling_SB_STF, "label":"SB-STF","line":"b-"}
     algo2 = {"algo":scheduling_SB_STF_revised, "label":"SB-STF revised","line":"r-"}
+    test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_STF(DBLP).eps")
     test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_STF(SBLP).eps", drone_based=False)
 
     algo1 = {"algo":scheduling_SB_TOF, "label":"SB-TOF","line":"b-"}
     algo2 = {"algo":scheduling_SB_TOF_revised, "label":"SB-TOF revised","line":"r-"}
+    test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_TOF(DBLP).eps")
     test_equivalence(algo1, algo2, "tests_outputs/test_eq_SB_TOF(SBLP).eps", drone_based=False)
-    # -----------------------------------------------------------------------------------------------------
+
 
 test_all()
