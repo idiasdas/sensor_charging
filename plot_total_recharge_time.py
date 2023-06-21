@@ -11,19 +11,22 @@ from scheduling_nodrone_ToF import *
 from scheduling_nodrone_longest_tasks_first import *
 from scheduling_nodrone_shortest_tasks_first import *
 
-def plot_total_recharge_time(algos, input_path = "inputs/",file_name = 'figures/recharge_time.eps', fig_title = "DB-LP + DB Algorithms", legend_outside_figure = True, export_leg = False):
+def plot_total_recharge_time(algos, input_path = "inputs/",file_name = 'figures/recharge_time.eps', fig_title = "DB-LP + DB Algorithms", legend_style = 1):
     """Creates a figure with the total recharge time as the number of sensors increase. Saves it as file_name.
 
     Args:
         algo (list): List of dictionaries with the following keys:
-            - algo: The scheduling algorithm to be used.
-            - line: The line style to be used in the plot.
-            - label: The label to be used in the plot.
+             "algo": A scheduling function.
+             "line": The line style.
+             "label": The label.
         input_path (str, optional): The path to the inputs used to run the schedulings algorithms. Defaults to "inputs/".
         file_name (str, optional): The path + name of the figure file that will be created. Defaults to 'figures/recharge_time.eps'.
         fig_title (str, optional): The title of the figure. Defaults to "DB-LP + DB Algorithms".
-        legend_outside (bool, optional): If True, the legend will be outside the figure. Defaults to True.
-        export_legend (bool, optional): If True, the legend will be exported as a separate file. Defaults to False.
+        legend_style (int, optional): The style of the legend. Defaults to 0.
+            0 = No legend.
+            1 = Default plt legend.
+            2 = Legend outside figure.
+            3 = Export legend as eps file.
     """
     s = 5
     p = 5
@@ -33,10 +36,9 @@ def plot_total_recharge_time(algos, input_path = "inputs/",file_name = 'figures/
     fig = plt.figure()
     ax = plt.subplot(111)
     fig.set_size_inches(6, 4)
-
+    lines = []
     x_axis = range(3,11)
     ax.set_ylim([800, 2500])
-    
     for algo in algos:
         time_avg = []
         for d in range(3,11):
@@ -55,21 +57,21 @@ def plot_total_recharge_time(algos, input_path = "inputs/",file_name = 'figures/
                     t += time
         
             time_avg += [t/(i_max*7)]
-        plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
-    plt.title(fig_title)
+
+        lines += [plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])]
+    plt.title(fig_title, size = 15)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    if export_leg:
-        legend = ax.legend(framealpha=0,frameon=False)
-        export_legend(legend, file_name.replace(".eps","_legend.eps"))
-        legend.remove()
-    elif legend_outside_figure:
-        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    else:
+
+    if legend_style == 1:
         ax.legend()
+    elif legend_style == 2:
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
+    if legend_style == 3:
+        export_legend(fig, ax, file_name.replace(".eps","_legend.eps"))
     plt.close()
 
 def plot_total_recharge_time_SMILP_DATA(algos = [
@@ -121,7 +123,7 @@ def plot_total_recharge_time_SMILP_DATA(algos = [
         
             time_avg += [t/(i_max*7)]
         plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
-    plt.title(fig_title)
+    plt.title(fig_title, size = 15)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
@@ -194,7 +196,7 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
         plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
         algos_times += [time_avg]
 
-    plt.title(fig_title)
+    plt.title(fig_title, size = 15)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
@@ -365,8 +367,11 @@ def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_na
 
     Args:
         algos (list): List of dictionaries with the algorithms to plot.
+        
         input_path (str, optional): Path to the DB-LP output to use as input for the algorithms. Defaults to "inputs/".
+        
         file_name (str, optional): Neme of the figure file that will be created. Defaults to 'figures/RechargeTime_Optimal870Examples.eps'.
+        
         fig_title (str, optional): Title of the figure. Defaults to "Recharge Time with Optimal (870)".
     """    
 
@@ -420,7 +425,7 @@ def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_na
         plot_optimal += [avg_optimal_per_drone/k]
     plt.plot(x_axis, plot_optimal, "m-",label = "DOTA-Optimal")
     # Figure details
-    plt.title(fig_title)
+    plt.title(fig_title, size = 15)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
