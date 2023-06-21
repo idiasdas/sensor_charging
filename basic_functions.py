@@ -1,6 +1,7 @@
 import numpy as np
 import ast
 import itertools
+import matplotlib.pyplot as plt
 # -------------------------------------------------------------------------------------------------------------------------------------------------
 def get_tasks(file_path):
     """ Reads the output file from the MILP and returns a list of dictionaries describing the tasks 
@@ -302,9 +303,37 @@ def print_schedule(tasks):
         print("\t\t- "+ str(task["id"]) +"\t " + "{:.4f}".format(task["start"]) +"\t " + "{:.4f}".format(task["end"]) +"\t " + str(task["drone"]) +"\t\t " + "{:.4f}".format(task["start"] - task["ToF"]),"\t\t",task["sensors"], sep=' ')
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------
-def export_legend(legend, filename="legend.png"):
-    """Exports the legend of a matplotlib figure to a file."""
-    fig  = legend.figure
+
+def export_legend(fig, ax, file_name,):
+    legend = fig.legend()
     fig.canvas.draw()
-    bbox  = legend.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
-    fig.savefig(filename, format='eps', bbox_inches = bbox)
+    # This gives pixel coordinates for the legend bbox (although perhaps 
+    # if you are using a different renderer you might get something else).
+    legend_bbox = legend.get_tightbbox(fig.canvas.get_renderer())
+    # Convert pixel coordinates to inches
+    legend_bbox = legend_bbox.transformed(fig.dpi_scale_trans.inverted())
+
+    # Create teh separate figure, with appropriate width and height
+    # Create a separate figure for the legend
+    legend_fig, legend_ax = plt.subplots(figsize=(legend_bbox.width, legend_bbox.height))
+
+    # Recreate the legend on the separate figure/axis
+    legend_squared = legend_ax.legend(
+        *ax.get_legend_handles_labels(), 
+        bbox_to_anchor=(0, 0, 1, 1),
+        bbox_transform=legend_fig.transFigure,
+        frameon=False,
+        fancybox=None,
+        shadow=False,
+        mode='expand'
+    )
+
+    # Remove everything else from the legend's figure
+    legend_ax.axis('off')
+
+    # Save the legend as a separate figure
+    legend_fig.savefig(
+        file_name,
+        bbox_inches='tight',
+        bbox_extra_artists=[legend_squared],
+    )
