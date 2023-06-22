@@ -58,19 +58,20 @@ def plot_total_recharge_time(algos, input_style = 0, input_path_drone_based = "i
         
             time_avg += [t/(i_max*7)]
         plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
-    plt.title(fig_title, size = 15)
+    plt.title(fig_title, size = 20)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
 
     if legend_style == 1:
-        ax.legend()
+        ax.legend(fontsize = 12,ncol=3)
     elif legend_style == 2:
-        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize = 11)
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     if legend_style == 3:
         export_legend(fig, ax, file_name.replace(".eps","_legend.eps"))
+
     plt.close()
 
 
@@ -139,15 +140,15 @@ def plot_recharge_time_DBLP_plus_SBLP(algos_db,algos_sb,sensors = [5,10,15,20,30
         plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
         algos_times += [time_avg]
 
-    plt.title(fig_title, size = 15)
+    plt.title(fig_title, size = 20)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
     if legend_style == 1:
-        ax.legend()
+        ax.legend(fontsize = 12)
     elif legend_style == 2:
-        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize = 12)
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     if legend_style == 3:
         export_legend(fig, ax, file_name.replace(".eps","_legend.eps"))
@@ -373,11 +374,12 @@ def plot_recharge_time_with_optimal_revised(algos,input_path = "inputs/",file_na
         plot_optimal += [avg_optimal_per_drone/k]
     plt.plot(x_axis, plot_optimal, "m-",label = "DB-Optimal")
     # Figure details
-    plt.title(fig_title, size = 15)
+    plt.title(fig_title, size = 20)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Total Recharge Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=11)
+    ax.legend(fontsize = 12, ncol = 3)
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
 
