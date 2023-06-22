@@ -100,17 +100,24 @@ def plot_idle_time_plus_std(algos, inputs_path = "inputs/", fig_title = "", file
             time_avg += [t/i_max]
             time_std += [np.std(idle_times_list)]
 
-        plt.errorbar(x_axis, time_avg, time_std, fmt = algo["line"], marker='None',capsize=3,label = algo["label"])
+        time_avg = np.array(time_avg)
+        time_std = np.array(time_std)
+        plt.plot(x_axis, time_avg, algo["line"],label = algo["label"])
+        color=('blue' if algo["line"] == 'b-' else "red")
+        plt.fill_between(x_axis, time_avg-time_std, time_avg+time_std,color=color, alpha=0.2,antialiased=True)
+        # plt.errorbar(x_axis, time_avg, time_std, fmt = algo["line"], marker='None',capsize=3,label = algo["label"])
+        
     
-    plt.title(fig_title,size = 15)
+    plt.title(fig_title,size = 20)
     plt.xlabel("# Drones",size = 15)
     plt.ylabel("Idle Time (s)",size = 15)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
     if legend_style == 1:
-        ax.legend()
+        ax.legend(fontsize = 12)
     elif legend_style == 2:
-        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        ax.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize = 11)
+    ax.set_rasterized(True)
     plt.savefig(file_name, format='eps',bbox_inches = 'tight')
     if legend_style == 3:
         export_legend(fig, ax, file_name.replace(".eps","_legend.eps"))
