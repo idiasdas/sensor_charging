@@ -82,6 +82,7 @@ def plot_idle_time_plus_std(algos, inputs_path = "inputs/", fig_title = "", file
     ax = plt.subplot(111)
     fig.set_size_inches(6, 4)
     x_axis = range(3,11)
+    ax.set_ylim([200, 2000])
 
     for algo in algos:
         time_avg = []
