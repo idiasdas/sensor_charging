@@ -1,13 +1,5 @@
-figures*
-output_oerpmin/*
-teste/*
+files/*
 .ipynb_checkpoints/*
 __pycache__/*
 milp/backup*
-main.py
-Optimal_vs_DOTA_vs_DATA.ipynb
-thread_test.py
 .DS_Store
-mil/.DS_Store
-
-tests_outputs/*
